@@ -962,6 +962,7 @@
             <div class="form-group">
               <label for="country">Preferred Country</label>
               <select id="country" class="form-control">
+                <option value="India" selected>India</option>
                 <option value="UK">United Kingdom (UK)</option>
                 <option value="USA">USA</option>
                 <option value="Canada">Canada</option>
@@ -986,9 +987,11 @@
             <div class="form-group">
               <label for="visaType">Visa Type</label>
               <select id="visaType" class="form-control">
+                <option value="Tourist">Tourist Visa</option>
+                <option value="Medical">Medical Visa</option>
+                <option value="Double Entry">Double Entry Visa</option>
                 <option value="Student">Student Visa</option>
                 <option value="Work">Work Visa</option>
-                <option value="Tourist">Tourist Visa</option>
                 <option value="Business">Business Visa</option>
                 <option value="Family">Family / Spouse Visa</option>
                 <option value="Umrah">Umrah Visa</option>
@@ -1034,17 +1037,40 @@
             <input type="text" id="countrySearchInput" class="catalog-search-input" placeholder="Search country (e.g. Germany, Canada, Japan)...">
           </div>
           <div class="catalog-filter-pills" id="countryFilterPills">
-            <button type="button" class="filter-pill active" data-continent="all">All (18)</button>
+            <button type="button" class="filter-pill active" data-continent="all">All (19)</button>
             <button type="button" class="filter-pill" data-continent="europe">Europe (7)</button>
             <button type="button" class="filter-pill" data-continent="north-america">North America (2)</button>
-            <button type="button" class="filter-pill" data-continent="asia-middle-east">Asia & Middle East (7)</button>
+            <button type="button" class="filter-pill" data-continent="asia-middle-east">Asia & Middle East (8)</button>
             <button type="button" class="filter-pill" data-continent="oceania">Oceania (2)</button>
           </div>
         </div>
 
         <!-- Countries Grid -->
         <div class="catalog-countries-grid" id="catalogCountriesGrid">
-          <!-- 1. UK -->
+          <!-- 1. India -->
+          <div class="catalog-country-card" data-continent="asia-middle-east" data-country="India Bharat Tourist Medical Double Entry">
+            <div class="cat-card-top">
+              <span class="cat-flag">🇮🇳</span>
+              <div>
+                <h4 class="cat-country-name">India</h4>
+                <span class="cat-continent-badge">South Asia</span>
+              </div>
+            </div>
+            <div class="cat-meta-row">
+              <span class="cat-time">⏱️ 3–5 Days</span>
+              <span class="cat-success">★ 99% Success</span>
+            </div>
+            <div class="cat-visas-tags">
+              <span class="visa-tag">Tourist</span>
+              <span class="visa-tag">Medical</span>
+              <span class="visa-tag">Double Entry</span>
+            </div>
+            <button type="button" class="cat-apply-btn js-apply-from-catalog" data-country="India" data-visa="Tourist">
+              Apply for India &rarr;
+            </button>
+          </div>
+
+          <!-- 2. UK -->
           <div class="catalog-country-card" data-continent="europe" data-country="United Kingdom UK">
             <div class="cat-card-top">
               <span class="cat-flag">🇬🇧</span>
