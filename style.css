@@ -820,11 +820,13 @@ button {
 }
 
 .testimonial-avatar {
-  width: 46px;
-  height: 46px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid #E2E8F0;
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: block;
 }
 
 .testimonial-body {
@@ -1642,6 +1644,7 @@ button {
   font-size: 12px;
   font-weight: 700;
   flex-shrink: 0;
+  object-fit: cover;
 }
 
 .rev-name {
