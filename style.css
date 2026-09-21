@@ -1938,35 +1938,117 @@ button {
   .service-desc {
     text-align: center;
   }
+  /* Process Section Mobile Middle-Aligned */
   .process-layout {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 24px;
   }
   .steps-track {
+    display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+  .step-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+    width: 100%;
+  }
+  .step-icon-circle {
+    margin: 0 auto;
+  }
+  .step-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .step-number {
+    text-align: center;
+  }
+  .step-title {
+    text-align: center;
+    white-space: normal;
+    font-size: 14px;
+  }
+  .step-sub {
+    text-align: center;
+    white-space: normal;
+    font-size: 11.5px;
   }
   .step-arrow {
-    display: none;
+    display: flex;
+    transform: rotate(90deg);
+    margin: 0 auto;
+    opacity: 0.5;
   }
   .process-graphic-wrap {
+    display: flex;
     justify-content: center;
+    width: 100%;
+    margin-top: 10px;
+  }
+  .process-graphic-img {
+    max-width: 270px;
+    height: auto;
+    margin: 0 auto;
+  }
+
+  /* Why Choose Us Mobile Middle-Aligned */
+  .why-choose-content {
+    text-align: center;
   }
   .why-choose-title {
     text-align: center;
     font-size: 21px;
-    margin-bottom: 22px;
+    margin-bottom: 24px;
   }
   .why-features-row {
-    grid-template-columns: 1fr;
-  }
-  .why-feature-item {
-    text-align: center;
+    display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 20px;
+    max-width: 340px;
+    margin: 0 auto;
+  }
+  .why-feature-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+    width: 100%;
   }
   .why-feature-icon {
-    margin: 0 auto 10px;
+    margin: 0 auto;
+  }
+  .why-feature-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .why-feature-title {
+    text-align: center;
+    font-size: 14px;
+    margin-bottom: 2px;
+  }
+  .why-feature-desc {
+    text-align: center;
+    font-size: 11.5px;
+    line-height: 1.4;
+    max-width: 280px;
+    margin: 0 auto;
   }
   .testimonials-grid {
     grid-template-columns: 1fr;
