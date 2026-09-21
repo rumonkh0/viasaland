@@ -1874,38 +1874,44 @@ button {
     display: block;
   }
 
-  /* Section Headers on Mobile: Prevent title/subtitle from wrapping awkwardly into View All links */
+  /* Section Headers on Mobile: Middle-aligned / center-aligned layout */
   .section-header {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    text-align: center;
     gap: 6px;
-    margin-bottom: 18px;
+    margin-bottom: 20px;
   }
   .section-header > div {
     width: 100%;
+    text-align: center;
   }
   .section-title {
-    font-size: 20px;
-    margin-bottom: 3px;
+    font-size: 21px;
+    margin-bottom: 4px;
     letter-spacing: -0.01em;
+    text-align: center;
   }
   .section-subtitle {
-    font-size: 12.5px;
+    font-size: 13px;
     line-height: 1.45;
+    text-align: center;
   }
   .section-header .view-all-link,
   .section-header .section-link {
-    font-size: 12.5px;
+    font-size: 13px;
     font-weight: 700;
     color: var(--color-brand-blue);
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 4px;
-    margin-top: 4px;
+    margin-top: 6px;
+    text-align: center;
   }
   .section-header .view-all-link:hover,
   .section-header .section-link:hover {
-    transform: translateX(3px);
+    transform: translateY(-1px);
   }
 
   .destinations-grid {
@@ -1914,6 +1920,23 @@ button {
   }
   .services-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .service-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 18px 14px;
+  }
+  .service-icon-box {
+    margin: 0 auto 12px;
+  }
+  .service-title {
+    text-align: center;
+  }
+  .service-desc {
+    text-align: center;
   }
   .process-layout {
     grid-template-columns: 1fr;
@@ -1929,8 +1952,21 @@ button {
   .process-graphic-wrap {
     justify-content: center;
   }
+  .why-choose-title {
+    text-align: center;
+    font-size: 21px;
+    margin-bottom: 22px;
+  }
   .why-features-row {
     grid-template-columns: 1fr;
+  }
+  .why-feature-item {
+    text-align: center;
+    flex-direction: column;
+    align-items: center;
+  }
+  .why-feature-icon {
+    margin: 0 auto 10px;
   }
   .testimonials-grid {
     grid-template-columns: 1fr;
@@ -2083,5 +2119,24 @@ button {
   }
   .services-grid {
     grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .service-card {
+    align-items: center;
+    text-align: center;
+    padding: 20px 16px;
+  }
+  .service-icon-box {
+    margin: 0 auto 12px;
+  }
+  .service-title {
+    text-align: center;
+    font-size: 14.5px;
+  }
+  .service-desc {
+    text-align: center;
+    font-size: 12px;
+    max-width: 320px;
+    margin: 0 auto;
   }
 }
