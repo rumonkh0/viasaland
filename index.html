@@ -190,7 +190,7 @@
           <h2 class="section-title">Popular Destinations</h2>
           <p class="section-subtitle">Choose your dream destination and we'll handle the rest</p>
         </div>
-        <a href="#consultation" class="section-link js-open-modal">
+        <a href="#all-countries" class="section-link js-open-catalog" data-target="countriesModal">
           View All Countries &rarr;
         </a>
       </div>
@@ -400,7 +400,7 @@
           <h2 class="section-title">Our Visa Services</h2>
           <p class="section-subtitle">Complete visa solutions under one roof</p>
         </div>
-        <a href="#consultation" class="section-link js-open-modal">
+        <a href="#all-services" class="section-link js-open-catalog" data-target="servicesModal">
           View All Services &rarr;
         </a>
       </div>
@@ -693,7 +693,7 @@
           <h2 class="section-title">What Our Clients Say</h2>
           <p class="section-subtitle">Real stories from real travelers</p>
         </div>
-        <a href="#consultation" class="section-link js-open-modal">
+        <a href="#all-reviews" class="section-link js-open-catalog" data-target="reviewsModal">
           View All Reviews &rarr;
         </a>
       </div>
@@ -963,13 +963,23 @@
               <label for="country">Preferred Country</label>
               <select id="country" class="form-control">
                 <option value="UK">United Kingdom (UK)</option>
-                <option value="Italy">Italy</option>
-                <option value="Canada">Canada</option>
                 <option value="USA">USA</option>
+                <option value="Canada">Canada</option>
+                <option value="Australia">Australia</option>
+                <option value="Italy">Italy</option>
+                <option value="Germany">Germany</option>
+                <option value="France">France</option>
+                <option value="Sweden">Sweden</option>
+                <option value="Portugal">Portugal</option>
+                <option value="Japan">Japan</option>
+                <option value="South Korea">South Korea</option>
+                <option value="Singapore">Singapore</option>
                 <option value="Malaysia">Malaysia</option>
                 <option value="Saudi Arabia">Saudi Arabia</option>
                 <option value="UAE">United Arab Emirates (UAE)</option>
-                <option value="Australia">Australia</option>
+                <option value="Turkey">Turkey</option>
+                <option value="Qatar">Qatar</option>
+                <option value="New Zealand">New Zealand</option>
                 <option value="Other">Other Country</option>
               </select>
             </div>
@@ -980,8 +990,10 @@
                 <option value="Work">Work Visa</option>
                 <option value="Tourist">Tourist Visa</option>
                 <option value="Business">Business Visa</option>
-                <option value="Family">Family Visa</option>
+                <option value="Family">Family / Spouse Visa</option>
                 <option value="Umrah">Umrah Visa</option>
+                <option value="PR">Permanent Residency / Investor</option>
+                <option value="Appeal">Visa Appeal / Refusal Review</option>
               </select>
             </div>
           </div>
@@ -995,6 +1007,769 @@
             Submit Consultation Request &rarr;
           </button>
         </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       12. ALL COUNTRIES CATALOG MODAL
+       ========================================================================= -->
+  <div class="modal-overlay" id="countriesModal" role="dialog" aria-modal="true" aria-labelledby="countriesModalTitle">
+    <div class="modal-card modal-large">
+      <div class="modal-header">
+        <div>
+          <h3 id="countriesModalTitle">All Supported Countries & Destinations</h3>
+          <p class="modal-subtitle">Proven visa processing success across 18+ leading global destinations</p>
+        </div>
+        <button class="modal-close-btn js-close-modal" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body catalog-body">
+        <!-- Search & Filter Controls -->
+        <div class="catalog-controls">
+          <div class="catalog-search-wrap">
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" id="countrySearchInput" class="catalog-search-input" placeholder="Search country (e.g. Germany, Canada, Japan)...">
+          </div>
+          <div class="catalog-filter-pills" id="countryFilterPills">
+            <button type="button" class="filter-pill active" data-continent="all">All (18)</button>
+            <button type="button" class="filter-pill" data-continent="europe">Europe (7)</button>
+            <button type="button" class="filter-pill" data-continent="north-america">North America (2)</button>
+            <button type="button" class="filter-pill" data-continent="asia-middle-east">Asia & Middle East (7)</button>
+            <button type="button" class="filter-pill" data-continent="oceania">Oceania (2)</button>
+          </div>
+        </div>
+
+        <!-- Countries Grid -->
+        <div class="catalog-countries-grid" id="catalogCountriesGrid">
+          <!-- 1. UK -->
+          <div class="catalog-country-card" data-continent="europe" data-country="United Kingdom UK">
+            <div class="cat-card-top">
+              <span class="cat-flag">🇬🇧</span>
+              <div>
+                <h4 class="cat-country-name">United Kingdom</h4>
+                <span class="cat-continent-badge">Europe</span>
+              </div>
+            </div>
+            <div class="cat-meta-row">
+              <span class="cat-time">⏱️ 2–3 Weeks</span>
+              <span class="cat-success">★ 99% Success</span>
+            </div>
+            <div class="cat-visas-tags">
+              <span class="visa-tag">Student</span>
+              <span class="visa-tag">Visitor</span>
+              <span class="visa-tag">Skilled Worker</span>
+            </div>
+            <button type="button" class="cat-apply-btn js-apply-from-catalog" data-country="UK" data-visa="Student">
+              Apply for UK &rarr;
+            </button>
+          </div>
+
+          <!-- 2. USA -->
+          <div class="catalog-country-card" data-continent="north-america" data-country="United States USA">
+            <div class="cat-card-top">
+              <span class="cat-flag">🇺🇸</span>
+              <div>
+                <h4 class="cat-country-name">United States</h4>
+                <span class="cat-continent-badge">North America</span>
+              </div>
+            </div>
+            <div class="cat-meta-row">
+              <span class="cat-time">⏱️ 3–5 Weeks</span>
+              <span class="cat-success">★ 95% Success</span>
+            </div>
+            <div class="cat-visas-tags">
+              <span class="visa-tag">F-1 Student</span>
+              <span class="visa-tag">B1/B2 Tourist</span>
+              <span class="visa-tag">J-1 Exchange</span>
+            </div>
+            <button type="button" class="cat-apply-btn js-apply-from-catalog" data-country="USA" data-visa="Student">
+              Apply for USA &rarr;
+            </button>
+          </div>
+
+          <!-- 3. Canada -->
+          <div class="catalog-country-card" data-continent="north-america" data-country="Canada">
+            <div class="cat-card-top">
+              <span class="cat-flag">🇨🇦</span>
+              <div>
+                <h4 class="cat-country-name">Canada</h4>
+                <span class="cat-continent-badge">North America</span>
+              </div>
+            </div>
+            <div class="cat-meta-row">
+              <span class="cat-time">⏱️ 4–6 Weeks</span>
+              <span class="cat-success">★ 98% Success</span>
+            </div>
+            <div class="cat-visas-tags">
+              <span class="visa-tag">Study Permit</span>
+              <span class="visa-tag">Visitor Visa</span>
+              <span class="visa-tag">Express Entry</span>
+            </div>
+            <button type="button" class="cat-apply-btn js-apply-from-catalog" data-country="Canada" data-visa="Student">
+              Apply for Canada &rarr;
+            </button>
+          </div>
+
+          <!-- 4. Australia -->
+          <div class="catalog-country-card" data-continent="oceania" data-country="Australia">
+            <div class="cat-card-top">
+              <span class="cat-flag">🇦🇺</span>
+              <div>
+                <h4 class="cat-country-name">Australia</h4>
+                <span class="cat-continent-badge">Oceania</span>
+              </div>
+            </div>
+            <div class="cat-meta-row">
+              <span class="cat-time">⏱️ 3–4 Weeks</span>
+              <span class="cat-success">★ 97% Success</span>
+            </div>
+            <div class="cat-visas-tags">
+              <span class="visa-tag">Subclass 500</span>
+              <span class="visa-tag">Tourist 600</span>
+              <span class="visa-tag">Work TSS 482</span>
+            </div>
+            <button type="button" class="cat-apply-btn js-apply-from-catalog" data-country="Australia" data-visa="Student">
+              Apply for Australia &rarr;
+            </button>
+          </div>
+
+          <!-- 5. Italy -->
+          <div class="catalog-country-card" data-continent="europe" data-country="Italy">
+            <div class="cat-card-top">
+              <span class="cat-flag">🇮🇹</span>
+              <div>
+                <h4 class="cat-country-name">Italy</h4>
+                <span class="cat-continent-badge">Europe / Schengen</span>
+              </div>
+            </div>
+            <div class="cat-meta-row">
+              <span class="cat-time">⏱️ 3–4 Weeks</span>
+              <span class="cat-success">★ 98% Success</span>
+            </div>
+            <div class="cat-visas-tags">
+              <span class="visa-tag">Study (DSU)</span>
+              <span class="visa-tag">Schengen Visit</span>
+              <span class="visa-tag">Decreto Flussi</span>
+            </div>
+            <button type="button" class="cat-apply-btn js-apply-from-catalog" data-country="Italy" data-visa="Student">
+              Apply for Italy &rarr;
+            </button>
+          </div>
+
+          <!-- 6. Germany -->
+          <div class="catalog-country-card" data-continent="europe" data-country="Germany">
+            <div class="cat-card-top">
+              <span class="cat-flag">🇩🇪</span>
+              <div>
+                <h4 class="cat-country-name">Germany</h4>
+                <span class="cat-continent-badge">Europe / Schengen</span>
+              </div>
+            </div>
+            <div class="cat-meta-row">
+              <span class="cat-time">⏱️ 3–5 Weeks</span>
+              <span class="cat-success">★ 97% Success</span>
+            </div>
+            <div class="cat-visas-tags">
+              <span class="visa-tag">Chancenkarte</span>
+              <span class="visa-tag">Student Visa</span>
+              <span class="visa-tag">Job Seeker</span>
+            </div>
+            <button type="button" class="cat-apply-btn js-apply-from-catalog" data-country="Germany" data-visa="Work">
+              Apply for Germany &rarr;
+            </button>
+          </div>
+
+          <!-- 7. France -->
+          <div class="catalog-country-card" data-continent="europe" data-country="France">
+            <div class="cat-card-top">
+              <span class="cat-flag">🇫🇷</span>
+              <div>
+                <h4 class="cat-country-name">France</h4>
+                <span class="cat-continent-badge">Europe / Schengen</span>
+              </div>
+            </div>
+            <div class="cat-meta-row">
+              <span class="cat-time">⏱️ 2–4 Weeks</span>
+              <span class="cat-success">★ 96% Success</span>
+            </div>
+            <div class="cat-visas-tags">
+              <span class="visa-tag">Campus France</span>
+              <span class="visa-tag">Schengen Visit</span>
+              <span class="visa-tag">Talent Passport</span>
+            </div>
+            <button type="button" class="cat-apply-btn js-apply-from-catalog" data-country="France" data-visa="Student">
+              Apply for France &rarr;
+            </button>
+          </div>
+
+          <!-- 8. Sweden -->
+          <div class="catalog-country-card" data-continent="europe" data-country="Sweden">
+            <div class="cat-card-top">
+              <span class="cat-flag">🇸🇪</span>
+              <div>
+                <h4 class="cat-country-name">Sweden</h4>
+                <span class="cat-continent-badge">Europe / Scandinavia</span>
+              </div>
+            </div>
+            <div class="cat-meta-row">
+              <span class="cat-time">⏱️ 4–6 Weeks</span>
+              <span class="cat-success">★ 96% Success</span>
+            </div>
+            <div class="cat-visas-tags">
+              <span class="visa-tag">Master's Study</span>
+              <span class="visa-tag">Work Permit</span>
+              <span class="visa-tag">Visitor Visa</span>
+            </div>
+            <button type="button" class="cat-apply-btn js-apply-from-catalog" data-country="Sweden" data-visa="Student">
+              Apply for Sweden &rarr;
+            </button>
+          </div>
+
+          <!-- 9. Portugal -->
+          <div class="catalog-country-card" data-continent="europe" data-country="Portugal">
+            <div class="cat-card-top">
+              <span class="cat-flag">🇵🇹</span>
+              <div>
+                <h4 class="cat-country-name">Portugal</h4>
+                <span class="cat-continent-badge">Europe / Schengen</span>
+              </div>
+            </div>
+            <div class="cat-meta-row">
+              <span class="cat-time">⏱️ 4–8 Weeks</span>
+              <span class="cat-success">★ 95% Success</span>
+            </div>
+            <div class="cat-visas-tags">
+              <span class="visa-tag">D8 Nomad</span>
+              <span class="visa-tag">Job Seeker</span>
+              <span class="visa-tag">Student Visa</span>
+            </div>
+            <button type="button" class="cat-apply-btn js-apply-from-catalog" data-country="Portugal" data-visa="Work">
+              Apply for Portugal &rarr;
+            </button>
+          </div>
+
+          <!-- 10. Japan -->
+          <div class="catalog-country-card" data-continent="asia-middle-east" data-country="Japan">
+            <div class="cat-card-top">
+              <span class="cat-flag">🇯🇵</span>
+              <div>
+                <h4 class="cat-country-name">Japan</h4>
+                <span class="cat-continent-badge">Asia</span>
+              </div>
+            </div>
+            <div class="cat-meta-row">
+              <span class="cat-time">⏱️ 4–6 Weeks</span>
+              <span class="cat-success">★ 95% Success</span>
+            </div>
+            <div class="cat-visas-tags">
+              <span class="visa-tag">Student COE</span>
+              <span class="visa-tag">SSW Work</span>
+              <span class="visa-tag">Tourist Visa</span>
+            </div>
+            <button type="button" class="cat-apply-btn js-apply-from-catalog" data-country="Japan" data-visa="Student">
+              Apply for Japan &rarr;
+            </button>
+          </div>
+
+          <!-- 11. South Korea -->
+          <div class="catalog-country-card" data-continent="asia-middle-east" data-country="South Korea">
+            <div class="cat-card-top">
+              <span class="cat-flag">🇰🇷</span>
+              <div>
+                <h4 class="cat-country-name">South Korea</h4>
+                <span class="cat-continent-badge">Asia</span>
+              </div>
+            </div>
+            <div class="cat-meta-row">
+              <span class="cat-time">⏱️ 3–4 Weeks</span>
+              <span class="cat-success">★ 95% Success</span>
+            </div>
+            <div class="cat-visas-tags">
+              <span class="visa-tag">D-2 Student</span>
+              <span class="visa-tag">E-7 Work</span>
+              <span class="visa-tag">C-3 Tourist</span>
+            </div>
+            <button type="button" class="cat-apply-btn js-apply-from-catalog" data-country="South Korea" data-visa="Student">
+              Apply for South Korea &rarr;
+            </button>
+          </div>
+
+          <!-- 12. Singapore -->
+          <div class="catalog-country-card" data-continent="asia-middle-east" data-country="Singapore">
+            <div class="cat-card-top">
+              <span class="cat-flag">🇸🇬</span>
+              <div>
+                <h4 class="cat-country-name">Singapore</h4>
+                <span class="cat-continent-badge">Asia</span>
+              </div>
+            </div>
+            <div class="cat-meta-row">
+              <span class="cat-time">⏱️ 1–2 Weeks</span>
+              <span class="cat-success">★ 98% Success</span>
+            </div>
+            <div class="cat-visas-tags">
+              <span class="visa-tag">Student Pass</span>
+              <span class="visa-tag">Employment Pass</span>
+              <span class="visa-tag">Tourist E-Visa</span>
+            </div>
+            <button type="button" class="cat-apply-btn js-apply-from-catalog" data-country="Singapore" data-visa="Tourist">
+              Apply for Singapore &rarr;
+            </button>
+          </div>
+
+          <!-- 13. Malaysia -->
+          <div class="catalog-country-card" data-continent="asia-middle-east" data-country="Malaysia">
+            <div class="cat-card-top">
+              <span class="cat-flag">🇲🇾</span>
+              <div>
+                <h4 class="cat-country-name">Malaysia</h4>
+                <span class="cat-continent-badge">Asia</span>
+              </div>
+            </div>
+            <div class="cat-meta-row">
+              <span class="cat-time">⏱️ 2–3 Weeks</span>
+              <span class="cat-success">★ 99% Success</span>
+            </div>
+            <div class="cat-visas-tags">
+              <span class="visa-tag">EMGS Student</span>
+              <span class="visa-tag">Work Permit</span>
+              <span class="visa-tag">eNTRI Tourist</span>
+            </div>
+            <button type="button" class="cat-apply-btn js-apply-from-catalog" data-country="Malaysia" data-visa="Work">
+              Apply for Malaysia &rarr;
+            </button>
+          </div>
+
+          <!-- 14. Saudi Arabia -->
+          <div class="catalog-country-card" data-continent="asia-middle-east" data-country="Saudi Arabia">
+            <div class="cat-card-top">
+              <span class="cat-flag">🇸🇦</span>
+              <div>
+                <h4 class="cat-country-name">Saudi Arabia</h4>
+                <span class="cat-continent-badge">Middle East</span>
+              </div>
+            </div>
+            <div class="cat-meta-row">
+              <span class="cat-time">⏱️ 2–5 Days</span>
+              <span class="cat-success">★ 99% Success</span>
+            </div>
+            <div class="cat-visas-tags">
+              <span class="visa-tag">Umrah E-Visa</span>
+              <span class="visa-tag">Tourist Visa</span>
+              <span class="visa-tag">Business Visit</span>
+            </div>
+            <button type="button" class="cat-apply-btn js-apply-from-catalog" data-country="Saudi Arabia" data-visa="Umrah">
+              Apply for Saudi Arabia &rarr;
+            </button>
+          </div>
+
+          <!-- 15. UAE -->
+          <div class="catalog-country-card" data-continent="asia-middle-east" data-country="United Arab Emirates UAE Dubai">
+            <div class="cat-card-top">
+              <span class="cat-flag">🇦🇪</span>
+              <div>
+                <h4 class="cat-country-name">United Arab Emirates</h4>
+                <span class="cat-continent-badge">Middle East</span>
+              </div>
+            </div>
+            <div class="cat-meta-row">
+              <span class="cat-time">⏱️ 24–48 Hours</span>
+              <span class="cat-success">★ 99% Success</span>
+            </div>
+            <div class="cat-visas-tags">
+              <span class="visa-tag">30/60d Tourist</span>
+              <span class="visa-tag">Golden Visa</span>
+              <span class="visa-tag">Freelance Permit</span>
+            </div>
+            <button type="button" class="cat-apply-btn js-apply-from-catalog" data-country="UAE" data-visa="Tourist">
+              Apply for UAE &rarr;
+            </button>
+          </div>
+
+          <!-- 16. Turkey -->
+          <div class="catalog-country-card" data-continent="asia-middle-east" data-country="Turkey Turkiye">
+            <div class="cat-card-top">
+              <span class="cat-flag">🇹🇷</span>
+              <div>
+                <h4 class="cat-country-name">Turkey</h4>
+                <span class="cat-continent-badge">Middle East / Europe</span>
+              </div>
+            </div>
+            <div class="cat-meta-row">
+              <span class="cat-time">⏱️ 1–2 Weeks</span>
+              <span class="cat-success">★ 96% Success</span>
+            </div>
+            <div class="cat-visas-tags">
+              <span class="visa-tag">E-Visa</span>
+              <span class="visa-tag">Student Visa</span>
+              <span class="visa-tag">Residence Permit</span>
+            </div>
+            <button type="button" class="cat-apply-btn js-apply-from-catalog" data-country="Turkey" data-visa="Tourist">
+              Apply for Turkey &rarr;
+            </button>
+          </div>
+
+          <!-- 17. Qatar -->
+          <div class="catalog-country-card" data-continent="asia-middle-east" data-country="Qatar">
+            <div class="cat-card-top">
+              <span class="cat-flag">🇶🇦</span>
+              <div>
+                <h4 class="cat-country-name">Qatar</h4>
+                <span class="cat-continent-badge">Middle East</span>
+              </div>
+            </div>
+            <div class="cat-meta-row">
+              <span class="cat-time">⏱️ 3–5 Days</span>
+              <span class="cat-success">★ 98% Success</span>
+            </div>
+            <div class="cat-visas-tags">
+              <span class="visa-tag">Hayya Tourist</span>
+              <span class="visa-tag">Work Visa</span>
+              <span class="visa-tag">Family Visit</span>
+            </div>
+            <button type="button" class="cat-apply-btn js-apply-from-catalog" data-country="Qatar" data-visa="Tourist">
+              Apply for Qatar &rarr;
+            </button>
+          </div>
+
+          <!-- 18. New Zealand -->
+          <div class="catalog-country-card" data-continent="oceania" data-country="New Zealand">
+            <div class="cat-card-top">
+              <span class="cat-flag">🇳🇿</span>
+              <div>
+                <h4 class="cat-country-name">New Zealand</h4>
+                <span class="cat-continent-badge">Oceania</span>
+              </div>
+            </div>
+            <div class="cat-meta-row">
+              <span class="cat-time">⏱️ 4–6 Weeks</span>
+              <span class="cat-success">★ 95% Success</span>
+            </div>
+            <div class="cat-visas-tags">
+              <span class="visa-tag">Fee-Paying Student</span>
+              <span class="visa-tag">Visitor Visa</span>
+              <span class="visa-tag">Work Permit</span>
+            </div>
+            <button type="button" class="cat-apply-btn js-apply-from-catalog" data-country="New Zealand" data-visa="Student">
+              Apply for New Zealand &rarr;
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       13. ALL SERVICES CATALOG MODAL
+       ========================================================================= -->
+  <div class="modal-overlay" id="servicesModal" role="dialog" aria-modal="true" aria-labelledby="servicesModalTitle">
+    <div class="modal-card modal-large">
+      <div class="modal-header">
+        <div>
+          <h3 id="servicesModalTitle">All Visa & Immigration Services</h3>
+          <p class="modal-subtitle">Complete end-to-end legal & documentation solutions under one roof</p>
+        </div>
+        <button class="modal-close-btn js-close-modal" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body catalog-body">
+        <div class="services-catalog-list">
+          <!-- Category 1: Student -->
+          <div class="services-category-block">
+            <div class="service-cat-header">
+              <span class="service-cat-icon">🎓</span>
+              <div>
+                <h4 class="service-cat-title">Student Visa & Higher Education</h4>
+                <p class="service-cat-desc">Complete admissions, SOP writing, and scholarship documentation</p>
+              </div>
+            </div>
+            <div class="service-cat-items">
+              <div class="service-item-row">
+                <div class="service-item-info">
+                  <strong>University Admissions & SOP Support</strong>
+                  <p>Course selection, university application submission, offer letter follow-up, and tailored Statement of Purpose.</p>
+                </div>
+                <button type="button" class="service-inquire-btn js-apply-from-catalog" data-country="UK" data-visa="Student">Inquire &rarr;</button>
+              </div>
+              <div class="service-item-row">
+                <div class="service-item-info">
+                  <strong>Scholarship & Tuition Waiver Assistance</strong>
+                  <p>Full support for Italian Regional DSU Scholarships, Erasmus Mundus, and UK Commonwealth grants.</p>
+                </div>
+                <button type="button" class="service-inquire-btn js-apply-from-catalog" data-country="Italy" data-visa="Student">Inquire &rarr;</button>
+              </div>
+              <div class="service-item-row">
+                <div class="service-item-info">
+                  <strong>Visa Interview Preparation & Mock Sessions</strong>
+                  <p>One-on-one mock interview sessions tailored to US Embassy, UK VI, and German consulate requirements.</p>
+                </div>
+                <button type="button" class="service-inquire-btn js-apply-from-catalog" data-country="USA" data-visa="Student">Inquire &rarr;</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Category 2: Work & Skilled -->
+          <div class="services-category-block">
+            <div class="service-cat-header">
+              <span class="service-cat-icon">💼</span>
+              <div>
+                <h4 class="service-cat-title">Work Permits & Skilled Migration</h4>
+                <p class="service-cat-desc">Job seeker visas, sponsored employer permits, and point-based immigration</p>
+              </div>
+            </div>
+            <div class="service-cat-items">
+              <div class="service-item-row">
+                <div class="service-item-info">
+                  <strong>German Opportunity Card (Chancenkarte)</strong>
+                  <p>Point calculation, qualification recognition (ZAB), and complete dossier compilation.</p>
+                </div>
+                <button type="button" class="service-inquire-btn js-apply-from-catalog" data-country="Germany" data-visa="Work">Inquire &rarr;</button>
+              </div>
+              <div class="service-item-row">
+                <div class="service-item-info">
+                  <strong>Employer Sponsored Work Permits</strong>
+                  <p>UK Skilled Worker, Australia TSS Subclass 482, and Malaysia Professional Employment Passes.</p>
+                </div>
+                <button type="button" class="service-inquire-btn js-apply-from-catalog" data-country="UK" data-visa="Work">Inquire &rarr;</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Category 3: Tourist & Family -->
+          <div class="services-category-block">
+            <div class="service-cat-header">
+              <span class="service-cat-icon">✈️</span>
+              <div>
+                <h4 class="service-cat-title">Tourist, Family & Umrah Visas</h4>
+                <p class="service-cat-desc">Smooth holiday travel, family reunion sponsorships, and sacred pilgrimages</p>
+              </div>
+            </div>
+            <div class="service-cat-items">
+              <div class="service-item-row">
+                <div class="service-item-info">
+                  <strong>Fast-Track Schengen & UK Visitor Visas</strong>
+                  <p>Airtight bank statement preparation, ties-to-home proof, and confirmed flight/hotel itineraries.</p>
+                </div>
+                <button type="button" class="service-inquire-btn js-apply-from-catalog" data-country="UK" data-visa="Tourist">Inquire &rarr;</button>
+              </div>
+              <div class="service-item-row">
+                <div class="service-item-info">
+                  <strong>Saudi Umrah E-Visa & Dubai Tourist Visas</strong>
+                  <p>24 to 48 hours express processing for individual pilgrims and family travel groups.</p>
+                </div>
+                <button type="button" class="service-inquire-btn js-apply-from-catalog" data-country="Saudi Arabia" data-visa="Umrah">Inquire &rarr;</button>
+              </div>
+              <div class="service-item-row">
+                <div class="service-item-info">
+                  <strong>Spouse & Dependent Family Visas</strong>
+                  <p>Marriage evidence validation, financial requirement proof, and family sponsorship filings.</p>
+                </div>
+                <button type="button" class="service-inquire-btn js-apply-from-catalog" data-country="Canada" data-visa="Family">Inquire &rarr;</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Category 4: Appeals & Permanent Residency -->
+          <div class="services-category-block">
+            <div class="service-cat-header">
+              <span class="service-cat-icon">⚖️</span>
+              <div>
+                <h4 class="service-cat-title">Appeals, Refusal Reviews & PR</h4>
+                <p class="service-cat-desc">Overcoming prior rejections and permanent residency pathways</p>
+              </div>
+            </div>
+            <div class="service-cat-items">
+              <div class="service-item-row">
+                <div class="service-item-info">
+                  <strong>Visa Refusal Case Analysis & Re-Application</strong>
+                  <p>Detailed analysis of embassy refusal letters, GCMS/CAIPS notes review, and airtight re-submission strategy.</p>
+                </div>
+                <button type="button" class="service-inquire-btn js-apply-from-catalog" data-country="Other" data-visa="Appeal">Inquire &rarr;</button>
+              </div>
+              <div class="service-item-row">
+                <div class="service-item-info">
+                  <strong>Canada Express Entry & PNP PR Support</strong>
+                  <p>CRS score boosting, WES educational credential assessment, and Provincial Nominee filings.</p>
+                </div>
+                <button type="button" class="service-inquire-btn js-apply-from-catalog" data-country="Canada" data-visa="PR">Inquire &rarr;</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       14. ALL REVIEWS & SUCCESS STORIES MODAL
+       ========================================================================= -->
+  <div class="modal-overlay" id="reviewsModal" role="dialog" aria-modal="true" aria-labelledby="reviewsModalTitle">
+    <div class="modal-card modal-large">
+      <div class="modal-header">
+        <div>
+          <h3 id="reviewsModalTitle">Verified Client Reviews & Stories</h3>
+          <p class="modal-subtitle">Real feedback from satisfied travelers across 15+ destinations</p>
+        </div>
+        <button class="modal-close-btn js-close-modal" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body catalog-body">
+        <!-- Trust Metric Summary Bar -->
+        <div class="reviews-trust-summary">
+          <div class="trust-stat-box">
+            <span class="trust-score">4.9 / 5.0</span>
+            <div class="trust-stars">★★★★★</div>
+            <span class="trust-count">Based on 2,500+ Visa Approvals</span>
+          </div>
+          <div class="trust-features-list">
+            <span>&check; 99% Verified Client Satisfaction</span>
+            <span>&check; Zero Hidden Legal Charges</span>
+            <span>&check; Fast-Track Application Submissions</span>
+          </div>
+        </div>
+
+        <!-- Reviews Grid -->
+        <div class="reviews-full-grid">
+          <!-- Review 1 -->
+          <div class="review-card-item">
+            <div class="rev-card-header">
+              <div class="rev-user">
+                <span class="rev-avatar-circle">RU</span>
+                <div>
+                  <h5 class="rev-name">Rahim Uddin</h5>
+                  <span class="rev-meta">Student Visa, Italy &bull; University of Bologna</span>
+                </div>
+              </div>
+              <div class="rev-stars">★★★★★</div>
+            </div>
+            <p class="rev-text">"Adiba Global made my Italian student visa and DSU scholarship process so straightforward. Their guidance on bank statements and Apostille was flawless. Got both my visa and full scholarship!"</p>
+            <span class="rev-badge-verified">&check; Verified Visa Grant</span>
+          </div>
+
+          <!-- Review 2 -->
+          <div class="review-card-item">
+            <div class="rev-card-header">
+              <div class="rev-user">
+                <span class="rev-avatar-circle">NJ</span>
+                <div>
+                  <h5 class="rev-name">Nusrat Jahan</h5>
+                  <span class="rev-meta">Visitor Visa, United Kingdom</span>
+                </div>
+              </div>
+              <div class="rev-stars">★★★★★</div>
+            </div>
+            <p class="rev-text">"I got my UK visitor visa in just 3 weeks without any hassle! Their guidance on financial proof and sponsorship documents was top notch. Extremely polite and professional counselors."</p>
+            <span class="rev-badge-verified">&check; Verified Visa Grant</span>
+          </div>
+
+          <!-- Review 3 -->
+          <div class="review-card-item">
+            <div class="rev-card-header">
+              <div class="rev-user">
+                <span class="rev-avatar-circle">AH</span>
+                <div>
+                  <h5 class="rev-name">Md. Arif Hossain</h5>
+                  <span class="rev-meta">Work Visa, Malaysia</span>
+                </div>
+              </div>
+              <div class="rev-stars">★★★★★</div>
+            </div>
+            <p class="rev-text">"Very reliable and transparent service. They processed my professional work pass in Kuala Lumpur without any hidden charges. Highly recommended for working professionals!"</p>
+            <span class="rev-badge-verified">&check; Verified Visa Grant</span>
+          </div>
+
+          <!-- Review 4 -->
+          <div class="review-card-item">
+            <div class="rev-card-header">
+              <div class="rev-user">
+                <span class="rev-avatar-circle">FA</span>
+                <div>
+                  <h5 class="rev-name">Farhana Ahmed</h5>
+                  <span class="rev-meta">Canada Express Entry PR &bull; Toronto</span>
+                </div>
+              </div>
+              <div class="rev-stars">★★★★★</div>
+            </div>
+            <p class="rev-text">"From my ECA credential evaluation to Express Entry profile submission and ITA filing, their immigration team was exceptional. Today my entire family is happily settled in Ontario!"</p>
+            <span class="rev-badge-verified">&check; Verified Visa Grant</span>
+          </div>
+
+          <!-- Review 5 -->
+          <div class="review-card-item">
+            <div class="rev-card-header">
+              <div class="rev-user">
+                <span class="rev-avatar-circle">TR</span>
+                <div>
+                  <h5 class="rev-name">Tanvir Rahman</h5>
+                  <span class="rev-meta">F-1 Student Visa, USA &bull; University of Texas</span>
+                </div>
+              </div>
+              <div class="rev-stars">★★★★★</div>
+            </div>
+            <p class="rev-text">"The mock visa interview drills they ran with me gave me immense confidence for my US Embassy appointment. The visa officer asked the exact questions we practiced. Approved on 1st attempt!"</p>
+            <span class="rev-badge-verified">&check; Verified Visa Grant</span>
+          </div>
+
+          <!-- Review 6 -->
+          <div class="review-card-item">
+            <div class="rev-card-header">
+              <div class="rev-user">
+                <span class="rev-avatar-circle">SK</span>
+                <div>
+                  <h5 class="rev-name">Sabrina Karim</h5>
+                  <span class="rev-meta">Opportunity Card (Chancenkarte), Germany</span>
+                </div>
+              </div>
+              <div class="rev-stars">★★★★★</div>
+            </div>
+            <p class="rev-text">"German immigration rules can feel overwhelming, but Adiba Global organized my translations, ZAB certificate, and blocked account smoothly. I received my Chancenkarte in 4 weeks!"</p>
+            <span class="rev-badge-verified">&check; Verified Visa Grant</span>
+          </div>
+
+          <!-- Review 7 -->
+          <div class="review-card-item">
+            <div class="rev-card-header">
+              <div class="rev-user">
+                <span class="rev-avatar-circle">MA</span>
+                <div>
+                  <h5 class="rev-name">Mahbubul Alam</h5>
+                  <span class="rev-meta">Business & Umrah E-Visa, Saudi Arabia</span>
+                </div>
+              </div>
+              <div class="rev-stars">★★★★★</div>
+            </div>
+            <p class="rev-text">"Fast, accurate, and completely transparent with no hidden charges. Received my family Umrah visa and business entry permit in less than 48 hours."</p>
+            <span class="rev-badge-verified">&check; Verified Visa Grant</span>
+          </div>
+
+          <!-- Review 8 -->
+          <div class="review-card-item">
+            <div class="rev-card-header">
+              <div class="rev-user">
+                <span class="rev-avatar-circle">SA</span>
+                <div>
+                  <h5 class="rev-name">Sumaiya Akter</h5>
+                  <span class="rev-meta">Subclass 500 Student Visa, Australia &bull; Melbourne</span>
+                </div>
+              </div>
+              <div class="rev-stars">★★★★★</div>
+            </div>
+            <p class="rev-text">"Their Genuine Student (GS) statement drafting was outstanding. No extra inquiries from the Department of Home Affairs, direct grant letter in my inbox!"</p>
+            <span class="rev-badge-verified">&check; Verified Visa Grant</span>
+          </div>
+        </div>
+
+        <!-- Modal Bottom CTA -->
+        <div class="reviews-modal-cta">
+          <div>
+            <strong>Ready to start your own success story?</strong>
+            <p>Our senior counselors evaluate your eligibility with zero consultation fee.</p>
+          </div>
+          <button type="button" class="form-submit-btn js-apply-from-catalog" style="width: auto; padding: 10px 24px;">
+            Book Free Consultation &rarr;
+          </button>
+        </div>
       </div>
     </div>
   </div>

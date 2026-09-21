@@ -1250,6 +1250,477 @@ button {
   margin-bottom: 12px;
 }
 
+/* Catalog Modals (Large format) */
+.modal-card.modal-large {
+  max-width: 940px;
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-header .modal-subtitle {
+  font-size: 11.5px;
+  color: #94A3B8;
+  font-weight: 400;
+  margin-top: 2px;
+}
+
+.modal-body.catalog-body {
+  overflow-y: auto;
+  padding: 22px 24px;
+  max-height: calc(88vh - 75px);
+  background-color: #F8FAFC;
+}
+
+/* Custom modern scrollbar for catalog modals */
+.modal-body.catalog-body::-webkit-scrollbar {
+  width: 6px;
+}
+.modal-body.catalog-body::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+.modal-body.catalog-body::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 4px;
+}
+.modal-body.catalog-body::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+/* Catalog Controls: Search & Filter Pills */
+.catalog-controls {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.catalog-search-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.catalog-search-wrap .search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  color: #94A3B8;
+  pointer-events: none;
+}
+
+.catalog-search-input {
+  width: 100%;
+  padding: 10px 14px 10px 38px;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 8px;
+  font-size: 13px;
+  background-color: #FFFFFF;
+  color: #0F172A;
+  transition: all 0.2s ease;
+}
+
+.catalog-search-input:focus {
+  outline: none;
+  border-color: var(--color-brand-blue);
+  box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.12);
+}
+
+.catalog-filter-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.filter-pill {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  color: #475569;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.filter-pill:hover {
+  border-color: #CBD5E1;
+  color: var(--color-brand-blue);
+}
+
+.filter-pill.active {
+  background-color: var(--color-brand-blue);
+  border-color: var(--color-brand-blue);
+  color: #FFFFFF;
+  box-shadow: 0 2px 6px rgba(0, 102, 255, 0.25);
+}
+
+/* Countries Catalog Grid */
+.catalog-countries-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.catalog-country-card {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.catalog-country-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  border-color: #CBD5E1;
+}
+
+.cat-card-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.cat-flag {
+  font-size: 26px;
+  line-height: 1;
+}
+
+.cat-country-name {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #0F172A;
+  margin-bottom: 2px;
+}
+
+.cat-continent-badge {
+  font-size: 10.5px;
+  color: #64748B;
+  background-color: #F1F5F9;
+  padding: 2px 7px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.cat-meta-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: #475569;
+  font-weight: 500;
+  padding: 8px 0;
+  border-top: 1px dashed #F1F5F9;
+  border-bottom: 1px dashed #F1F5F9;
+  margin-bottom: 10px;
+}
+
+.cat-success {
+  color: #059669;
+  font-weight: 600;
+}
+
+.cat-visas-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 14px;
+}
+
+.visa-tag {
+  font-size: 10px;
+  background-color: #EFF6FF;
+  color: var(--color-brand-blue);
+  font-weight: 600;
+  padding: 3px 7px;
+  border-radius: 4px;
+}
+
+.cat-apply-btn {
+  width: 100%;
+  background-color: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  color: var(--color-brand-blue);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  text-align: center;
+}
+
+.cat-apply-btn:hover {
+  background-color: var(--color-brand-blue);
+  border-color: var(--color-brand-blue);
+  color: #FFFFFF;
+}
+
+/* Services Catalog List */
+.services-catalog-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.services-category-block {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 18px 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.service-cat-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #F1F5F9;
+}
+
+.service-cat-icon {
+  font-size: 24px;
+}
+
+.service-cat-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: #0F172A;
+}
+
+.service-cat-desc {
+  font-size: 11.5px;
+  color: #64748B;
+}
+
+.service-cat-items {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.service-item-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 14px;
+  background-color: #F8FAFC;
+  border-radius: 8px;
+  border: 1px solid #F1F5F9;
+}
+
+.service-item-info strong {
+  display: block;
+  font-size: 13px;
+  color: #1E293B;
+  margin-bottom: 3px;
+}
+
+.service-item-info p {
+  font-size: 11.5px;
+  color: #64748B;
+  line-height: 1.4;
+}
+
+.service-inquire-btn {
+  background-color: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  color: var(--color-brand-blue);
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 7px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all 0.18s ease;
+}
+
+.service-inquire-btn:hover {
+  background-color: var(--color-brand-blue);
+  border-color: var(--color-brand-blue);
+  color: #FFFFFF;
+}
+
+/* Reviews Catalog & Trust Elements */
+.reviews-trust-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 18px 24px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.trust-stat-box {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.trust-score {
+  font-size: 24px;
+  font-weight: 800;
+  color: #0F172A;
+}
+
+.trust-stars {
+  color: #F59E0B;
+  font-size: 14px;
+  letter-spacing: 2px;
+}
+
+.trust-count {
+  font-size: 11px;
+  color: #64748B;
+}
+
+.trust-features-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #047857;
+}
+
+.reviews-full-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.review-card-item {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.rev-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.rev-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.rev-avatar-circle {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #0066FF 0%, #0047B3 100%);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.rev-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: #0F172A;
+}
+
+.rev-meta {
+  font-size: 10.5px;
+  color: #64748B;
+  display: block;
+}
+
+.rev-stars {
+  color: #F59E0B;
+  font-size: 12px;
+  letter-spacing: 1px;
+  flex-shrink: 0;
+}
+
+.rev-text {
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: #334155;
+  margin-bottom: 12px;
+}
+
+.rev-badge-verified {
+  font-size: 10.5px;
+  color: #059669;
+  font-weight: 600;
+}
+
+.reviews-modal-cta {
+  background: linear-gradient(135deg, #0B2341 0%, #07192F 100%);
+  color: #FFFFFF;
+  padding: 16px 22px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.reviews-modal-cta strong {
+  display: block;
+  font-size: 14px;
+  color: #FFFFFF;
+  margin-bottom: 2px;
+}
+
+.reviews-modal-cta p {
+  font-size: 11.5px;
+  color: #94A3B8;
+}
+
+/* Responsive adjustment for Catalog Modals */
+@media (max-width: 640px) {
+  .modal-card.modal-large {
+    max-height: 94vh;
+  }
+  .modal-body.catalog-body {
+    padding: 16px;
+  }
+  .catalog-countries-grid, .reviews-full-grid {
+    grid-template-columns: 1fr;
+  }
+  .service-item-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .reviews-trust-summary, .reviews-modal-cta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
 /* ==========================================================================
    ANIMATIONS & RESPONSIVE DESIGN
    ========================================================================== */

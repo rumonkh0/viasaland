@@ -1,52 +1,88 @@
 // Adiba Global - Interactive Scripts
 
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. Consultation Modal Logic
-  const modal = document.getElementById('consultationModal');
-  const openModalBtns = document.querySelectorAll('.js-open-modal');
-  const closeModalBtn = document.getElementById('closeModalBtn');
+  // =========================================================================
+  // 1. Universal Modal Controller (Consultation + Catalog Modals)
+  // =========================================================================
+  const allModals = document.querySelectorAll('.modal-overlay');
+  const consultationModal = document.getElementById('consultationModal');
   const modalForm = document.getElementById('consultationForm');
   const successAlert = document.getElementById('modalSuccessAlert');
+  const countrySelect = document.getElementById('country');
+  const visaTypeSelect = document.getElementById('visaType');
 
-  function openModal() {
-    if (modal) {
-      modal.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
+  function openTargetModal(modalEl) {
+    if (!modalEl) return;
+    closeAllModals();
+    modalEl.classList.add('active');
+    document.body.style.overflow = 'hidden';
   }
 
-  function closeModal() {
-    if (modal) {
-      modal.classList.remove('active');
-      document.body.style.overflow = '';
-      if (successAlert) successAlert.style.display = 'none';
-      if (modalForm) modalForm.reset();
-    }
+  function closeAllModals() {
+    allModals.forEach(m => m.classList.remove('active'));
+    document.body.style.overflow = '';
+    if (successAlert) successAlert.style.display = 'none';
   }
 
-  openModalBtns.forEach(btn => {
+  // Consultation open triggers
+  document.querySelectorAll('.js-open-modal').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
-      openModal();
+      openTargetModal(consultationModal);
     });
   });
 
-  if (closeModalBtn) {
-    closeModalBtn.addEventListener('click', closeModal);
-  }
-
-  if (modal) {
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) closeModal();
+  // Catalog Modals open triggers (Countries, Services, Reviews)
+  document.querySelectorAll('.js-open-catalog').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetId = link.getAttribute('data-target');
+      const targetModal = document.getElementById(targetId);
+      if (targetModal) openTargetModal(targetModal);
     });
-  }
+  });
 
+  // Close triggers (X buttons, Cancel)
+  document.querySelectorAll('.modal-close-btn, .js-close-modal').forEach(btn => {
+    btn.addEventListener('click', () => {
+      closeAllModals();
+    });
+  });
+
+  // Backdrop click to close
+  allModals.forEach(m => {
+    m.addEventListener('click', (e) => {
+      if (e.target === m) closeAllModals();
+    });
+  });
+
+  // Escape key to close
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal && modal.classList.contains('active')) {
-      closeModal();
+    if (e.key === 'Escape') {
+      closeAllModals();
     }
   });
 
+  // 1-Click Apply from Catalog Modals directly to Consultation Modal
+  document.querySelectorAll('.js-apply-from-catalog').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const country = btn.getAttribute('data-country');
+      const visa = btn.getAttribute('data-visa');
+
+      closeAllModals();
+      openTargetModal(consultationModal);
+
+      if (country && countrySelect) {
+        countrySelect.value = country;
+      }
+      if (visa && visaTypeSelect) {
+        visaTypeSelect.value = visa;
+      }
+    });
+  });
+
+  // Form submission
   if (modalForm) {
     modalForm.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -55,12 +91,56 @@ document.addEventListener('DOMContentLoaded', () => {
         successAlert.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       }
       setTimeout(() => {
-        closeModal();
+        closeAllModals();
+        modalForm.reset();
       }, 3500);
     });
   }
 
-  // 2. Mobile Menu Toggle
+  // =========================================================================
+  // 2. Real-Time Search & Continent Filtering for Countries Catalog
+  // =========================================================================
+  const countrySearchInput = document.getElementById('countrySearchInput');
+  const continentPills = document.querySelectorAll('#countryFilterPills .filter-pill');
+  const countryCards = document.querySelectorAll('.catalog-country-card');
+
+  let activeContinent = 'all';
+
+  function filterCountries() {
+    const query = countrySearchInput ? countrySearchInput.value.trim().toLowerCase() : '';
+
+    countryCards.forEach(card => {
+      const cardContinent = card.getAttribute('data-continent');
+      const cardCountryData = (card.getAttribute('data-country') || '').toLowerCase();
+      const cardText = card.textContent.toLowerCase();
+
+      const matchesContinent = (activeContinent === 'all') || (cardContinent === activeContinent);
+      const matchesSearch = !query || cardCountryData.includes(query) || cardText.includes(query);
+
+      if (matchesContinent && matchesSearch) {
+        card.style.display = 'flex';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+
+  if (countrySearchInput) {
+    countrySearchInput.addEventListener('input', filterCountries);
+  }
+
+  continentPills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      continentPills.forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      activeContinent = pill.getAttribute('data-continent');
+      filterCountries();
+    });
+  });
+
+  // =========================================================================
+  // 3. Mobile Menu Toggle
+  // =========================================================================
   const mobileToggle = document.getElementById('mobileMenuToggle');
   const navLinks = document.getElementById('navLinks');
 
@@ -69,7 +149,6 @@ document.addEventListener('DOMContentLoaded', () => {
       navLinks.classList.toggle('mobile-active');
     });
 
-    // Close menu when clicking outside or on a link
     document.querySelectorAll('.nav-link').forEach(link => {
       link.addEventListener('click', () => {
         navLinks.classList.remove('mobile-active');
@@ -77,18 +156,18 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 3. Footer Accordion on Mobile
+  // =========================================================================
+  // 4. Footer Accordion on Mobile
+  // =========================================================================
   const footerAccordionBtns = document.querySelectorAll('.footer-accordion-btn');
   footerAccordionBtns.forEach(btn => {
     btn.addEventListener('click', (e) => {
-      // Only toggle accordion on mobile
       if (window.innerWidth <= 768) {
         e.preventDefault();
         const col = btn.closest('.footer-accordion');
         if (!col) return;
         const isOpen = col.classList.contains('is-open');
 
-        // Close other accordions
         document.querySelectorAll('.footer-accordion').forEach(item => {
           if (item !== col) {
             item.classList.remove('is-open');
@@ -97,7 +176,6 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         });
 
-        // Toggle this accordion
         col.classList.toggle('is-open', !isOpen);
         btn.setAttribute('aria-expanded', String(!isOpen));
       }
