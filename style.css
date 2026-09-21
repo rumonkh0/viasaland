@@ -387,6 +387,11 @@ button {
   max-width: 100%;
 }
 
+.hero-visual-wrapper picture {
+  display: block;
+  width: 100%;
+}
+
 .hero-composite-img {
   width: 100%;
   height: auto;
