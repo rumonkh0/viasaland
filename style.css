@@ -864,37 +864,67 @@ button {
 .cta-banner-wrapper {
   width: 100%;
   position: relative;
-  background: linear-gradient(90deg, #0284C7 0%, #0076F5 50%, #0066FF 100%);
+  background: linear-gradient(90deg, #16ace7 0%, #1089e6 23%, #0e6fe1 50%, #075cd5 77%, #199ade 100%);
   color: #FFFFFF;
   margin: 12px 0 0;
   overflow: hidden;
+  min-height: 87px;
+  display: flex;
+  align-items: center;
+}
+
+.cta-left-visual {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.cta-plane-img {
+  height: 100%;
+  max-height: 87px;
+  width: auto;
+  object-fit: contain;
+  object-position: left center;
+}
+
+.cta-right-visual-wrap {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.cta-right-visual {
+  height: 100%;
+  max-height: 87px;
+  width: auto;
+  object-fit: contain;
+  object-position: right center;
 }
 
 .cta-banner-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 28px;
-  min-height: 94px;
+  padding: 0 250px 0 240px;
+  min-height: 87px;
   position: relative;
-}
-
-.cta-left-visual {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-shrink: 0;
-}
-
-.cta-plane-img {
-  height: 84px;
-  width: auto;
-  object-fit: contain;
+  z-index: 2;
+  width: 100%;
 }
 
 .cta-center-text {
   flex-grow: 1;
-  padding: 0 30px;
+  padding-right: 24px;
 }
 
 .cta-heading {
@@ -903,24 +933,23 @@ button {
   color: #FFFFFF;
   margin-bottom: 3px;
   letter-spacing: -0.01em;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .cta-subtext {
   font-size: 12px;
   color: #E0F2FE;
   font-weight: 400;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .cta-action-area {
-  display: flex;
-  align-items: center;
-  gap: 24px;
   flex-shrink: 0;
 }
 
 .cta-btn-white {
   background-color: #FFFFFF;
-  color: var(--color-brand-blue);
+  color: #0b5ecc;
   font-size: 13px;
   font-weight: 700;
   padding: 10px 22px;
@@ -937,12 +966,6 @@ button {
   background-color: #F8FAFC;
   transform: translateY(-1px);
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
-}
-
-.cta-right-visual {
-  height: 84px;
-  width: auto;
-  object-fit: contain;
 }
 
 /* ==========================================================================
@@ -1335,7 +1358,7 @@ button {
     padding: 18px 20px;
     gap: 12px;
   }
-  .cta-left-visual, .cta-right-visual {
+  .cta-left-visual, .cta-right-visual-wrap {
     display: none;
   }
   /* Mobile Footer Middle-Aligned Accordion */
