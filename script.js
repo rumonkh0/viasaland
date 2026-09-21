@@ -181,4 +181,21 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+  // =========================================================================
+  // 5. FAQ Page Accordion Toggles
+  // =========================================================================
+  const faqHeaders = document.querySelectorAll('.faq-header-btn');
+  faqHeaders.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const card = btn.closest('.faq-card');
+      if (!card) return;
+      const isActive = card.classList.contains('is-active');
+
+      // Toggle current card
+      card.classList.toggle('is-active', !isActive);
+      btn.setAttribute('aria-expanded', String(!isActive));
+    });
+  });
 });
+
