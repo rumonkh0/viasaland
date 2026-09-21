@@ -235,20 +235,22 @@ button {
 .hero-section {
   width: 100%;
   position: relative;
-  background: linear-gradient(180deg, #EAF3FF 0%, #F5F9FF 60%, #FFFFFF 100%);
+  background: linear-gradient(180deg, #EDF6FE 0%, #F5F9FF 55%, #FFFFFF 100%);
   padding: 36px 0 28px;
   overflow: hidden;
 }
 
 .hero-grid {
   display: grid;
-  grid-template-columns: 1fr 1.05fr;
-  gap: 36px;
+  grid-template-columns: 1fr 1.25fr;
+  gap: 0;
   align-items: center;
 }
 
 .hero-content {
   z-index: 10;
+  position: relative;
+  padding-right: 12px;
 }
 
 .hero-kicker {
@@ -375,19 +377,20 @@ button {
 .hero-visual {
   position: relative;
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
+  margin-left: -32px;
 }
 
 .hero-visual-wrapper {
   position: relative;
   width: 100%;
-  max-width: 620px;
+  max-width: 100%;
 }
 
 .hero-composite-img {
   width: 100%;
   height: auto;
-  border-radius: 12px;
+  border-radius: 0;
   display: block;
 }
 
@@ -1325,6 +1328,7 @@ button {
   }
   .hero-visual {
     justify-content: center;
+    margin-left: 0;
   }
   .destinations-grid {
     grid-template-columns: repeat(2, 1fr);
