@@ -1771,11 +1771,40 @@ button {
     right: 0;
     background-color: #FFFFFF;
     flex-direction: column;
-    padding: 16px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    align-items: center;
+    padding: 26px 20px 32px;
+    gap: 12px;
+    box-shadow: 0 16px 32px rgba(0, 50, 120, 0.12);
+    border-bottom: 1px solid #E2E8F0;
+    z-index: 1000;
   }
   .nav-links.mobile-active {
     display: flex;
+  }
+  .nav-links li {
+    width: 100%;
+    max-width: 260px;
+    text-align: center;
+  }
+  .nav-links .nav-link {
+    display: block;
+    width: 100%;
+    font-size: 15px;
+    font-weight: 600;
+    color: #334155;
+    padding: 11px 24px;
+    border-radius: 9999px;
+    text-align: center;
+    transition: all 0.2s ease;
+  }
+  .nav-links .nav-link:hover {
+    color: var(--color-brand-blue);
+    background-color: #F1F5F9;
+  }
+  .nav-links .nav-link.active {
+    background-color: var(--color-blue-soft);
+    color: var(--color-brand-blue);
+    font-weight: 700;
   }
   .mobile-menu-toggle {
     display: block;
