@@ -1,0 +1,1817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adiba Global - Your Trusted Visa & Travel Partner</title>
+  <meta name="description" content="Visa Processing Made Simple, Safe & Reliable. Adiba Global helps you turn your international dreams into reality.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="assets/images/logo.png">
+</head>
+<body>
+
+  <!-- =========================================================================
+       1. TOP BAR
+       ========================================================================= -->
+  <aside class="top-bar">
+    <div class="container">
+      <div class="top-bar-left">
+        <span class="top-bar-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="m9 12 2 2 4-4"/>
+          </svg>
+          Your Trusted Visa & Travel Partner
+        </span>
+        <span class="top-bar-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          Reliable Service
+        </span>
+        <span class="top-bar-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          Expert Guidance
+        </span>
+        <span class="top-bar-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          Higher Success Rate
+        </span>
+      </div>
+      <div class="top-bar-right">
+        <a href="tel:+8801XXXXXXXXX" class="top-bar-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+          +880 1XXX-XXXXXX
+        </a>
+        <a href="mailto:info@adibatech.com" class="top-bar-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect width="20" height="16" x="2" y="4" radius="2"/>
+            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+          </svg>
+          info@adibatech.com
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- =========================================================================
+       2. MAIN NAVBAR
+       ========================================================================= -->
+  <header class="site-header">
+    <div class="container">
+      <nav class="navbar">
+        <a href="#" class="site-logo">
+          <img src="assets/images/logo.png" alt="Adiba Global - A Concern of AdibaTech.com" class="logo-img">
+        </a>
+
+        <ul class="nav-links" id="navLinks">
+          <li><a href="index.html" class="nav-link active">Home</a></li>
+          <li><a href="services.html" class="nav-link">Visa Services</a></li>
+          <li><a href="countries.html" class="nav-link">Countries</a></li>
+          <li><a href="index.html#process" class="nav-link">Process</a></li>
+          <li><a href="about.html" class="nav-link">About Us</a></li>
+          <li><a href="blog.html" class="nav-link">Blog</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+        </ul>
+
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <a href="#consultation" class="header-cta-btn js-open-modal">
+            Free Consultation &rarr;
+          </a>
+          <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="4" x2="20" y1="12" y2="12"/>
+              <line x1="4" x2="20" y1="6" y2="6"/>
+              <line x1="4" x2="20" y1="18" y2="18"/>
+            </svg>
+          </button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       3. HERO SECTION
+       ========================================================================= -->
+  <section class="hero-section" id="home">
+    <div class="container">
+      <div class="hero-grid">
+        <!-- Hero Left Column -->
+        <div class="hero-content">
+          <div class="hero-kicker">
+            TRAVEL &bull; STUDY &bull; WORK &bull; BUSINESS
+          </div>
+
+          <h1 class="hero-title">
+            Your Global Journey
+            <span class="highlight">Starts Here</span>
+          </h1>
+
+          <p class="hero-subhead">
+            Visa Processing Made Simple, Safe &amp; Reliable
+          </p>
+          <p class="hero-desc">
+            Adiba Global helps you turn your international dreams into reality with expert guidance and end-to-end visa support.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#consultation" class="btn-primary js-open-modal">
+              Get Free Consultation &rarr;
+            </a>
+            <a href="#consultation" class="btn-secondary js-open-modal">
+              Check Eligibility
+            </a>
+          </div>
+
+          <div class="hero-badges">
+            <div class="hero-badge-item">
+              <div class="hero-badge-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                  <path d="m9 12 2 2 4-4"/>
+                </svg>
+              </div>
+              <div class="hero-badge-text">
+                Trusted<br>&amp; Reliable
+              </div>
+            </div>
+
+            <div class="hero-badge-item">
+              <div class="hero-badge-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"/>
+                  <path d="m9 12 2 2 4-4"/>
+                </svg>
+              </div>
+              <div class="hero-badge-text">
+                100% Genuine<br>Process
+              </div>
+            </div>
+
+            <div class="hero-badge-item">
+              <div class="hero-badge-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                  <circle cx="9" cy="7" r="4"/>
+                  <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+              </div>
+              <div class="hero-badge-text">
+                Expert<br>Guidance
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Right Column -->
+        <div class="hero-visual">
+          <div class="hero-visual-wrapper">
+            <picture>
+              <source media="(max-width: 768px)" srcset="assets/images/hero-composite-mobile.png">
+              <img src="assets/images/hero-composite-clean.png" alt="Traveler with passport and landmarks - Adiba Global" class="hero-composite-img">
+            </picture>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       4. POPULAR DESTINATIONS
+       ========================================================================= -->
+  <section class="section" id="destinations">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Popular Destinations</h2>
+          <p class="section-subtitle">Choose your dream destination and we'll handle the rest</p>
+        </div>
+        <a href="#all-countries" class="section-link js-open-catalog" data-target="countriesModal">
+          View All Countries &rarr;
+        </a>
+      </div>
+
+      <div class="destinations-grid">
+        <!-- 1. India -->
+        <div class="dest-card">
+          <div class="dest-card-img-wrap">
+            <img src="assets/images/dest-india-photo.png" alt="India Landmark - Taj Mahal" class="dest-card-img">
+          </div>
+          <div class="dest-card-body">
+            <div class="dest-card-header">
+              <span class="flag-badge">
+                <svg viewBox="0 0 60 40">
+                  <clipPath id="in-flag-clip"><rect width="60" height="40" rx="4"/></clipPath>
+                  <g clip-path="url(#in-flag-clip)">
+                    <rect width="60" height="13.33" fill="#FF9933"/>
+                    <rect y="13.33" width="60" height="13.33" fill="#FFFFFF"/>
+                    <rect y="26.66" width="60" height="13.34" fill="#138808"/>
+                    <circle cx="30" cy="20" r="4.5" fill="none" stroke="#000080" stroke-width="1.2"/>
+                    <circle cx="30" cy="20" r="1.2" fill="#000080"/>
+                  </g>
+                </svg>
+              </span>
+              <span class="dest-country-name">India</span>
+            </div>
+            <div class="dest-card-tags">Tourist | Medical | Double Entry</div>
+          </div>
+        </div>
+
+        <!-- 2. UK -->
+        <div class="dest-card">
+          <div class="dest-card-img-wrap">
+            <img src="assets/images/dest-uk-photo.png" alt="UK Landmark" class="dest-card-img">
+          </div>
+          <div class="dest-card-body">
+            <div class="dest-card-header">
+              <span class="flag-badge">
+                <svg viewBox="0 0 60 40">
+                  <clipPath id="uk-clip"><rect width="60" height="40" rx="4"/></clipPath>
+                  <g clip-path="url(#uk-clip)">
+                    <path d="M0 0h60v40H0z" fill="#012169"/>
+                    <path d="M0 0l60 40m0-40L0 40" stroke="#fff" stroke-width="6"/>
+                    <path d="M0 0l60 40m0-40L0 40" stroke="#C8102E" stroke-width="2.5"/>
+                    <path d="M30 0v40M0 20h60" stroke="#fff" stroke-width="10"/>
+                    <path d="M30 0v40M0 20h60" stroke="#C8102E" stroke-width="6"/>
+                  </g>
+                </svg>
+              </span>
+              <span class="dest-country-name">UK</span>
+            </div>
+            <div class="dest-card-tags">Study | Work | Visit</div>
+          </div>
+        </div>
+
+        <!-- 3. Italy -->
+        <div class="dest-card">
+          <div class="dest-card-img-wrap">
+            <img src="assets/images/dest-italy-photo.png" alt="Italy Landmark" class="dest-card-img">
+          </div>
+          <div class="dest-card-body">
+            <div class="dest-card-header">
+              <span class="flag-badge">
+                <svg viewBox="0 0 60 40">
+                  <rect width="20" height="40" fill="#009246"/>
+                  <rect x="20" width="20" height="40" fill="#FFFFFF"/>
+                  <rect x="40" width="20" height="40" fill="#CE2B37"/>
+                </svg>
+              </span>
+              <span class="dest-country-name">Italy</span>
+            </div>
+            <div class="dest-card-tags">Study | Work | Visit</div>
+          </div>
+        </div>
+
+        <!-- 4. USA -->
+        <div class="dest-card">
+          <div class="dest-card-img-wrap">
+            <img src="assets/images/dest-usa-photo.png" alt="USA Landmark" class="dest-card-img">
+          </div>
+          <div class="dest-card-body">
+            <div class="dest-card-header">
+              <span class="flag-badge">
+                <svg viewBox="0 0 60 40">
+                  <rect width="60" height="40" fill="#B22234"/>
+                  <path d="M0 6h60v3H0zm0 6h60v3H0zm0 6h60v3H0zm0 6h60v3H0zm0 6h60v3H0zm0 6h60v3H0z" fill="#FFFFFF"/>
+                  <rect width="25" height="21" fill="#3C3B6E"/>
+                  <circle cx="6" cy="5" r="1" fill="#fff"/>
+                  <circle cx="12" cy="5" r="1" fill="#fff"/>
+                  <circle cx="18" cy="5" r="1" fill="#fff"/>
+                  <circle cx="9" cy="10" r="1" fill="#fff"/>
+                  <circle cx="15" cy="10" r="1" fill="#fff"/>
+                  <circle cx="6" cy="15" r="1" fill="#fff"/>
+                  <circle cx="12" cy="15" r="1" fill="#fff"/>
+                  <circle cx="18" cy="15" r="1" fill="#fff"/>
+                </svg>
+              </span>
+              <span class="dest-country-name">USA</span>
+            </div>
+            <div class="dest-card-tags">Study | Work | Visit</div>
+          </div>
+        </div>
+
+        <!-- 5. Malaysia -->
+        <div class="dest-card">
+          <div class="dest-card-img-wrap">
+            <img src="assets/images/dest-malaysia-photo.png" alt="Malaysia Landmark" class="dest-card-img">
+          </div>
+          <div class="dest-card-body">
+            <div class="dest-card-header">
+              <span class="flag-badge">
+                <svg viewBox="0 0 60 40">
+                  <rect width="60" height="40" fill="#CC0000"/>
+                  <path d="M0 3h60v3H0zm0 6h60v3H0zm0 6h60v3H0zm0 6h60v3H0zm0 6h60v3H0zm0 6h60v3H0z" fill="#FFFFFF"/>
+                  <rect width="30" height="20" fill="#000066"/>
+                  <circle cx="15" cy="10" r="6" fill="#FFCC00"/>
+                  <circle cx="17" cy="10" r="5" fill="#000066"/>
+                  <polygon points="21,10 23,8 24,10 26,9 25,11 27,12 25,13 26,15 24,14 23,16 21,14 20,15 20,13 18,12 20,11 20,9" fill="#FFCC00"/>
+                </svg>
+              </span>
+              <span class="dest-country-name">Malaysia</span>
+            </div>
+            <div class="dest-card-tags">Study | Work | Visit</div>
+          </div>
+        </div>
+
+        <!-- 6. Saudi Arabia -->
+        <div class="dest-card">
+          <div class="dest-card-img-wrap">
+            <img src="assets/images/dest-saudi-photo.png" alt="Saudi Arabia Landmark" class="dest-card-img">
+          </div>
+          <div class="dest-card-body">
+            <div class="dest-card-header">
+              <span class="flag-badge">
+                <svg viewBox="0 0 60 40">
+                  <rect width="60" height="40" fill="#006C35"/>
+                  <path d="M15 24h30v2H15z" fill="#FFFFFF"/>
+                  <text x="30" y="18" fill="#FFFFFF" font-size="8" text-anchor="middle" font-weight="bold">لَا إِلٰهَ</text>
+                </svg>
+              </span>
+              <span class="dest-country-name">Saudi Arabia</span>
+            </div>
+            <div class="dest-card-tags">Work | Visit | Umrah</div>
+          </div>
+        </div>
+
+        <!-- 7. UAE -->
+        <div class="dest-card">
+          <div class="dest-card-img-wrap">
+            <img src="assets/images/dest-uae-photo.png" alt="UAE Landmark" class="dest-card-img">
+          </div>
+          <div class="dest-card-body">
+            <div class="dest-card-header">
+              <span class="flag-badge">
+                <svg viewBox="0 0 60 40">
+                  <rect width="60" height="13.3" fill="#00732F"/>
+                  <rect y="13.3" width="60" height="13.3" fill="#FFFFFF"/>
+                  <rect y="26.6" width="60" height="13.4" fill="#000000"/>
+                  <rect width="18" height="40" fill="#FF0000"/>
+                </svg>
+              </span>
+              <span class="dest-country-name">UAE</span>
+            </div>
+            <div class="dest-card-tags">Work | Visit | Business</div>
+          </div>
+        </div>
+
+        <!-- 8. Australia -->
+        <div class="dest-card">
+          <div class="dest-card-img-wrap">
+            <img src="assets/images/dest-australia-photo.png" alt="Australia Landmark" class="dest-card-img">
+          </div>
+          <div class="dest-card-body">
+            <div class="dest-card-header">
+              <span class="flag-badge">
+                <svg viewBox="0 0 60 40">
+                  <rect width="60" height="40" fill="#00008B"/>
+                  <!-- Canton Union Jack -->
+                  <rect width="30" height="20" fill="#012169"/>
+                  <path d="M0 0l30 20m0-20L0 20" stroke="#fff" stroke-width="3"/>
+                  <path d="M0 0l30 20m0-20L0 20" stroke="#C8102E" stroke-width="1.2"/>
+                  <path d="M15 0v20M0 10h30" stroke="#fff" stroke-width="5"/>
+                  <path d="M15 0v20M0 10h30" stroke="#C8102E" stroke-width="3"/>
+                  <!-- Commonwealth Star -->
+                  <polygon points="15,26 16,29 19,27 17,30 20,31 17,32 19,35 16,33 15,36 14,33 11,35 13,32 10,31 13,30 11,27 14,29" fill="#fff" transform="scale(0.8) translate(3, 4)"/>
+                  <!-- Southern Cross Stars -->
+                  <circle cx="45" cy="8" r="1.5" fill="#fff"/>
+                  <circle cx="53" cy="14" r="1.5" fill="#fff"/>
+                  <circle cx="45" cy="32" r="1.5" fill="#fff"/>
+                  <circle cx="38" cy="18" r="1.5" fill="#fff"/>
+                  <circle cx="48" cy="22" r="1" fill="#fff"/>
+                </svg>
+              </span>
+              <span class="dest-country-name">Australia</span>
+            </div>
+            <div class="dest-card-tags">Study | Work | Visit</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       5. OUR VISA SERVICES
+       ========================================================================= -->
+  <section class="services-section" id="services">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Our Visa Services</h2>
+          <p class="section-subtitle">Complete visa solutions under one roof</p>
+        </div>
+        <a href="#all-services" class="section-link js-open-catalog" data-target="servicesModal">
+          View All Services &rarr;
+        </a>
+      </div>
+
+      <div class="services-grid">
+        <!-- 1. Student Visa -->
+        <div class="service-card service-student">
+          <div class="service-icon-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/>
+              <path d="M22 10v6"/>
+              <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/>
+            </svg>
+          </div>
+          <h3 class="service-title">Student Visa</h3>
+          <p class="service-desc">University admission &amp; visa processing</p>
+        </div>
+
+        <!-- 2. Work Visa -->
+        <div class="service-card service-work">
+          <div class="service-icon-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="20" height="14" x="2" y="7" rx="2" ry="2"/>
+              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+            </svg>
+          </div>
+          <h3 class="service-title">Work Visa</h3>
+          <p class="service-desc">Job support &amp; work permit guidance</p>
+        </div>
+
+        <!-- 3. Tourist Visa -->
+        <div class="service-card service-tourist">
+          <div class="service-icon-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="6" width="16" height="15" rx="3"/>
+              <path d="M9 6V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/>
+              <line x1="12" x2="12" y1="10" y2="17"/>
+              <circle cx="7" cy="21" r="1"/>
+              <circle cx="17" cy="21" r="1"/>
+            </svg>
+          </div>
+          <h3 class="service-title">Tourist Visa</h3>
+          <p class="service-desc">Explore the world with confidence</p>
+        </div>
+
+        <!-- 4. Business Visa -->
+        <div class="service-card service-business">
+          <div class="service-icon-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </div>
+          <h3 class="service-title">Business Visa</h3>
+          <p class="service-desc">Expand your business globally</p>
+        </div>
+
+        <!-- 5. Family Visa -->
+        <div class="service-card service-family">
+          <div class="service-icon-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+            </svg>
+          </div>
+          <h3 class="service-title">Family Visa</h3>
+          <p class="service-desc">Reunite with your loved ones</p>
+        </div>
+
+        <!-- 6. Umrah Visa -->
+        <div class="service-card service-umrah">
+          <div class="service-icon-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3v2"/>
+              <path d="M6 8l6-5 6 5v12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1Z"/>
+              <path d="M10 21v-6a2 2 0 0 1 4 0v6"/>
+            </svg>
+          </div>
+          <h3 class="service-title">Umrah Visa</h3>
+          <p class="service-desc">Spiritual journey made easy</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       6. SIMPLE 4-STEP PROCESS
+       ========================================================================= -->
+  <section class="process-section" id="process">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Our Simple 4-Step Process</h2>
+          <p class="section-subtitle">From application to approval – we are with you at every step</p>
+        </div>
+      </div>
+
+      <div class="process-layout">
+        <!-- Steps List with Arrows -->
+        <div class="steps-track">
+          <!-- Step 1 -->
+          <div class="step-item">
+            <div class="step-icon-circle">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+              </svg>
+            </div>
+            <div class="step-info">
+              <div class="step-number">01</div>
+              <div class="step-title">Consultation</div>
+              <div class="step-sub">Know your options</div>
+            </div>
+          </div>
+
+          <!-- Arrow 1 -->
+          <div class="step-arrow" aria-hidden="true">
+            <svg width="22" height="12" viewBox="0 0 22 12" fill="none">
+              <path d="M1 6H20M20 6L15 1M20 6L15 11" stroke="#93C5FD" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="step-item">
+            <div class="step-icon-circle">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="16" x2="8" y1="13" y2="13"/>
+                <line x1="16" x2="8" y1="17" y2="17"/>
+                <line x1="10" x2="8" y1="9" y2="9"/>
+              </svg>
+            </div>
+            <div class="step-info">
+              <div class="step-number">02</div>
+              <div class="step-title">Document Preparation</div>
+              <div class="step-sub">We guide you completely</div>
+            </div>
+          </div>
+
+          <!-- Arrow 2 -->
+          <div class="step-arrow" aria-hidden="true">
+            <svg width="22" height="12" viewBox="0 0 22 12" fill="none">
+              <path d="M1 6H20M20 6L15 1M20 6L15 11" stroke="#93C5FD" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="step-item">
+            <div class="step-icon-circle">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+              </svg>
+            </div>
+            <div class="step-info">
+              <div class="step-number">03</div>
+              <div class="step-title">Application &amp; Follow Up</div>
+              <div class="step-sub">Hassle-free processing</div>
+            </div>
+          </div>
+
+          <!-- Arrow 3 -->
+          <div class="step-arrow" aria-hidden="true">
+            <svg width="22" height="12" viewBox="0 0 22 12" fill="none">
+              <path d="M1 6H20M20 6L15 1M20 6L15 11" stroke="#93C5FD" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="step-item">
+            <div class="step-icon-circle">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/>
+              </svg>
+            </div>
+            <div class="step-info">
+              <div class="step-number">04</div>
+              <div class="step-title">Get Your Visa</div>
+              <div class="step-sub">Start your journey</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Process Graphic -->
+        <div class="process-graphic-wrap">
+          <img src="assets/images/process-passport-full.png" alt="Passport and Ticket - Your Dream Destination is Just a Step Away" class="process-graphic-img">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       7. WHY CHOOSE ADIBA GLOBAL?
+       ========================================================================= -->
+  <section class="why-choose-section" id="why-us">
+    <div class="why-choose-bg-overlay"></div>
+    <div class="container why-choose-content">
+      <h2 class="why-choose-title">Why Choose Adiba Global?</h2>
+
+      <div class="why-features-row">
+        <!-- 1. Experienced Team -->
+        <div class="why-feature-item">
+          <div class="why-feature-icon why-icon-trophy">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
+              <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
+              <path d="M4 22h16"/>
+              <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/>
+              <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
+              <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
+            </svg>
+          </div>
+          <div class="why-feature-info">
+            <h4 class="why-feature-title">Experienced Team</h4>
+            <p class="why-feature-desc">Years of industry experience</p>
+          </div>
+        </div>
+
+        <!-- 2. High Success Rate -->
+        <div class="why-feature-item">
+          <div class="why-feature-icon why-icon-rate">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <path d="m9 12 2 2 4-4"/>
+            </svg>
+          </div>
+          <div class="why-feature-info">
+            <h4 class="why-feature-title">High Success Rate</h4>
+            <p class="why-feature-desc">Trusted by hundreds of clients</p>
+          </div>
+        </div>
+
+        <!-- 3. End-to-End Support -->
+        <div class="why-feature-item">
+          <div class="why-feature-icon why-icon-support">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
+              <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>
+            </svg>
+          </div>
+          <div class="why-feature-info">
+            <h4 class="why-feature-title">End-to-End Support</h4>
+            <p class="why-feature-desc">From application to travel</p>
+          </div>
+        </div>
+
+        <!-- 4. Personalized Service -->
+        <div class="why-feature-item">
+          <div class="why-feature-icon why-icon-service">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </div>
+          <div class="why-feature-info">
+            <h4 class="why-feature-title">Personalized Service</h4>
+            <p class="why-feature-desc">Solutions for your unique needs</p>
+          </div>
+        </div>
+
+        <!-- 5. Transparent Process -->
+        <div class="why-feature-item">
+          <div class="why-feature-icon why-icon-process">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="12" x2="12" y1="16" y2="12"/>
+              <line x1="12" x2="12.01" y1="8" y2="8"/>
+            </svg>
+          </div>
+          <div class="why-feature-info">
+            <h4 class="why-feature-title">Transparent Process</h4>
+            <p class="why-feature-desc">No hidden charges</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       8. WHAT OUR CLIENTS SAY (TESTIMONIALS)
+       ========================================================================= -->
+  <section class="testimonials-section" id="reviews">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">What Our Clients Say</h2>
+          <p class="section-subtitle">Real stories from real travelers</p>
+        </div>
+        <a href="#all-reviews" class="section-link js-open-catalog" data-target="reviewsModal">
+          View All Reviews &rarr;
+        </a>
+      </div>
+
+      <div class="testimonials-grid">
+        <!-- Testimonial 1 -->
+        <div class="testimonial-card">
+          <div class="testimonial-avatar-wrap">
+            <img src="assets/images/avatar-rahim.png" alt="Rahim Uddin" class="testimonial-avatar">
+          </div>
+          <div class="testimonial-body">
+            <p class="testimonial-quote">
+              Adiba Global made my student visa process so easy. Very professional and supportive team!
+            </p>
+            <div>
+              <div class="testimonial-author">&mdash; Rahim Uddin</div>
+              <div class="testimonial-role">Student, Italy</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 2 -->
+        <div class="testimonial-card">
+          <div class="testimonial-avatar-wrap">
+            <img src="assets/images/avatar-nusrat.png" alt="Nusrat Jahan" class="testimonial-avatar">
+          </div>
+          <div class="testimonial-body">
+            <p class="testimonial-quote">
+              I got my UK visitor visa without any hassle. Their guidance was excellent.
+            </p>
+            <div>
+              <div class="testimonial-author">&mdash; Nusrat Jahan</div>
+              <div class="testimonial-role">Visitor, United Kingdom</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 3 -->
+        <div class="testimonial-card">
+          <div class="testimonial-avatar-wrap">
+            <img src="assets/images/avatar-arif.png" alt="Md. Arif Hossain" class="testimonial-avatar">
+          </div>
+          <div class="testimonial-body">
+            <p class="testimonial-quote">
+              Very reliable and helpful service. Highly recommended!
+            </p>
+            <div>
+              <div class="testimonial-author">&mdash; Md. Arif Hossain</div>
+              <div class="testimonial-role">Work Visa, Malaysia</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       9. CTA BANNER
+       ========================================================================= -->
+  <section class="cta-banner-wrapper">
+    <div class="cta-left-visual">
+      <img src="assets/images/cta-plane-clean.png" alt="Airplane flying" class="cta-plane-img">
+    </div>
+
+    <div class="container cta-banner-container">
+      <div class="cta-center-text">
+        <h3 class="cta-heading">Ready to Start Your Global Journey?</h3>
+        <p class="cta-subtext">Get expert advice today and take the first step towards your dream destination.</p>
+      </div>
+
+      <div class="cta-action-area">
+        <a href="#consultation" class="cta-btn-white js-open-modal">
+          Get Free Consultation &rarr;
+        </a>
+      </div>
+    </div>
+
+    <div class="cta-right-visual-wrap">
+      <img src="assets/images/cta-luggage-clean.png" alt="Travel luggage and hat - Travel Explore Live Better" class="cta-right-visual">
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       10. FOOTER
+       ========================================================================= -->
+  <footer class="site-footer" id="contact">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Col 1: Brand -->
+        <div class="footer-brand">
+          <img src="assets/images/logo.png" alt="Adiba Global" class="footer-logo">
+        </div>
+
+        <!-- Col 2: Quick Links -->
+        <div class="footer-col footer-accordion">
+          <button class="footer-col-title footer-accordion-btn" aria-expanded="false">
+            <span>Quick Links</span>
+            <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </button>
+          <div class="footer-accordion-panel">
+            <ul class="footer-links-list">
+              <li><a href="index.html">Home</a></li>
+              <li><a href="services.html">Visa Services</a></li>
+              <li><a href="countries.html">Countries</a></li>
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="contact.html">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Col 3: Our Services -->
+        <div class="footer-col footer-accordion">
+          <button class="footer-col-title footer-accordion-btn" aria-expanded="false">
+            <span>Our Services</span>
+            <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </button>
+          <div class="footer-accordion-panel">
+            <ul class="footer-links-list">
+              <li><a href="student-visa.html">Student Visa</a></li>
+              <li><a href="work-visa.html">Work Visa</a></li>
+              <li><a href="tourist-visa.html">Tourist Visa</a></li>
+              <li><a href="business-visa.html">Business Visa</a></li>
+              <li><a href="umrah-visa.html">Umrah Visa</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Col 4: Support -->
+        <div class="footer-col footer-accordion">
+          <button class="footer-col-title footer-accordion-btn" aria-expanded="false">
+            <span>Support</span>
+            <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </button>
+          <div class="footer-accordion-panel">
+            <ul class="footer-links-list">
+              <li><a href="faq.html">FAQs</a></li>
+              <li><a href="documents.html">Required Documents</a></li>
+              <li><a href="blog.html">Visa Blog</a></li>
+              <li><a href="terms.html">Terms &amp; Conditions</a></li>
+              <li><a href="privacy.html">Privacy Policy</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Col 5: Contact Us (Open by default) -->
+        <div class="footer-col footer-accordion is-open">
+          <button class="footer-col-title footer-accordion-btn" aria-expanded="true">
+            <span>Contact Us</span>
+            <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </button>
+          <div class="footer-accordion-panel">
+            <ul class="footer-contact-list">
+              <li class="footer-contact-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                </svg>
+                <span>+880 1XXX-XXXXXX</span>
+              </li>
+              <li class="footer-contact-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect width="20" height="16" x="2" y="4" radius="2"/>
+                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                </svg>
+                <span>info@adibatech.com</span>
+              </li>
+              <li class="footer-contact-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
+                  <circle cx="12" cy="10" r="3"/>
+                </svg>
+                <span>Pabna Bazar, Raiganj Sirajganj, Bangladesh</span>
+              </li>
+            </ul>
+
+            <!-- Social Icons -->
+            <div class="footer-social-row">
+              <a href="#" class="social-icon-btn social-facebook" aria-label="Facebook">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+                </svg>
+              </a>
+              <a href="#" class="social-icon-btn social-youtube" aria-label="YouTube">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/>
+                  <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="#FFFFFF"/>
+                </svg>
+              </a>
+              <a href="#" class="social-icon-btn social-whatsapp" aria-label="WhatsApp">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M17.472 14.382c-.301-.15-1.78-.877-2.056-.977-.276-.1-.477-.15-.678.15-.2.301-.778.977-.954 1.178-.175.2-.351.226-.652.075-.3-.15-1.27-.468-2.42-1.493-.894-.798-1.498-1.784-1.674-2.085-.175-.3-.019-.463.131-.613.136-.135.301-.351.451-.527.151-.175.2-.301.301-.502.101-.2.05-.376-.025-.526-.075-.15-.678-1.631-.929-2.233-.244-.588-.493-.508-.678-.517-.175-.01-.376-.01-.577-.01-.2 0-.527.075-.803.376s-1.054 1.03-1.054 2.512c0 1.482 1.079 2.912 1.23 3.113.15.2 2.124 3.243 5.144 4.547.719.311 1.28.497 1.718.636.722.23 1.379.197 1.9.12.58-.087 1.78-.727 2.03-1.43.251-.703.251-1.305.176-1.43-.075-.126-.276-.201-.577-.351z"/>
+                </svg>
+              </a>
+              <a href="#" class="social-icon-btn social-instagram" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                  <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+                </svg>
+              </a>
+              <a href="#" class="social-icon-btn social-tiktok" aria-label="TikTok">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.35 0 .68.06 1 .17V9.08a6.38 6.38 0 0 0-1-.08A6.34 6.34 0 0 0 3 15.34a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.72A8.19 8.19 0 0 0 21 10V6.69h-1.41z"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sub-footer bottom bar -->
+    <div class="sub-footer">
+      <div class="container">
+        <div>
+          &copy; 2026 Adiba Global. A Concern of AdibaTech.com. All rights reserved.
+        </div>
+        <div class="sub-footer-right">
+          <span>Explore the World with Adiba Global</span>
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+            <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =========================================================================
+       11. INTERACTIVE CONSULTATION MODAL
+       ========================================================================= -->
+  <div class="modal-overlay" id="consultationModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modalTitle">Get Free Visa Consultation</h3>
+        <button class="modal-close-btn" id="closeModalBtn" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-success-alert" id="modalSuccessAlert">
+          &check; Thank you! Your inquiry has been submitted. Our visa expert will call you shortly.
+        </div>
+        <form id="consultationForm" method="POST" action="{{ route('applications.storeLead') }}">
+          @csrf
+          <div class="form-group">
+            <label for="fullName">Full Name *</label>
+            <input type="text" id="fullName" name="fullName" class="form-control" placeholder="e.g. Rahim Uddin" required>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="phone">Phone Number *</label>
+              <input type="tel" id="phone" name="phone" class="form-control" placeholder="+880 1XXX-XXXXXX" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" class="form-control" placeholder="you@example.com">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="country">Preferred Country</label>
+              <select id="country" name="country" class="form-control">
+                <option value="India" selected>India</option>
+                <option value="UK">United Kingdom (UK)</option>
+                <option value="USA">USA</option>
+                <option value="Canada">Canada</option>
+                <option value="Australia">Australia</option>
+                <option value="Italy">Italy</option>
+                <option value="Germany">Germany</option>
+                <option value="France">France</option>
+                <option value="Sweden">Sweden</option>
+                <option value="Portugal">Portugal</option>
+                <option value="Japan">Japan</option>
+                <option value="South Korea">South Korea</option>
+                <option value="Singapore">Singapore</option>
+                <option value="Malaysia">Malaysia</option>
+                <option value="Saudi Arabia">Saudi Arabia</option>
+                <option value="UAE">United Arab Emirates (UAE)</option>
+                <option value="Turkey">Turkey</option>
+                <option value="Qatar">Qatar</option>
+                <option value="New Zealand">New Zealand</option>
+                <option value="Other">Other Country</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="visaType">Visa Type</label>
+              <select id="visaType" name="visaType" class="form-control">
+                <option value="Tourist">Tourist Visa</option>
+                <option value="Medical">Medical Visa</option>
+                <option value="Double Entry">Double Entry Visa</option>
+                <option value="Student">Student Visa</option>
+                <option value="Work">Work Visa</option>
+                <option value="Business">Business Visa</option>
+                <option value="Family">Family / Spouse Visa</option>
+                <option value="Umrah">Umrah Visa</option>
+                <option value="PR">Permanent Residency / Investor</option>
+                <option value="Appeal">Visa Appeal / Refusal Review</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Your Query / Educational Details</label>
+            <textarea id="message" class="form-control" rows="3" placeholder="Tell us about your background or requirements..."></textarea>
+          </div>
+
+          <button type="submit" class="form-submit-btn">
+            Submit Consultation Request &rarr;
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       12. ALL COUNTRIES CATALOG MODAL
+       ========================================================================= -->
+  <div class="modal-overlay" id="countriesModal" role="dialog" aria-modal="true" aria-labelledby="countriesModalTitle">
+    <div class="modal-card modal-large">
+      <div class="modal-header">
+        <div>
+          <h3 id="countriesModalTitle">All Supported Countries & Destinations</h3>
+          <p class="modal-subtitle">Proven visa processing success across 18+ leading global destinations</p>
+        </div>
+        <button class="modal-close-btn js-close-modal" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body catalog-body">
+        <!-- Search & Filter Controls -->
+        <div class="catalog-controls">
+          <div class="catalog-search-wrap">
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" id="countrySearchInput" class="catalog-search-input" placeholder="Search country (e.g. Germany, Canada, Japan)...">
+          </div>
+          <div class="catalog-filter-pills" id="countryFilterPills">
+            <button type="button" class="filter-pill active" data-continent="all">All (19)</button>
+            <button type="button" class="filter-pill" data-continent="europe">Europe (7)</button>
+            <button type="button" class="filter-pill" data-continent="north-america">North America (2)</button>
+            <button type="button" class="filter-pill" data-continent="asia-middle-east">Asia & Middle East (8)</button>
+            <button type="button" class="filter-pill" data-continent="oceania">Oceania (2)</button>
+          </div>
+        </div>
+
+        <!-- Countries Grid -->
+        <div class="catalog-countries-grid" id="catalogCountriesGrid">
+          <!-- 1. India -->
+          <div class="catalog-country-card" data-continent="asia-middle-east" data-country="India Bharat Tourist Medical Double Entry">
+            <div class="cat-card-top">
+              <span class="cat-flag">🇮🇳</span>
+              <div>
+                <h4 class="cat-country-name">India</h4>
+                <span class="cat-continent-badge">South Asia</span>
+              </div>
+            </div>
+            <div class="cat-meta-row">
+              <span class="cat-time">⏱️ 3–5 Days</span>
+              <span class="cat-success">★ 99% Success</span>
+            </div>
+            <div class="cat-visas-tags">
+              <span class="visa-tag">Tourist</span>
+              <span class="visa-tag">Medical</span>
+              <span class="visa-tag">Double Entry</span>
+            </div>
+            <button type="button" class="cat-apply-btn js-apply-from-catalog" data-country="India" data-visa="Tourist">
+              Apply for India &rarr;
+            </button>
+          </div>
+
+          <!-- 2. UK -->
+          <div class="catalog-country-card" data-continent="europe" data-country="United Kingdom UK">
+            <div class="cat-card-top">
+              <span class="cat-flag">🇬🇧</span>
+              <div>
+                <h4 class="cat-country-name">United Kingdom</h4>
+                <span class="cat-continent-badge">Europe</span>
+              </div>
+            </div>
+            <div class="cat-meta-row">
+              <span class="cat-time">⏱️ 2–3 Weeks</span>
+              <span class="cat-success">★ 99% Success</span>
+            </div>
+            <div class="cat-visas-tags">
+              <span class="visa-tag">Student</span>
+              <span class="visa-tag">Visitor</span>
+              <span class="visa-tag">Skilled Worker</span>
+            </div>
+            <button type="button" class="cat-apply-btn js-apply-from-catalog" data-country="UK" data-visa="Student">
+              Apply for UK &rarr;
+            </button>
+          </div>
+
+          <!-- 2. USA -->
+          <div class="catalog-country-card" data-continent="north-america" data-country="United States USA">
+            <div class="cat-card-top">
+              <span class="cat-flag">🇺🇸</span>
+              <div>
+                <h4 class="cat-country-name">United States</h4>
+                <span class="cat-continent-badge">North America</span>
+              </div>
+            </div>
+            <div class="cat-meta-row">
+              <span class="cat-time">⏱️ 3–5 Weeks</span>
+              <span class="cat-success">★ 95% Success</span>
+            </div>
+            <div class="cat-visas-tags">
+              <span class="visa-tag">F-1 Student</span>
+              <span class="visa-tag">B1/B2 Tourist</span>
+              <span class="visa-tag">J-1 Exchange</span>
+            </div>
+            <button type="button" class="cat-apply-btn js-apply-from-catalog" data-country="USA" data-visa="Student">
+              Apply for USA &rarr;
+            </button>
+          </div>
+
+          <!-- 3. Canada -->
+          <div class="catalog-country-card" data-continent="north-america" data-country="Canada">
+            <div class="cat-card-top">
+              <span class="cat-flag">🇨🇦</span>
+              <div>
+                <h4 class="cat-country-name">Canada</h4>
+                <span class="cat-continent-badge">North America</span>
+              </div>
+            </div>
+            <div class="cat-meta-row">
+              <span class="cat-time">⏱️ 4–6 Weeks</span>
+              <span class="cat-success">★ 98% Success</span>
+            </div>
+            <div class="cat-visas-tags">
+              <span class="visa-tag">Study Permit</span>
+              <span class="visa-tag">Visitor Visa</span>
+              <span class="visa-tag">Express Entry</span>
+            </div>
+            <button type="button" class="cat-apply-btn js-apply-from-catalog" data-country="Canada" data-visa="Student">
+              Apply for Canada &rarr;
+            </button>
+          </div>
+
+          <!-- 4. Australia -->
+          <div class="catalog-country-card" data-continent="oceania" data-country="Australia">
+            <div class="cat-card-top">
+              <span class="cat-flag">🇦🇺</span>
+              <div>
+                <h4 class="cat-country-name">Australia</h4>
+                <span class="cat-continent-badge">Oceania</span>
+              </div>
+            </div>
+            <div class="cat-meta-row">
+              <span class="cat-time">⏱️ 3–4 Weeks</span>
+              <span class="cat-success">★ 97% Success</span>
+            </div>
+            <div class="cat-visas-tags">
+              <span class="visa-tag">Subclass 500</span>
+              <span class="visa-tag">Tourist 600</span>
+              <span class="visa-tag">Work TSS 482</span>
+            </div>
+            <button type="button" class="cat-apply-btn js-apply-from-catalog" data-country="Australia" data-visa="Student">
+              Apply for Australia &rarr;
+            </button>
+          </div>
+
+          <!-- 5. Italy -->
+          <div class="catalog-country-card" data-continent="europe" data-country="Italy">
+            <div class="cat-card-top">
+              <span class="cat-flag">🇮🇹</span>
+              <div>
+                <h4 class="cat-country-name">Italy</h4>
+                <span class="cat-continent-badge">Europe / Schengen</span>
+              </div>
+            </div>
+            <div class="cat-meta-row">
+              <span class="cat-time">⏱️ 3–4 Weeks</span>
+              <span class="cat-success">★ 98% Success</span>
+            </div>
+            <div class="cat-visas-tags">
+              <span class="visa-tag">Study (DSU)</span>
+              <span class="visa-tag">Schengen Visit</span>
+              <span class="visa-tag">Decreto Flussi</span>
+            </div>
+            <button type="button" class="cat-apply-btn js-apply-from-catalog" data-country="Italy" data-visa="Student">
+              Apply for Italy &rarr;
+            </button>
+          </div>
+
+          <!-- 6. Germany -->
+          <div class="catalog-country-card" data-continent="europe" data-country="Germany">
+            <div class="cat-card-top">
+              <span class="cat-flag">🇩🇪</span>
+              <div>
+                <h4 class="cat-country-name">Germany</h4>
+                <span class="cat-continent-badge">Europe / Schengen</span>
+              </div>
+            </div>
+            <div class="cat-meta-row">
+              <span class="cat-time">⏱️ 3–5 Weeks</span>
+              <span class="cat-success">★ 97% Success</span>
+            </div>
+            <div class="cat-visas-tags">
+              <span class="visa-tag">Chancenkarte</span>
+              <span class="visa-tag">Student Visa</span>
+              <span class="visa-tag">Job Seeker</span>
+            </div>
+            <button type="button" class="cat-apply-btn js-apply-from-catalog" data-country="Germany" data-visa="Work">
+              Apply for Germany &rarr;
+            </button>
+          </div>
+
+          <!-- 7. France -->
+          <div class="catalog-country-card" data-continent="europe" data-country="France">
+            <div class="cat-card-top">
+              <span class="cat-flag">🇫🇷</span>
+              <div>
+                <h4 class="cat-country-name">France</h4>
+                <span class="cat-continent-badge">Europe / Schengen</span>
+              </div>
+            </div>
+            <div class="cat-meta-row">
+              <span class="cat-time">⏱️ 2–4 Weeks</span>
+              <span class="cat-success">★ 96% Success</span>
+            </div>
+            <div class="cat-visas-tags">
+              <span class="visa-tag">Campus France</span>
+              <span class="visa-tag">Schengen Visit</span>
+              <span class="visa-tag">Talent Passport</span>
+            </div>
+            <button type="button" class="cat-apply-btn js-apply-from-catalog" data-country="France" data-visa="Student">
+              Apply for France &rarr;
+            </button>
+          </div>
+
+          <!-- 8. Sweden -->
+          <div class="catalog-country-card" data-continent="europe" data-country="Sweden">
+            <div class="cat-card-top">
+              <span class="cat-flag">🇸🇪</span>
+              <div>
+                <h4 class="cat-country-name">Sweden</h4>
+                <span class="cat-continent-badge">Europe / Scandinavia</span>
+              </div>
+            </div>
+            <div class="cat-meta-row">
+              <span class="cat-time">⏱️ 4–6 Weeks</span>
+              <span class="cat-success">★ 96% Success</span>
+            </div>
+            <div class="cat-visas-tags">
+              <span class="visa-tag">Master's Study</span>
+              <span class="visa-tag">Work Permit</span>
+              <span class="visa-tag">Visitor Visa</span>
+            </div>
+            <button type="button" class="cat-apply-btn js-apply-from-catalog" data-country="Sweden" data-visa="Student">
+              Apply for Sweden &rarr;
+            </button>
+          </div>
+
+          <!-- 9. Portugal -->
+          <div class="catalog-country-card" data-continent="europe" data-country="Portugal">
+            <div class="cat-card-top">
+              <span class="cat-flag">🇵🇹</span>
+              <div>
+                <h4 class="cat-country-name">Portugal</h4>
+                <span class="cat-continent-badge">Europe / Schengen</span>
+              </div>
+            </div>
+            <div class="cat-meta-row">
+              <span class="cat-time">⏱️ 4–8 Weeks</span>
+              <span class="cat-success">★ 95% Success</span>
+            </div>
+            <div class="cat-visas-tags">
+              <span class="visa-tag">D8 Nomad</span>
+              <span class="visa-tag">Job Seeker</span>
+              <span class="visa-tag">Student Visa</span>
+            </div>
+            <button type="button" class="cat-apply-btn js-apply-from-catalog" data-country="Portugal" data-visa="Work">
+              Apply for Portugal &rarr;
+            </button>
+          </div>
+
+          <!-- 10. Japan -->
+          <div class="catalog-country-card" data-continent="asia-middle-east" data-country="Japan">
+            <div class="cat-card-top">
+              <span class="cat-flag">🇯🇵</span>
+              <div>
+                <h4 class="cat-country-name">Japan</h4>
+                <span class="cat-continent-badge">Asia</span>
+              </div>
+            </div>
+            <div class="cat-meta-row">
+              <span class="cat-time">⏱️ 4–6 Weeks</span>
+              <span class="cat-success">★ 95% Success</span>
+            </div>
+            <div class="cat-visas-tags">
+              <span class="visa-tag">Student COE</span>
+              <span class="visa-tag">SSW Work</span>
+              <span class="visa-tag">Tourist Visa</span>
+            </div>
+            <button type="button" class="cat-apply-btn js-apply-from-catalog" data-country="Japan" data-visa="Student">
+              Apply for Japan &rarr;
+            </button>
+          </div>
+
+          <!-- 11. South Korea -->
+          <div class="catalog-country-card" data-continent="asia-middle-east" data-country="South Korea">
+            <div class="cat-card-top">
+              <span class="cat-flag">🇰🇷</span>
+              <div>
+                <h4 class="cat-country-name">South Korea</h4>
+                <span class="cat-continent-badge">Asia</span>
+              </div>
+            </div>
+            <div class="cat-meta-row">
+              <span class="cat-time">⏱️ 3–4 Weeks</span>
+              <span class="cat-success">★ 95% Success</span>
+            </div>
+            <div class="cat-visas-tags">
+              <span class="visa-tag">D-2 Student</span>
+              <span class="visa-tag">E-7 Work</span>
+              <span class="visa-tag">C-3 Tourist</span>
+            </div>
+            <button type="button" class="cat-apply-btn js-apply-from-catalog" data-country="South Korea" data-visa="Student">
+              Apply for South Korea &rarr;
+            </button>
+          </div>
+
+          <!-- 12. Singapore -->
+          <div class="catalog-country-card" data-continent="asia-middle-east" data-country="Singapore">
+            <div class="cat-card-top">
+              <span class="cat-flag">🇸🇬</span>
+              <div>
+                <h4 class="cat-country-name">Singapore</h4>
+                <span class="cat-continent-badge">Asia</span>
+              </div>
+            </div>
+            <div class="cat-meta-row">
+              <span class="cat-time">⏱️ 1–2 Weeks</span>
+              <span class="cat-success">★ 98% Success</span>
+            </div>
+            <div class="cat-visas-tags">
+              <span class="visa-tag">Student Pass</span>
+              <span class="visa-tag">Employment Pass</span>
+              <span class="visa-tag">Tourist E-Visa</span>
+            </div>
+            <button type="button" class="cat-apply-btn js-apply-from-catalog" data-country="Singapore" data-visa="Tourist">
+              Apply for Singapore &rarr;
+            </button>
+          </div>
+
+          <!-- 13. Malaysia -->
+          <div class="catalog-country-card" data-continent="asia-middle-east" data-country="Malaysia">
+            <div class="cat-card-top">
+              <span class="cat-flag">🇲🇾</span>
+              <div>
+                <h4 class="cat-country-name">Malaysia</h4>
+                <span class="cat-continent-badge">Asia</span>
+              </div>
+            </div>
+            <div class="cat-meta-row">
+              <span class="cat-time">⏱️ 2–3 Weeks</span>
+              <span class="cat-success">★ 99% Success</span>
+            </div>
+            <div class="cat-visas-tags">
+              <span class="visa-tag">EMGS Student</span>
+              <span class="visa-tag">Work Permit</span>
+              <span class="visa-tag">eNTRI Tourist</span>
+            </div>
+            <button type="button" class="cat-apply-btn js-apply-from-catalog" data-country="Malaysia" data-visa="Work">
+              Apply for Malaysia &rarr;
+            </button>
+          </div>
+
+          <!-- 14. Saudi Arabia -->
+          <div class="catalog-country-card" data-continent="asia-middle-east" data-country="Saudi Arabia">
+            <div class="cat-card-top">
+              <span class="cat-flag">🇸🇦</span>
+              <div>
+                <h4 class="cat-country-name">Saudi Arabia</h4>
+                <span class="cat-continent-badge">Middle East</span>
+              </div>
+            </div>
+            <div class="cat-meta-row">
+              <span class="cat-time">⏱️ 2–5 Days</span>
+              <span class="cat-success">★ 99% Success</span>
+            </div>
+            <div class="cat-visas-tags">
+              <span class="visa-tag">Umrah E-Visa</span>
+              <span class="visa-tag">Tourist Visa</span>
+              <span class="visa-tag">Business Visit</span>
+            </div>
+            <button type="button" class="cat-apply-btn js-apply-from-catalog" data-country="Saudi Arabia" data-visa="Umrah">
+              Apply for Saudi Arabia &rarr;
+            </button>
+          </div>
+
+          <!-- 15. UAE -->
+          <div class="catalog-country-card" data-continent="asia-middle-east" data-country="United Arab Emirates UAE Dubai">
+            <div class="cat-card-top">
+              <span class="cat-flag">🇦🇪</span>
+              <div>
+                <h4 class="cat-country-name">United Arab Emirates</h4>
+                <span class="cat-continent-badge">Middle East</span>
+              </div>
+            </div>
+            <div class="cat-meta-row">
+              <span class="cat-time">⏱️ 24–48 Hours</span>
+              <span class="cat-success">★ 99% Success</span>
+            </div>
+            <div class="cat-visas-tags">
+              <span class="visa-tag">30/60d Tourist</span>
+              <span class="visa-tag">Golden Visa</span>
+              <span class="visa-tag">Freelance Permit</span>
+            </div>
+            <button type="button" class="cat-apply-btn js-apply-from-catalog" data-country="UAE" data-visa="Tourist">
+              Apply for UAE &rarr;
+            </button>
+          </div>
+
+          <!-- 16. Turkey -->
+          <div class="catalog-country-card" data-continent="asia-middle-east" data-country="Turkey Turkiye">
+            <div class="cat-card-top">
+              <span class="cat-flag">🇹🇷</span>
+              <div>
+                <h4 class="cat-country-name">Turkey</h4>
+                <span class="cat-continent-badge">Middle East / Europe</span>
+              </div>
+            </div>
+            <div class="cat-meta-row">
+              <span class="cat-time">⏱️ 1–2 Weeks</span>
+              <span class="cat-success">★ 96% Success</span>
+            </div>
+            <div class="cat-visas-tags">
+              <span class="visa-tag">E-Visa</span>
+              <span class="visa-tag">Student Visa</span>
+              <span class="visa-tag">Residence Permit</span>
+            </div>
+            <button type="button" class="cat-apply-btn js-apply-from-catalog" data-country="Turkey" data-visa="Tourist">
+              Apply for Turkey &rarr;
+            </button>
+          </div>
+
+          <!-- 17. Qatar -->
+          <div class="catalog-country-card" data-continent="asia-middle-east" data-country="Qatar">
+            <div class="cat-card-top">
+              <span class="cat-flag">🇶🇦</span>
+              <div>
+                <h4 class="cat-country-name">Qatar</h4>
+                <span class="cat-continent-badge">Middle East</span>
+              </div>
+            </div>
+            <div class="cat-meta-row">
+              <span class="cat-time">⏱️ 3–5 Days</span>
+              <span class="cat-success">★ 98% Success</span>
+            </div>
+            <div class="cat-visas-tags">
+              <span class="visa-tag">Hayya Tourist</span>
+              <span class="visa-tag">Work Visa</span>
+              <span class="visa-tag">Family Visit</span>
+            </div>
+            <button type="button" class="cat-apply-btn js-apply-from-catalog" data-country="Qatar" data-visa="Tourist">
+              Apply for Qatar &rarr;
+            </button>
+          </div>
+
+          <!-- 18. New Zealand -->
+          <div class="catalog-country-card" data-continent="oceania" data-country="New Zealand">
+            <div class="cat-card-top">
+              <span class="cat-flag">🇳🇿</span>
+              <div>
+                <h4 class="cat-country-name">New Zealand</h4>
+                <span class="cat-continent-badge">Oceania</span>
+              </div>
+            </div>
+            <div class="cat-meta-row">
+              <span class="cat-time">⏱️ 4–6 Weeks</span>
+              <span class="cat-success">★ 95% Success</span>
+            </div>
+            <div class="cat-visas-tags">
+              <span class="visa-tag">Fee-Paying Student</span>
+              <span class="visa-tag">Visitor Visa</span>
+              <span class="visa-tag">Work Permit</span>
+            </div>
+            <button type="button" class="cat-apply-btn js-apply-from-catalog" data-country="New Zealand" data-visa="Student">
+              Apply for New Zealand &rarr;
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       13. ALL SERVICES CATALOG MODAL
+       ========================================================================= -->
+  <div class="modal-overlay" id="servicesModal" role="dialog" aria-modal="true" aria-labelledby="servicesModalTitle">
+    <div class="modal-card modal-large">
+      <div class="modal-header">
+        <div>
+          <h3 id="servicesModalTitle">All Visa & Immigration Services</h3>
+          <p class="modal-subtitle">Complete end-to-end legal & documentation solutions under one roof</p>
+        </div>
+        <button class="modal-close-btn js-close-modal" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body catalog-body">
+        <div class="services-catalog-list">
+          <!-- Category 1: Student -->
+          <div class="services-category-block">
+            <div class="service-cat-header">
+              <span class="service-cat-icon">🎓</span>
+              <div>
+                <h4 class="service-cat-title">Student Visa & Higher Education</h4>
+                <p class="service-cat-desc">Complete admissions, SOP writing, and scholarship documentation</p>
+              </div>
+            </div>
+            <div class="service-cat-items">
+              <div class="service-item-row">
+                <div class="service-item-info">
+                  <strong>University Admissions & SOP Support</strong>
+                  <p>Course selection, university application submission, offer letter follow-up, and tailored Statement of Purpose.</p>
+                </div>
+                <button type="button" class="service-inquire-btn js-apply-from-catalog" data-country="UK" data-visa="Student">Inquire &rarr;</button>
+              </div>
+              <div class="service-item-row">
+                <div class="service-item-info">
+                  <strong>Scholarship & Tuition Waiver Assistance</strong>
+                  <p>Full support for Italian Regional DSU Scholarships, Erasmus Mundus, and UK Commonwealth grants.</p>
+                </div>
+                <button type="button" class="service-inquire-btn js-apply-from-catalog" data-country="Italy" data-visa="Student">Inquire &rarr;</button>
+              </div>
+              <div class="service-item-row">
+                <div class="service-item-info">
+                  <strong>Visa Interview Preparation & Mock Sessions</strong>
+                  <p>One-on-one mock interview sessions tailored to US Embassy, UK VI, and German consulate requirements.</p>
+                </div>
+                <button type="button" class="service-inquire-btn js-apply-from-catalog" data-country="USA" data-visa="Student">Inquire &rarr;</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Category 2: Work & Skilled -->
+          <div class="services-category-block">
+            <div class="service-cat-header">
+              <span class="service-cat-icon">💼</span>
+              <div>
+                <h4 class="service-cat-title">Work Permits & Skilled Migration</h4>
+                <p class="service-cat-desc">Job seeker visas, sponsored employer permits, and point-based immigration</p>
+              </div>
+            </div>
+            <div class="service-cat-items">
+              <div class="service-item-row">
+                <div class="service-item-info">
+                  <strong>German Opportunity Card (Chancenkarte)</strong>
+                  <p>Point calculation, qualification recognition (ZAB), and complete dossier compilation.</p>
+                </div>
+                <button type="button" class="service-inquire-btn js-apply-from-catalog" data-country="Germany" data-visa="Work">Inquire &rarr;</button>
+              </div>
+              <div class="service-item-row">
+                <div class="service-item-info">
+                  <strong>Employer Sponsored Work Permits</strong>
+                  <p>UK Skilled Worker, Australia TSS Subclass 482, and Malaysia Professional Employment Passes.</p>
+                </div>
+                <button type="button" class="service-inquire-btn js-apply-from-catalog" data-country="UK" data-visa="Work">Inquire &rarr;</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Category 3: Tourist & Family -->
+          <div class="services-category-block">
+            <div class="service-cat-header">
+              <span class="service-cat-icon">✈️</span>
+              <div>
+                <h4 class="service-cat-title">Tourist, Family & Umrah Visas</h4>
+                <p class="service-cat-desc">Smooth holiday travel, family reunion sponsorships, and sacred pilgrimages</p>
+              </div>
+            </div>
+            <div class="service-cat-items">
+              <div class="service-item-row">
+                <div class="service-item-info">
+                  <strong>Fast-Track Schengen & UK Visitor Visas</strong>
+                  <p>Airtight bank statement preparation, ties-to-home proof, and confirmed flight/hotel itineraries.</p>
+                </div>
+                <button type="button" class="service-inquire-btn js-apply-from-catalog" data-country="UK" data-visa="Tourist">Inquire &rarr;</button>
+              </div>
+              <div class="service-item-row">
+                <div class="service-item-info">
+                  <strong>Saudi Umrah E-Visa & Dubai Tourist Visas</strong>
+                  <p>24 to 48 hours express processing for individual pilgrims and family travel groups.</p>
+                </div>
+                <button type="button" class="service-inquire-btn js-apply-from-catalog" data-country="Saudi Arabia" data-visa="Umrah">Inquire &rarr;</button>
+              </div>
+              <div class="service-item-row">
+                <div class="service-item-info">
+                  <strong>Spouse & Dependent Family Visas</strong>
+                  <p>Marriage evidence validation, financial requirement proof, and family sponsorship filings.</p>
+                </div>
+                <button type="button" class="service-inquire-btn js-apply-from-catalog" data-country="Canada" data-visa="Family">Inquire &rarr;</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Category 4: Appeals & Permanent Residency -->
+          <div class="services-category-block">
+            <div class="service-cat-header">
+              <span class="service-cat-icon">⚖️</span>
+              <div>
+                <h4 class="service-cat-title">Appeals, Refusal Reviews & PR</h4>
+                <p class="service-cat-desc">Overcoming prior rejections and permanent residency pathways</p>
+              </div>
+            </div>
+            <div class="service-cat-items">
+              <div class="service-item-row">
+                <div class="service-item-info">
+                  <strong>Visa Refusal Case Analysis & Re-Application</strong>
+                  <p>Detailed analysis of embassy refusal letters, GCMS/CAIPS notes review, and airtight re-submission strategy.</p>
+                </div>
+                <button type="button" class="service-inquire-btn js-apply-from-catalog" data-country="Other" data-visa="Appeal">Inquire &rarr;</button>
+              </div>
+              <div class="service-item-row">
+                <div class="service-item-info">
+                  <strong>Canada Express Entry & PNP PR Support</strong>
+                  <p>CRS score boosting, WES educational credential assessment, and Provincial Nominee filings.</p>
+                </div>
+                <button type="button" class="service-inquire-btn js-apply-from-catalog" data-country="Canada" data-visa="PR">Inquire &rarr;</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       14. ALL REVIEWS & SUCCESS STORIES MODAL
+       ========================================================================= -->
+  <div class="modal-overlay" id="reviewsModal" role="dialog" aria-modal="true" aria-labelledby="reviewsModalTitle">
+    <div class="modal-card modal-large">
+      <div class="modal-header">
+        <div>
+          <h3 id="reviewsModalTitle">Verified Client Reviews & Stories</h3>
+          <p class="modal-subtitle">Real feedback from satisfied travelers across 15+ destinations</p>
+        </div>
+        <button class="modal-close-btn js-close-modal" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body catalog-body">
+        <!-- Trust Metric Summary Bar -->
+        <div class="reviews-trust-summary">
+          <div class="trust-stat-box">
+            <span class="trust-score">4.9 / 5.0</span>
+            <div class="trust-stars">★★★★★</div>
+            <span class="trust-count">Based on 2,500+ Visa Approvals</span>
+          </div>
+          <div class="trust-features-list">
+            <span>&check; 99% Verified Client Satisfaction</span>
+            <span>&check; Zero Hidden Legal Charges</span>
+            <span>&check; Fast-Track Application Submissions</span>
+          </div>
+        </div>
+
+        <!-- Reviews Grid -->
+        <div class="reviews-full-grid">
+          <!-- Review 1 -->
+          <div class="review-card-item">
+            <div class="rev-card-header">
+              <div class="rev-user">
+                <img src="assets/images/avatar-rahim.png" alt="Rahim Uddin" class="rev-avatar-circle" style="object-fit: cover;">
+                <div>
+                  <h5 class="rev-name">Rahim Uddin</h5>
+                  <span class="rev-meta">Student Visa, Italy &bull; University of Bologna</span>
+                </div>
+              </div>
+              <div class="rev-stars">★★★★★</div>
+            </div>
+            <p class="rev-text">"Adiba Global made my Italian student visa and DSU scholarship process so straightforward. Their guidance on bank statements and Apostille was flawless. Got both my visa and full scholarship!"</p>
+            <span class="rev-badge-verified">&check; Verified Visa Grant</span>
+          </div>
+
+          <!-- Review 2 -->
+          <div class="review-card-item">
+            <div class="rev-card-header">
+              <div class="rev-user">
+                <img src="assets/images/avatar-nusrat.png" alt="Nusrat Jahan" class="rev-avatar-circle" style="object-fit: cover;">
+                <div>
+                  <h5 class="rev-name">Nusrat Jahan</h5>
+                  <span class="rev-meta">Visitor Visa, United Kingdom</span>
+                </div>
+              </div>
+              <div class="rev-stars">★★★★★</div>
+            </div>
+            <p class="rev-text">"I got my UK visitor visa in just 3 weeks without any hassle! Their guidance on financial proof and sponsorship documents was top notch. Extremely polite and professional counselors."</p>
+            <span class="rev-badge-verified">&check; Verified Visa Grant</span>
+          </div>
+
+          <!-- Review 3 -->
+          <div class="review-card-item">
+            <div class="rev-card-header">
+              <div class="rev-user">
+                <img src="assets/images/avatar-arif.png" alt="Md. Arif Hossain" class="rev-avatar-circle" style="object-fit: cover;">
+                <div>
+                  <h5 class="rev-name">Md. Arif Hossain</h5>
+                  <span class="rev-meta">Work Visa, Malaysia</span>
+                </div>
+              </div>
+              <div class="rev-stars">★★★★★</div>
+            </div>
+            <p class="rev-text">"Very reliable and transparent service. They processed my professional work pass in Kuala Lumpur without any hidden charges. Highly recommended for working professionals!"</p>
+            <span class="rev-badge-verified">&check; Verified Visa Grant</span>
+          </div>
+
+          <!-- Review 4 -->
+          <div class="review-card-item">
+            <div class="rev-card-header">
+              <div class="rev-user">
+                <span class="rev-avatar-circle">FA</span>
+                <div>
+                  <h5 class="rev-name">Farhana Ahmed</h5>
+                  <span class="rev-meta">Canada Express Entry PR &bull; Toronto</span>
+                </div>
+              </div>
+              <div class="rev-stars">★★★★★</div>
+            </div>
+            <p class="rev-text">"From my ECA credential evaluation to Express Entry profile submission and ITA filing, their immigration team was exceptional. Today my entire family is happily settled in Ontario!"</p>
+            <span class="rev-badge-verified">&check; Verified Visa Grant</span>
+          </div>
+
+          <!-- Review 5 -->
+          <div class="review-card-item">
+            <div class="rev-card-header">
+              <div class="rev-user">
+                <span class="rev-avatar-circle">TR</span>
+                <div>
+                  <h5 class="rev-name">Tanvir Rahman</h5>
+                  <span class="rev-meta">F-1 Student Visa, USA &bull; University of Texas</span>
+                </div>
+              </div>
+              <div class="rev-stars">★★★★★</div>
+            </div>
+            <p class="rev-text">"The mock visa interview drills they ran with me gave me immense confidence for my US Embassy appointment. The visa officer asked the exact questions we practiced. Approved on 1st attempt!"</p>
+            <span class="rev-badge-verified">&check; Verified Visa Grant</span>
+          </div>
+
+          <!-- Review 6 -->
+          <div class="review-card-item">
+            <div class="rev-card-header">
+              <div class="rev-user">
+                <span class="rev-avatar-circle">SK</span>
+                <div>
+                  <h5 class="rev-name">Sabrina Karim</h5>
+                  <span class="rev-meta">Opportunity Card (Chancenkarte), Germany</span>
+                </div>
+              </div>
+              <div class="rev-stars">★★★★★</div>
+            </div>
+            <p class="rev-text">"German immigration rules can feel overwhelming, but Adiba Global organized my translations, ZAB certificate, and blocked account smoothly. I received my Chancenkarte in 4 weeks!"</p>
+            <span class="rev-badge-verified">&check; Verified Visa Grant</span>
+          </div>
+
+          <!-- Review 7 -->
+          <div class="review-card-item">
+            <div class="rev-card-header">
+              <div class="rev-user">
+                <span class="rev-avatar-circle">MA</span>
+                <div>
+                  <h5 class="rev-name">Mahbubul Alam</h5>
+                  <span class="rev-meta">Business & Umrah E-Visa, Saudi Arabia</span>
+                </div>
+              </div>
+              <div class="rev-stars">★★★★★</div>
+            </div>
+            <p class="rev-text">"Fast, accurate, and completely transparent with no hidden charges. Received my family Umrah visa and business entry permit in less than 48 hours."</p>
+            <span class="rev-badge-verified">&check; Verified Visa Grant</span>
+          </div>
+
+          <!-- Review 8 -->
+          <div class="review-card-item">
+            <div class="rev-card-header">
+              <div class="rev-user">
+                <span class="rev-avatar-circle">SA</span>
+                <div>
+                  <h5 class="rev-name">Sumaiya Akter</h5>
+                  <span class="rev-meta">Subclass 500 Student Visa, Australia &bull; Melbourne</span>
+                </div>
+              </div>
+              <div class="rev-stars">★★★★★</div>
+            </div>
+            <p class="rev-text">"Their Genuine Student (GS) statement drafting was outstanding. No extra inquiries from the Department of Home Affairs, direct grant letter in my inbox!"</p>
+            <span class="rev-badge-verified">&check; Verified Visa Grant</span>
+          </div>
+        </div>
+
+        <!-- Modal Bottom CTA -->
+        <div class="reviews-modal-cta">
+          <div>
+            <strong>Ready to start your own success story?</strong>
+            <p>Our senior counselors evaluate your eligibility with zero consultation fee.</p>
+          </div>
+          <button type="button" class="form-submit-btn js-apply-from-catalog" style="width: auto; padding: 10px 24px;">
+            Book Free Consultation &rarr;
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  @if(session('success'))
+  <script>
+    alert("{{ session('success') }}");
+  </script>
+  @endif
+</body>
+</html>

@@ -82,20 +82,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Form submission
-  if (modalForm) {
-    modalForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      if (successAlert) {
-        successAlert.style.display = 'block';
-        successAlert.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      }
-      setTimeout(() => {
-        closeAllModals();
-        modalForm.reset();
-      }, 3500);
-    });
-  }
+  // Form submission relies on Laravel backend now
+
 
   // =========================================================================
   // 2. Real-Time Search & Continent Filtering for Countries Catalog
