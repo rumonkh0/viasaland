@@ -9,6 +9,14 @@ use App\Models\User;
 class DocumentPolicy
 {
     /**
+     * Determine whether the user can view any documents.
+     */
+    public function viewAny(User $user): bool
+    {
+        return $user->isAdmin();
+    }
+
+    /**
      * Determine whether the user can view the document.
      */
     public function view(User $user, Document $document): bool
@@ -27,9 +35,17 @@ class DocumentPolicy
     /**
      * Determine whether the user can upload documents to the application.
      */
-    public function create(User $user, Application $application): bool
+    public function create(User $user, ?Application $application = null): bool
     {
-        return $user->isAdmin() || $user->id === $application->user_id;
+        return $user->isAdmin() || ($application && $user->id === $application->user_id);
+    }
+
+    /**
+     * Determine whether the user can update the document.
+     */
+    public function update(User $user, Document $document): bool
+    {
+        return $user->isAdmin() || (! $document->is_locked && $user->id === $document->user_id);
     }
 
     /**
@@ -38,6 +54,14 @@ class DocumentPolicy
     public function delete(User $user, Document $document): bool
     {
         return $document->canBeDeletedBy($user);
+    }
+
+    /**
+     * Determine whether the user can bulk delete documents.
+     */
+    public function deleteAny(User $user): bool
+    {
+        return $user->isAdmin();
     }
 
     /**

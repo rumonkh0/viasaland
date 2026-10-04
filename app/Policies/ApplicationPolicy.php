@@ -8,6 +8,14 @@ use App\Models\User;
 class ApplicationPolicy
 {
     /**
+     * Determine whether the user can view any applications.
+     */
+    public function viewAny(User $user): bool
+    {
+        return $user->isAdmin();
+    }
+
+    /**
      * Determine whether the user can view the application vault.
      */
     public function view(User $user, Application $application): bool
@@ -35,6 +43,14 @@ class ApplicationPolicy
      * Determine whether the user can delete the application.
      */
     public function delete(User $user, Application $application): bool
+    {
+        return $user->isAdmin();
+    }
+
+    /**
+     * Determine whether the user can bulk delete applications.
+     */
+    public function deleteAny(User $user): bool
     {
         return $user->isAdmin();
     }

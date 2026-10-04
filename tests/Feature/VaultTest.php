@@ -325,4 +325,27 @@ class VaultTest extends TestCase
 
         $response->assertOk();
     }
+
+    public function test_admin_can_access_filament_vault_files_page(): void
+    {
+        $admin = User::factory()->create(['role' => 'admin']);
+
+        $response = $this->actingAs($admin)->get('/admin/documents');
+
+        $response->assertOk();
+    }
+
+    public function test_document_and_application_policy_checks(): void
+    {
+        $admin = User::factory()->create(['role' => 'admin']);
+        $client = User::factory()->create(['role' => 'client']);
+
+        $this->assertTrue($admin->can('viewAny', Document::class));
+        $this->assertTrue($admin->can('create', Document::class));
+        $this->assertTrue($admin->can('viewAny', Application::class));
+        $this->assertTrue($admin->can('deleteAny', Application::class));
+
+        $this->assertFalse($client->can('viewAny', Document::class));
+        $this->assertFalse($client->can('viewAny', Application::class));
+    }
 }
