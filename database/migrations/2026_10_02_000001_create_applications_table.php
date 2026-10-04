@@ -14,6 +14,7 @@ return new class extends Migration
             $table->string('visa_type');
             $table->string('target_country');
             $table->enum('status', ['draft', 'submitted', 'under_review', 'verified', 'embassy_booked', 'approved', 'rejected'])->default('draft');
+            $table->text('notes')->nullable();
             $table->timestamps();
         });
     }
