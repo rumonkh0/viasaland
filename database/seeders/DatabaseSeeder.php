@@ -45,5 +45,8 @@ class DatabaseSeeder extends Seeder
                 'email_verified_at' => now(),
             ]
         );
+
+        // 5. Seed rich dummy applications, vault documents, and real sample files
+        $this->call(DummyVaultSeeder::class);
     }
 }

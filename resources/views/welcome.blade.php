@@ -56,6 +56,24 @@
           </svg>
           info@adibatech.com
         </a>
+        @auth
+          <a href="{{ route('dashboard') }}" class="top-bar-link top-bar-portal-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <path d="m9 12 2 2 4-4"/>
+            </svg>
+            My Vault ({{ Auth::user()->name }})
+          </a>
+        @else
+          <a href="{{ route('login') }}" class="top-bar-link top-bar-portal-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+              <polyline points="10 17 15 12 10 7"/>
+              <line x1="15" y1="12" x2="3" y2="12"/>
+            </svg>
+            Client Login
+          </a>
+        @endauth
       </div>
     </div>
   </aside>
@@ -78,9 +96,44 @@
           <li><a href="about.html" class="nav-link">About Us</a></li>
           <li><a href="blog.html" class="nav-link">Blog</a></li>
           <li><a href="contact.html" class="nav-link">Contact</a></li>
+          @auth
+            <li class="mobile-only-nav-item"><a href="{{ route('dashboard') }}" class="nav-link" style="color: var(--color-brand-blue); font-weight: 700;">📂 My Document Vault</a></li>
+            @if(Auth::user()->isAdmin())
+              <li class="mobile-only-nav-item"><a href="{{ url('/admin') }}" class="nav-link">⚙️ Admin Panel</a></li>
+            @endif
+          @else
+            <li class="mobile-only-nav-item"><a href="{{ route('login') }}" class="nav-link" style="color: var(--color-brand-blue); font-weight: 700;">🔑 Client Login</a></li>
+            <li class="mobile-only-nav-item"><a href="{{ route('register') }}" class="nav-link">📝 Register</a></li>
+          @endauth
         </ul>
 
         <div style="display: flex; align-items: center; gap: 10px;">
+          @auth
+            <a href="{{ route('dashboard') }}" class="header-portal-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="16" height="16">
+                <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-6l-2-2H5a2 2 0 0 0-2 2z"></path>
+              </svg>
+              <span>My Vault</span>
+            </a>
+            @if(Auth::user()->isAdmin())
+              <a href="{{ url('/admin') }}" class="header-admin-btn">
+                Admin
+              </a>
+            @endif
+          @else
+            <a href="{{ route('login') }}" class="header-login-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="15" height="15">
+                <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+                <polyline points="10 17 15 12 10 7"/>
+                <line x1="15" y1="12" x2="3" y2="12"/>
+              </svg>
+              <span>Login</span>
+            </a>
+            <a href="{{ route('register') }}" class="header-register-btn">
+              Register
+            </a>
+          @endauth
+
           <a href="#consultation" class="header-cta-btn js-open-modal">
             Free Consultation &rarr;
           </a>
@@ -808,6 +861,8 @@
               <li><a href="countries.html">Countries</a></li>
               <li><a href="about.html">About Us</a></li>
               <li><a href="contact.html">Contact</a></li>
+              <li><a href="{{ route('login') }}" style="color: var(--color-brand-blue); font-weight: 600;">Client Login</a></li>
+              <li><a href="{{ route('dashboard') }}" style="color: var(--color-brand-blue); font-weight: 600;">Document Vault</a></li>
             </ul>
           </div>
         </div>
