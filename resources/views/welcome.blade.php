@@ -130,13 +130,10 @@
               <span>Login</span>
             </a>
             <a href="{{ route('register') }}" class="header-register-btn">
-              Register
+              Register &rarr;
             </a>
           @endauth
 
-          <a href="#consultation" class="header-cta-btn js-open-modal">
-            Free Consultation &rarr;
-          </a>
           <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <line x1="4" x2="20" y1="12" y2="12"/>
