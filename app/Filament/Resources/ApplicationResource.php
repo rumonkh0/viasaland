@@ -6,6 +6,7 @@ use App\Filament\Resources\ApplicationResource\Pages;
 use App\Filament\Resources\ApplicationResource\RelationManagers\DocumentsRelationManager;
 use App\Filament\Resources\ApplicationResource\RelationManagers\RequirementsRelationManager;
 use App\Models\Application;
+use App\Models\User;
 use App\Services\VaultService;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -34,10 +35,19 @@ class ApplicationResource extends Resource
                     ->schema([
                         Forms\Components\Select::make('user_id')
                             ->label('Client')
-                            ->relationship('user', 'name', fn ($query) => $query->where('role', 'client'))
+                            ->options(fn () => User::where('role', 'client')->get()->mapWithKeys(function ($user) {
+                                return [$user->id => "{$user->name} ({$user->email})"];
+                            }))
                             ->searchable()
                             ->preload()
                             ->required(),
+
+                        Forms\Components\TextInput::make('client_email')
+                            ->label('Client Email')
+                            ->formatStateUsing(fn (?Application $record) => $record?->user?->email)
+                            ->disabled()
+                            ->dehydrated(false)
+                            ->visible(fn (?Application $record) => $record !== null),
 
                         Forms\Components\Select::make('visa_type')
                             ->options([
@@ -89,7 +99,15 @@ class ApplicationResource extends Resource
                     ->label('Client')
                     ->searchable()
                     ->sortable()
-                    ->description(fn (Application $record) => $record->user?->phone ?? $record->user?->email),
+                    ->weight('semibold'),
+
+                Tables\Columns\TextColumn::make('user.email')
+                    ->label('Client Email')
+                    ->searchable()
+                    ->sortable()
+                    ->copyable()
+                    ->icon('heroicon-m-envelope')
+                    ->description(fn (Application $record) => $record->user?->phone ? 'Phone: '.$record->user->phone : null),
 
                 Tables\Columns\TextColumn::make('visa_type')
                     ->badge()

@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Application;
+use App\Models\DocumentCategory;
 use App\Models\User;
 use App\Services\VaultService;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -16,10 +18,17 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 class ApplicationController extends Controller
 {
     /**
-     * Store lead from the landing page.
+     * Store lead and application from the landing page.
      */
-    public function storeLead(Request $request): RedirectResponse
+    public function storeLead(Request $request, VaultService $vaultService): RedirectResponse
     {
+        if (! $request->has('fullName') && $request->has('name')) {
+            $request->merge(['fullName' => $request->input('name')]);
+        }
+        if (! $request->has('visaType') && $request->has('visa_type')) {
+            $request->merge(['visaType' => $request->input('visa_type')]);
+        }
+
         $validated = $request->validate([
             'fullName' => 'required|string|max:255',
             'phone' => 'required|string|max:50',
@@ -27,10 +36,13 @@ class ApplicationController extends Controller
             'country' => 'required|string|max:100',
             'visaType' => 'required|string|max:100',
             'message' => 'nullable|string',
+            'document' => ['nullable', 'file', 'max:10240', 'mimes:pdf,jpg,jpeg,png,doc,docx'],
+            'documents' => ['nullable', 'array'],
+            'documents.*' => ['file', 'max:10240', 'mimes:pdf,jpg,jpeg,png,doc,docx'],
         ]);
 
-        $user = null;
-        if (! empty($validated['email'])) {
+        $user = auth()->user();
+        if (! $user && ! empty($validated['email'])) {
             $user = User::where('email', $validated['email'])->first();
         }
 
@@ -49,11 +61,78 @@ class ApplicationController extends Controller
             'visa_type' => $validated['visaType'],
             'target_country' => $validated['country'],
             'status' => 'draft',
+            'notes' => $validated['message'] ?? null,
         ]);
 
         $application->syncRequirementsFromVisaType();
 
-        return redirect()->back()->with('success', 'Thank you! Your inquiry has been submitted. Our visa expert will call you shortly.');
+        // Process uploaded documents
+        $files = [];
+        if ($request->hasFile('documents')) {
+            $files = $request->file('documents');
+        } elseif ($request->hasFile('document')) {
+            $files = [$request->file('document')];
+        }
+
+        $uploadedCount = 0;
+        if (! empty($files)) {
+            $requirements = $application->requirements()->with('documentCategory')->get();
+            $categoriesBySlug = DocumentCategory::all()->keyBy('slug');
+
+            foreach ($files as $file) {
+                $filename = strtolower($file->getClientOriginalName());
+                $matchedCatId = null;
+
+                // Match against required categories first
+                foreach ($requirements as $req) {
+                    $cat = $req->documentCategory;
+                    if ($cat && str_contains($filename, strtolower($cat->name))) {
+                        $matchedCatId = $cat->id;
+                        break;
+                    }
+                }
+
+                // Match by common keywords if no direct name match
+                if (! $matchedCatId) {
+                    if (str_contains($filename, 'passport')) {
+                        $matchedCatId = $categoriesBySlug->get('passport')?->id;
+                    } elseif (str_contains($filename, 'photo') || str_contains($filename, 'picture')) {
+                        $matchedCatId = $categoriesBySlug->get('photograph')?->id;
+                    } elseif (str_contains($filename, 'bank') || str_contains($filename, 'statement')) {
+                        $matchedCatId = $categoriesBySlug->get('bank-statement')?->id;
+                    } elseif (str_contains($filename, 'hotel') || str_contains($filename, 'booking')) {
+                        $matchedCatId = $categoriesBySlug->get('hotel-booking')?->id;
+                    } elseif (str_contains($filename, 'flight') || str_contains($filename, 'ticket')) {
+                        $matchedCatId = $categoriesBySlug->get('flight-itinerary')?->id;
+                    }
+                }
+
+                // If still not matched, pick first unfulfilled requirement category
+                if (! $matchedCatId) {
+                    $unfulfilled = $requirements->firstWhere('is_fulfilled', false);
+                    $matchedCatId = $unfulfilled?->document_category_id;
+                }
+
+                $vaultService->uploadDocument(
+                    $application,
+                    $file,
+                    $user,
+                    $matchedCatId,
+                    $matchedCatId ? null : 'General Submission'
+                );
+                $uploadedCount++;
+            }
+        }
+
+        if (! auth()->check()) {
+            Auth::login($user);
+        }
+
+        $message = $uploadedCount > 0
+            ? "Your visa application for {$application->target_country} ({$application->visa_type}) was created with {$uploadedCount} document(s) uploaded to your vault!"
+            : "Your visa application for {$application->target_country} ({$application->visa_type}) was created! Check your document checklist below to upload required files.";
+
+        return redirect()->route('dashboard')->with('success', $message);
     }
 
     /**

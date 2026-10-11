@@ -31,7 +31,7 @@ class DocumentCategorySeeder extends Seeder
             'Medical Reports',
             'Police Clearance',
             'Educational Certificates',
-            'Other',
+            'Others',
         ];
 
         foreach ($categories as $index => $name) {

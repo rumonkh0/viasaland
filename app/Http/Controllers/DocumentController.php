@@ -21,26 +21,57 @@ class DocumentController extends Controller
     {
         Gate::authorize('create', [Document::class, $application]);
 
+        $categoryId = $request->input('document_category_id');
+        if ($categoryId === 'custom' || empty($categoryId)) {
+            $categoryId = null;
+        }
+
+        $request->merge(['document_category_id' => $categoryId]);
+
         $request->validate([
-            'document' => ['required', 'file', 'max:10240', 'mimes:pdf,jpg,jpeg,png,doc,docx'],
-            'document_category_id' => ['nullable', 'exists:document_categories,id'],
+            'document' => ['nullable', 'file', 'max:10240', 'mimes:pdf,jpg,jpeg,png,doc,docx'],
+            'file' => ['nullable', 'file', 'max:10240', 'mimes:pdf,jpg,jpeg,png,doc,docx'],
+            'documents' => ['nullable', 'array'],
+            'documents.*' => ['file', 'max:10240', 'mimes:pdf,jpg,jpeg,png,doc,docx'],
+            'document_category_id' => ['nullable', 'integer', 'exists:document_categories,id'],
             'custom_category' => ['nullable', 'string', 'max:100'],
         ]);
 
-        if (empty($request->document_category_id) && empty($request->custom_category)) {
+        if (empty($categoryId) && empty($request->custom_category)) {
             return back()->withErrors(['document_category_id' => 'Please select a category or provide a custom category name.']);
         }
 
-        try {
-            $vaultService->uploadDocument(
-                $application,
-                $request->file('document'),
-                $request->user(),
-                $request->document_category_id ? (int) $request->document_category_id : null,
-                $request->custom_category
-            );
+        $files = [];
+        if ($request->hasFile('documents')) {
+            $files = $request->file('documents');
+        } elseif ($request->hasFile('document')) {
+            $files = [$request->file('document')];
+        } elseif ($request->hasFile('file')) {
+            $files = [$request->file('file')];
+        }
 
-            return back()->with('success', 'Document uploaded successfully to the vault.');
+        if (empty($files)) {
+            return back()->withErrors(['document' => 'Please select at least one file to upload.']);
+        }
+
+        try {
+            $uploadedCount = 0;
+            foreach ($files as $file) {
+                $vaultService->uploadDocument(
+                    $application,
+                    $file,
+                    $request->user(),
+                    $categoryId ? (int) $categoryId : null,
+                    $request->custom_category
+                );
+                $uploadedCount++;
+            }
+
+            $message = $uploadedCount === 1
+                ? 'Document uploaded successfully to the vault.'
+                : "{$uploadedCount} documents uploaded successfully to the folder.";
+
+            return back()->with('success', $message);
         } catch (Exception $e) {
             return back()->withErrors(['document' => 'Upload failed: '.$e->getMessage()]);
         }

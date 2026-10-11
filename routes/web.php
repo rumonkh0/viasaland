@@ -4,10 +4,28 @@ use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\ProfileController;
+use App\Models\VisaTypeRequirement;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Schema;
 
 Route::get('/', function () {
-    return view('welcome');
+    $visaRequirements = collect();
+
+    if (Schema::hasTable('visa_type_requirements')) {
+        $visaRequirements = VisaTypeRequirement::with('documentCategory')
+            ->get()
+            ->map(function ($r) {
+                return [
+                    'id' => $r->document_category_id,
+                    'name' => $r->documentCategory?->name,
+                    'country' => $r->country,
+                    'visa_type' => $r->visa_type,
+                    'is_mandatory' => (bool) $r->is_mandatory,
+                ];
+            })->values();
+    }
+
+    return view('welcome', compact('visaRequirements'));
 });
 
 Route::post('/apply', [ApplicationController::class, 'storeLead'])->name('applications.storeLead');

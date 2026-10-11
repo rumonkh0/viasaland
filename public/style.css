@@ -1257,6 +1257,121 @@ button {
   margin-bottom: 12px;
 }
 
+/* Modal Requirements & File Upload */
+#consultationModal .modal-card {
+  max-width: 540px;
+}
+
+.visa-requirements-panel {
+  background-color: #F8FAFC;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+}
+
+.vr-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.vr-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: #0F172A;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.vr-title span {
+  color: var(--color-brand-blue);
+}
+
+.vr-count-badge {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--color-brand-blue);
+  background-color: #EBF3FF;
+  padding: 2px 7px;
+  border-radius: 999px;
+}
+
+.vr-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.vr-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #1E293B;
+  background-color: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+.vr-pill .pill-badge {
+  font-size: 9px;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 1px 4px;
+  border-radius: 4px;
+  background-color: #FEF3C7;
+  color: #92400E;
+}
+
+.vr-note {
+  font-size: 10.5px;
+  color: #64748B;
+  margin-top: 6px;
+}
+
+.upload-dropzone-box {
+  border: 2px dashed #CBD5E1;
+  border-radius: 8px;
+  background-color: #F8FAFC;
+  padding: 14px 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.upload-dropzone-box:hover {
+  border-color: var(--color-brand-blue);
+  background-color: #EBF3FF;
+}
+
+.selected-files-list {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed #CBD5E1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  justify-content: center;
+}
+
+.file-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10.5px;
+  font-weight: 600;
+  background-color: #FFFFFF;
+  color: var(--color-brand-blue);
+  border: 1px solid #93C5FD;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
 /* Catalog Modals (Large format) */
 .modal-card.modal-large {
   max-width: 940px;

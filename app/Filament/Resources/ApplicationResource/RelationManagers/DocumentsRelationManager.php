@@ -58,6 +58,12 @@ class DocumentsRelationManager extends RelationManager
     {
         return $table
             ->recordTitleAttribute('file_name')
+            ->defaultGroup('documentCategory.name')
+            ->groups([
+                Tables\Grouping\Group::make('documentCategory.name')
+                    ->label('Category Folder')
+                    ->collapsible(),
+            ])
             ->defaultSort('created_at', 'desc')
             ->columns([
                 Tables\Columns\TextColumn::make('category')
@@ -122,7 +128,8 @@ class DocumentsRelationManager extends RelationManager
                             ->visible(fn (Forms\Get $get) => empty($get('document_category_id'))),
 
                         Forms\Components\FileUpload::make('file')
-                            ->label('Select File')
+                            ->label('Select File(s)')
+                            ->multiple()
                             ->required()
                             ->disk('local')
                             ->directory('temp_uploads'),
@@ -141,38 +148,42 @@ class DocumentsRelationManager extends RelationManager
                     ])
                     ->action(function (array $data, VaultService $vaultService) {
                         $application = $this->getOwnerRecord();
-                        $uploadedPath = Storage::disk('local')->path($data['file']);
+                        $files = is_array($data['file']) ? $data['file'] : [$data['file']];
 
-                        $originalName = basename($data['file']);
-                        $mime = mime_content_type($uploadedPath) ?: 'application/octet-stream';
+                        foreach ($files as $filePath) {
+                            $uploadedPath = Storage::disk('local')->path($filePath);
+                            $originalName = basename($filePath);
+                            $mime = mime_content_type($uploadedPath) ?: 'application/octet-stream';
 
-                        $uploadedFile = new UploadedFile(
-                            $uploadedPath,
-                            $originalName,
-                            $mime,
-                            null,
-                            true
-                        );
+                            $uploadedFile = new UploadedFile(
+                                $uploadedPath,
+                                $originalName,
+                                $mime,
+                                null,
+                                true
+                            );
 
-                        $doc = $vaultService->uploadDocument(
-                            $application,
-                            $uploadedFile,
-                            auth()->user(),
-                            $data['document_category_id'] ?? null,
-                            $data['custom_category'] ?? null
-                        );
+                            $doc = $vaultService->uploadDocument(
+                                $application,
+                                $uploadedFile,
+                                auth()->user(),
+                                $data['document_category_id'] ?? null,
+                                $data['custom_category'] ?? null
+                            );
 
-                        if (! empty($data['lock_file'])) {
-                            $vaultService->lockDocument($doc, auth()->user());
-                        }
+                            if (! empty($data['lock_file'])) {
+                                $vaultService->lockDocument($doc, auth()->user());
+                            }
 
-                        if ($data['status'] === 'approved') {
-                            $vaultService->updateStatus($doc, 'approved', 'Uploaded and verified by Administrator.', auth()->user());
+                            if ($data['status'] === 'approved') {
+                                $vaultService->updateStatus($doc, 'approved', 'Uploaded and verified by Administrator.', auth()->user());
+                            }
                         }
 
                         Notification::make()
                             ->success()
                             ->title('Uploaded to Vault')
+                            ->body(count($files).' document(s) uploaded successfully.')
                             ->send();
                     }),
 

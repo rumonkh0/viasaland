@@ -999,21 +999,21 @@
         <div class="modal-success-alert" id="modalSuccessAlert">
           &check; Thank you! Your inquiry has been submitted. Our visa expert will call you shortly.
         </div>
-        <form id="consultationForm" method="POST" action="{{ route('applications.storeLead') }}">
+        <form id="consultationForm" method="POST" action="{{ route('applications.storeLead') }}" enctype="multipart/form-data">
           @csrf
           <div class="form-group">
             <label for="fullName">Full Name *</label>
-            <input type="text" id="fullName" name="fullName" class="form-control" placeholder="e.g. Rahim Uddin" required>
+            <input type="text" id="fullName" name="fullName" class="form-control" placeholder="e.g. Rahim Uddin" value="{{ auth()->user()?->name ?? '' }}" required>
           </div>
 
           <div class="form-row">
             <div class="form-group">
               <label for="phone">Phone Number *</label>
-              <input type="tel" id="phone" name="phone" class="form-control" placeholder="+880 1XXX-XXXXXX" required>
+              <input type="tel" id="phone" name="phone" class="form-control" placeholder="+880 1XXX-XXXXXX" value="{{ auth()->user()?->phone ?? '' }}" required>
             </div>
             <div class="form-group">
               <label for="email">Email Address</label>
-              <input type="email" id="email" name="email" class="form-control" placeholder="you@example.com">
+              <input type="email" id="email" name="email" class="form-control" placeholder="you@example.com" value="{{ auth()->user()?->email ?? '' }}">
             </div>
           </div>
 
@@ -1022,6 +1022,7 @@
               <label for="country">Preferred Country</label>
               <select id="country" name="country" class="form-control">
                 <option value="India" selected>India</option>
+                <option value="Spain">Spain</option>
                 <option value="UK">United Kingdom (UK)</option>
                 <option value="USA">USA</option>
                 <option value="Canada">Canada</option>
@@ -1060,13 +1061,45 @@
             </div>
           </div>
 
+          <!-- Dynamic Visa File Requirements Display -->
+          <div class="visa-requirements-panel" id="visaRequirementsPanel">
+            <div class="vr-header">
+              <div class="vr-title">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+                Required Visa Documents for <span id="reqCountryName">India </span><span id="reqVisaTypeName">Tourist</span> Visa:
+              </div>
+              <span class="vr-count-badge" id="reqCountBadge">5 Requirements</span>
+            </div>
+            <div class="vr-list" id="visaRequirementsList">
+              <!-- Populated dynamically via JS -->
+            </div>
+            <div class="vr-note">
+              <span>💡 Upload your files now, or complete them in your personal vault dashboard anytime.</span>
+            </div>
+          </div>
+
+          <!-- Document Upload Box -->
           <div class="form-group">
-            <label for="message">Your Query / Educational Details</label>
-            <textarea id="message" class="form-control" rows="3" placeholder="Tell us about your background or requirements..."></textarea>
+            <label for="consultationDocuments" style="display: flex; justify-content: space-between; align-items: center;">
+              <span>Upload Visa Documents (Optional)</span>
+              <span style="font-size: 10.5px; font-weight: 500; color: #64748b;">PDF, JPG, PNG, DOC (Max 10MB)</span>
+            </label>
+            <div class="upload-dropzone-box" id="dropZoneContainer" onclick="document.getElementById('consultationDocuments').click();">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0066FF" stroke-width="2" style="margin: 0 auto 4px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+              <div style="font-size: 12.5px; font-weight: 600; color: #0f172a;">Click to browse files or drag & drop here</div>
+              <div style="font-size: 11px; color: #64748b; margin-top: 2px;">Attach passport, photo, bank statement, or other documents</div>
+              <div id="selectedFilesSummary" class="selected-files-list" style="display: none;"></div>
+            </div>
+            <input type="file" id="consultationDocuments" name="documents[]" multiple style="display: none;" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
+          </div>
+
+          <div class="form-group">
+            <label for="message">Your Query / Background Details</label>
+            <textarea id="message" name="message" class="form-control" rows="2" placeholder="Tell us about your background, travel plans, or questions..."></textarea>
           </div>
 
           <button type="submit" class="form-submit-btn">
-            Submit Consultation Request &rarr;
+            Submit Application & Open Vault &rarr;
           </button>
         </form>
       </div>
@@ -1336,7 +1369,30 @@
             </button>
           </div>
 
-          <!-- 10. Japan -->
+          <!-- 10. Spain -->
+          <div class="catalog-country-card" data-continent="europe" data-country="Spain">
+            <div class="cat-card-top">
+              <span class="cat-flag">🇪🇸</span>
+              <div>
+                <h4 class="cat-country-name">Spain</h4>
+                <span class="cat-continent-badge">Europe / Schengen</span>
+              </div>
+            </div>
+            <div class="cat-meta-row">
+              <span class="cat-time">⏱️ 3–5 Weeks</span>
+              <span class="cat-success">★ 97% Success</span>
+            </div>
+            <div class="cat-visas-tags">
+              <span class="visa-tag">Tourist (Schengen)</span>
+              <span class="visa-tag">Study Visa</span>
+              <span class="visa-tag">Business Visa</span>
+            </div>
+            <button type="button" class="cat-apply-btn js-apply-from-catalog" data-country="Spain" data-visa="Tourist">
+              Apply for Spain &rarr;
+            </button>
+          </div>
+
+          <!-- 11. Japan -->
           <div class="catalog-country-card" data-continent="asia-middle-east" data-country="Japan">
             <div class="cat-card-top">
               <span class="cat-flag">🇯🇵</span>
@@ -1859,6 +1915,9 @@
     </div>
   </div>
 
+  <script>
+    window.visaRequirements = @json($visaRequirements ?? []);
+  </script>
   <script src="script.js"></script>
   @if(session('success'))
   <script>

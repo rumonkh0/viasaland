@@ -6,12 +6,16 @@
                     {{ __('Visa Document Vault') }}
                 </h2>
                 <p class="text-sm text-gray-500 mt-1">
-                    Centralized & secure document storage organized by your visa applications.
+                    Centralized & secure document storage for <span class="font-semibold text-gray-800">{{ auth()->user()->name }}</span> ({{ auth()->user()->email }})
                 </p>
             </div>
             <div class="flex items-center gap-2">
+                <button type="button" @click="$dispatch('open-new-app-modal')" class="inline-flex items-center px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold uppercase tracking-wider rounded-lg shadow-sm transition">
+                    <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                    + Apply for New Visa
+                </button>
                 @if(auth()->user()->isAdmin())
-                    <a href="{{ url('/admin') }}" class="inline-flex items-center px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold uppercase tracking-widest rounded-lg shadow-sm transition">
+                    <a href="{{ url('/admin') }}" class="inline-flex items-center px-4 py-2 bg-slate-800 hover:bg-slate-900 text-white text-xs font-semibold uppercase tracking-widest rounded-lg shadow-sm transition">
                         <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                         Admin Control Panel
                     </a>
@@ -20,7 +24,32 @@
         </div>
     </x-slot>
 
-    <div class="py-8 bg-slate-50 min-h-screen">
+    <div class="py-8 bg-slate-50 min-h-screen" 
+         x-data="{ 
+             newAppModalOpen: false, 
+             newAppVisaType: 'Tourist', 
+             newAppCountry: 'India', 
+             allVisaReqs: {{ json_encode($visaRequirements ?? []) }},
+             getModalReqs() {
+                 if (!Array.isArray(this.allVisaReqs)) {
+                     return this.allVisaReqs[this.newAppVisaType] || [];
+                 }
+                 const v = (this.newAppVisaType || '').toLowerCase().trim();
+                 const c = (this.newAppCountry || '').toLowerCase().trim();
+                 
+                 let matched = this.allVisaReqs.filter(r => (r.country || '').toLowerCase().trim() === c && (r.visa_type || '').toLowerCase().trim() === v);
+                 if (matched.length > 0) return matched;
+                 
+                 matched = this.allVisaReqs.filter(r => (!r.country || (r.country || '').toLowerCase().trim() === 'all countries') && (r.visa_type || '').toLowerCase().trim() === v);
+                 if (matched.length > 0) return matched;
+                 
+                 matched = this.allVisaReqs.filter(r => (r.visa_type || '').toLowerCase().trim() === v);
+                 if (matched.length > 0) return matched;
+                 
+                 return [ { name: 'Passport' }, { name: 'Photograph' }, { name: 'Bank Statement' }, { name: 'Visa Application Form' } ];
+             }
+         }" 
+         @open-new-app-modal.window="newAppModalOpen = true">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
 
             <!-- Alerts -->
@@ -89,15 +118,21 @@
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
                     </div>
                     <h3 class="text-lg font-bold text-gray-900 mb-1">No Visa Applications Found</h3>
-                    <p class="text-sm text-gray-500 max-w-md mx-auto mb-6">You don't have any visa applications active yet. Inquire or apply to open your personal document vault.</p>
-                    <a href="{{ url('/') }}" class="inline-flex items-center px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold rounded-xl shadow-sm transition">
-                        Browse Visa Programs
-                    </a>
+                    <p class="text-sm text-gray-500 max-w-md mx-auto mb-6">You don't have any active visa applications yet. Apply now to unlock your personalized document checklist and secure vault.</p>
+                    <div class="flex items-center justify-center gap-3">
+                        <button type="button" @click="$dispatch('open-new-app-modal')" class="inline-flex items-center px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold rounded-xl shadow-sm transition">
+                            <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                            Apply for Visa & Open Vault
+                        </button>
+                        <a href="{{ url('/') }}" class="inline-flex items-center px-5 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-semibold rounded-xl transition">
+                            Browse Programs
+                        </a>
+                    </div>
                 </div>
             @else
                 <div class="space-y-8">
                     @foreach($applications as $app)
-                        <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden" x-data="{ uploadOpen: false, activeReplaceId: null }">
+                        <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden" x-data="{ uploadOpen: false, activeReplaceId: null, selectedCat: '', customCatInput: '', folderTargetName: '' }">
                             
                             <!-- Application Vault Header -->
                             <div class="p-6 bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white">
@@ -118,9 +153,20 @@
                                                     {{ str_replace('_', ' ', $app->status) }}
                                                 </span>
                                             </div>
-                                            <p class="text-xs text-gray-400 mt-1">
-                                                Vault ID #{{ $app->id }} • Total Storage: {{ $app->vaultSizeFormatted() }} • {{ $app->documents->count() }} file(s)
-                                            </p>
+                                            
+                                            <!-- Client Email & Vault Details -->
+                                            <div class="flex items-center gap-2 mt-1.5 text-xs text-gray-300 flex-wrap">
+                                                <span class="inline-flex items-center gap-1 font-semibold text-sky-300 bg-sky-950/60 px-2 py-0.5 rounded border border-sky-800/50">
+                                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.206"></path></svg>
+                                                    {{ $app->user?->email }}
+                                                </span>
+                                                <span class="text-gray-500">•</span>
+                                                <span>Applicant: <strong>{{ $app->user?->name }}</strong></span>
+                                                <span class="text-gray-500">•</span>
+                                                <span>Vault ID #{{ $app->id }}</span>
+                                                <span class="text-gray-500">•</span>
+                                                <span>Total Size: {{ $app->vaultSizeFormatted() }} ({{ $app->documents->count() }} files)</span>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -134,9 +180,9 @@
                                         @endif
 
                                         <!-- Toggle Upload Drawer -->
-                                        <button type="button" @click="uploadOpen = !uploadOpen" class="inline-flex items-center px-4 py-2 bg-indigo-500 hover:bg-indigo-400 text-white text-xs font-semibold rounded-xl shadow-sm transition">
+                                        <button type="button" @click="uploadOpen = !uploadOpen; if(!uploadOpen){ selectedCat = ''; customCatInput = ''; folderTargetName = ''; }" class="inline-flex items-center px-4 py-2 bg-indigo-500 hover:bg-indigo-400 text-white text-xs font-semibold rounded-xl shadow-sm transition">
                                             <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-                                            <span x-text="uploadOpen ? 'Close Uploader' : 'Upload File'"></span>
+                                            <span x-text="uploadOpen ? 'Close Uploader' : '+ Upload Document'"></span>
                                         </button>
                                     </div>
                                 </div>
@@ -155,220 +201,426 @@
                                 @endif
                             </div>
 
-                            <!-- Requirements Checklist Strip -->
-                            @if($app->requirements->isNotEmpty())
-                                <div class="px-6 py-4 bg-slate-100 border-b border-gray-200">
-                                    <p class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2.5">Required Document Categories</p>
-                                    <div class="flex flex-wrap gap-2">
-                                        @foreach($app->requirements as $req)
-                                            @php
-                                                $uploadedDocsCount = $app->documents->where('document_category_id', $req->document_category_id)->count();
-                                            @endphp
-                                            <div class="inline-flex items-center px-3 py-1 rounded-lg text-xs font-medium border
-                                                {{ $uploadedDocsCount > 0 ? 'bg-emerald-50 text-emerald-800 border-emerald-200' : 'bg-amber-50 text-amber-800 border-amber-200' }}">
-                                                @if($uploadedDocsCount > 0)
-                                                    <svg class="w-3.5 h-3.5 mr-1 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                                                    <span>{{ $req->documentCategory->name }} ({{ $uploadedDocsCount }})</span>
-                                                @else
-                                                    <svg class="w-3.5 h-3.5 mr-1 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-                                                    <span>{{ $req->documentCategory->name }} (Missing)</span>
-                                                @endif
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                </div>
-                            @endif
-
                             <!-- Upload Drawer (Alpine collapsible) -->
-                            <div x-show="uploadOpen" x-cloak class="p-6 bg-indigo-50/50 border-b border-indigo-100" x-data="{ selectedCat: '' }">
-                                <h4 class="text-sm font-bold text-gray-900 mb-3 flex items-center">
-                                    <svg class="w-4 h-4 mr-1.5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
-                                    Add New File to Application #{{ $app->id }} Vault
-                                </h4>
+                            <div x-show="uploadOpen" x-cloak class="p-6 bg-indigo-50/70 border-b border-indigo-100">
+                                <div class="flex items-center justify-between mb-3">
+                                    <h4 class="text-sm font-bold text-gray-900 flex items-center">
+                                        <svg class="w-4 h-4 mr-1.5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                                        <span x-text="folderTargetName ? 'Deposit File into Folder: ' + folderTargetName : 'Upload Document to Application Vault #{{ $app->id }}'"></span>
+                                    </h4>
+                                    <button type="button" @click="uploadOpen = false" class="text-xs text-gray-400 hover:text-gray-600">✕ Close</button>
+                                </div>
+
                                 <form action="{{ route('documents.store', $app) }}" method="POST" enctype="multipart/form-data" class="space-y-4">
                                     @csrf
                                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                                         <!-- Category Selector -->
                                         <div>
-                                            <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Document Category</label>
+                                            <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Target Folder / Category</label>
                                             <select name="document_category_id" x-model="selectedCat" class="w-full rounded-xl border-gray-300 text-sm focus:border-indigo-500 focus:ring-indigo-500 shadow-sm" required>
-                                                <option value="" disabled selected>-- Select Category --</option>
+                                                <option value="" disabled selected>-- Select Folder / Category --</option>
                                                 @foreach($categories as $category)
                                                     <option value="{{ $category->id }}">{{ $category->name }}</option>
                                                 @endforeach
-                                                <option value="custom">Other / Custom Category</option>
+                                                <option value="custom">Other / Custom Folder Name</option>
                                             </select>
                                         </div>
 
                                         <!-- Custom Category Input (shown if Other selected) -->
                                         <div x-show="selectedCat === 'custom'" x-cloak>
-                                            <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Custom Category Name</label>
-                                            <input type="text" name="custom_category" placeholder="e.g. Police Clearance, Land Deeds" class="w-full rounded-xl border-gray-300 text-sm focus:border-indigo-500 focus:ring-indigo-500 shadow-sm">
+                                            <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Custom Folder Name</label>
+                                            <input type="text" name="custom_category" x-model="customCatInput" placeholder="e.g. Police Clearance, Sponsor Tax Return" class="w-full rounded-xl border-gray-300 text-sm focus:border-indigo-500 focus:ring-indigo-500 shadow-sm">
                                         </div>
 
                                         <!-- File Input -->
                                         <div :class="selectedCat === 'custom' ? 'md:col-span-1' : 'md:col-span-2'">
-                                            <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Select File (PDF, JPG, PNG, DOC - Max 10MB)</label>
-                                            <input type="file" name="document" class="w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-indigo-600 file:text-white hover:file:bg-indigo-700 file:cursor-pointer cursor-pointer border border-gray-300 rounded-xl bg-white p-1" required>
+                                            <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Select File(s) (PDF, JPG, PNG, DOC - Max 10MB each)</label>
+                                            <input type="file" name="documents[]" multiple class="w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-indigo-600 file:text-white hover:file:bg-indigo-700 file:cursor-pointer cursor-pointer border border-gray-300 rounded-xl bg-white p-1" required>
+                                            <p class="text-[11px] text-gray-400 mt-1">Tip: You can select multiple files at once to deposit into this folder (e.g. multiple bank statements).</p>
                                         </div>
                                     </div>
 
-                                    <div class="flex justify-end gap-2 pt-2">
-                                        <button type="button" @click="uploadOpen = false" class="px-4 py-2 text-xs font-semibold text-gray-600 hover:text-gray-800 rounded-xl border border-gray-300 bg-white hover:bg-gray-50">Cancel</button>
-                                        <button type="submit" class="px-5 py-2 text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 rounded-xl shadow-sm transition">Upload to Vault</button>
+                                    <div class="flex justify-between items-center pt-2">
+                                        <span class="text-xs text-gray-400">Files will be stored and organized under the selected folder.</span>
+                                        <div class="flex gap-2">
+                                            <button type="button" @click="uploadOpen = false" class="px-4 py-2 text-xs font-semibold text-gray-600 hover:text-gray-800 rounded-xl border border-gray-300 bg-white hover:bg-gray-50">Cancel</button>
+                                            <button type="submit" class="px-5 py-2 text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 rounded-xl shadow-sm transition">
+                                                <span x-text="folderTargetName ? 'Upload to ' + folderTargetName : 'Upload to Folder'"></span>
+                                            </button>
+                                        </div>
                                     </div>
                                 </form>
                             </div>
 
-                            <!-- Vault Documents List -->
+                            <!-- Organized Vault Folders -->
+                            @php
+                                $vaultFolders = $app->getVaultFolders();
+                            @endphp
+
                             <div class="p-6">
-                                <div class="flex items-center justify-between mb-4">
-                                    <h4 class="text-sm font-bold text-gray-900 uppercase tracking-wider">Vault Files ({{ $app->documents->count() }})</h4>
-                                    <span class="text-xs text-gray-400">Multiple files per category are stored and managed independently</span>
+                                <div class="flex items-center justify-between mb-5 flex-wrap gap-2">
+                                    <div>
+                                        <h4 class="text-sm font-bold text-gray-900 uppercase tracking-wider flex items-center gap-2">
+                                            <svg class="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                            Visa Document Requirements Checklist & Folders ({{ $vaultFolders->count() }})
+                                        </h4>
+                                        <p class="text-xs text-gray-500 mt-0.5">
+                                            Official required document categories for {{ $app->visa_type }} Visa ({{ $app->target_country }}). Deposit files into each folder to complete your application.
+                                        </p>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        @if($app->requirements->isNotEmpty())
+                                            <span class="text-xs font-semibold px-2.5 py-1.5 rounded-xl {{ $app->completionPercentage() >= 100 ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-amber-50 text-amber-700 border border-amber-200' }}">
+                                                {{ $app->completionPercentage() }}% Fulfilled ({{ $app->requirements->where('is_fulfilled', true)->count() }}/{{ $app->requirements->where('is_mandatory', true)->count() }} required)
+                                            </span>
+                                        @endif
+                                        <button type="button" @click="uploadOpen = true; selectedCat = ''; customCatInput = ''; folderTargetName = '';" class="inline-flex items-center px-3.5 py-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold rounded-xl border border-indigo-200 shadow-sm transition">
+                                            <svg class="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                            + Deposit File
+                                        </button>
+                                    </div>
                                 </div>
 
-                                @if($app->documents->isEmpty())
-                                    <div class="p-8 text-center border-2 border-dashed border-gray-200 rounded-xl bg-gray-50/50">
-                                        <svg class="w-8 h-8 text-gray-400 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
-                                        <p class="text-sm font-medium text-gray-600">No documents in this application vault yet.</p>
-                                        <p class="text-xs text-gray-400 mt-1">Click "Upload File" above to start depositing your required visa files.</p>
-                                    </div>
-                                @else
-                                    <div class="divide-y divide-gray-100">
-                                        @foreach($app->documents as $doc)
-                                            <div class="py-4 space-y-3" x-data="{ showVersions: false }">
-                                                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                                                    
-                                                    <!-- File Info -->
-                                                    <div class="flex items-start gap-3">
-                                                        <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 font-bold text-xs
-                                                            {{ $doc->is_locked ? 'bg-rose-50 text-rose-600 border border-rose-200' : 'bg-indigo-50 text-indigo-600 border border-indigo-200' }}">
-                                                            @if($doc->is_locked)
-                                                                <svg class="w-5 h-5 text-rose-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path></svg>
-                                                            @else
-                                                                <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
-                                                            @endif
-                                                        </div>
-
-                                                        <div>
-                                                            <div class="flex items-center gap-2 flex-wrap">
-                                                                <span class="font-semibold text-sm text-gray-900">{{ $doc->file_name }}</span>
-                                                                <span class="px-2 py-0.5 text-xs font-semibold rounded-md bg-indigo-50 text-indigo-700 border border-indigo-100">
-                                                                    {{ $doc->categoryName() }}
-                                                                </span>
-                                                                <span class="px-2 py-0.5 text-[11px] font-medium rounded bg-gray-100 text-gray-600">
-                                                                    v{{ $doc->version }}
-                                                                </span>
-                                                            </div>
-                                                            <div class="flex items-center gap-3 text-xs text-gray-500 mt-1 flex-wrap">
-                                                                <span>{{ $doc->fileSizeFormatted() }}</span>
-                                                                <span>•</span>
-                                                                <span>Uploaded: {{ $doc->created_at->format('M d, Y H:i') }}</span>
-                                                                @if($doc->versions->isNotEmpty())
-                                                                    <span>•</span>
-                                                                    <button type="button" @click="showVersions = !showVersions" class="text-indigo-600 hover:text-indigo-800 font-semibold underline text-xs">
-                                                                        <span x-text="showVersions ? 'Hide Version History' : 'History ({{ $doc->versions->count() }} previous)'"></span>
-                                                                    </button>
-                                                                @endif
-                                                            </div>
-                                                        </div>
+                                <div class="space-y-4">
+                                    @foreach($vaultFolders as $folder)
+                                        <div class="border rounded-2xl overflow-hidden transition {{ $folder['documents']->isNotEmpty() ? 'border-gray-200 bg-white shadow-sm' : 'border-gray-200/80 bg-slate-50/50' }}"
+                                             x-data="{ folderOpen: {{ $folder['documents']->isNotEmpty() ? 'true' : 'false' }} }">
+                                            
+                                            <!-- Folder Header -->
+                                            <div class="p-4 flex items-center justify-between gap-4 cursor-pointer select-none transition hover:bg-slate-50"
+                                                 @click="folderOpen = !folderOpen">
+                                                <div class="flex items-center gap-3">
+                                                    <div class="w-10 h-10 rounded-xl flex items-center justify-center font-bold flex-shrink-0
+                                                        {{ $folder['documents']->isNotEmpty() ? 'bg-indigo-50 text-indigo-600 border border-indigo-200' : 'bg-gray-100 text-gray-400 border border-gray-200' }}">
+                                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg>
                                                     </div>
+                                                    <div>
+                                                        <div class="flex items-center gap-2 flex-wrap">
+                                                            <span class="font-bold text-sm text-gray-900 tracking-tight">{{ $folder['name'] }}</span>
 
-                                                    <!-- Status & Actions -->
-                                                    <div class="flex items-center gap-3 flex-wrap sm:flex-nowrap">
-                                                        
-                                                        <!-- Status Badge -->
-                                                        <span class="px-2.5 py-1 text-xs font-semibold rounded-full flex items-center gap-1
-                                                            {{ $doc->status === 'approved' ? 'bg-emerald-100 text-emerald-800' : 
-                                                               ($doc->status === 'rejected' ? 'bg-rose-100 text-rose-800' : 'bg-amber-100 text-amber-800') }}">
-                                                            @if($doc->status === 'approved')
-                                                                <svg class="w-3.5 h-3.5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                                                            @elseif($doc->status === 'rejected')
-                                                                <svg class="w-3.5 h-3.5 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                                                            @if($folder['name'] === 'Others')
+                                                                <span class="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded-md bg-purple-100 text-purple-800 border border-purple-200">
+                                                                    Others • General Vault
+                                                                </span>
+                                                            @elseif($folder['is_mandatory'])
+                                                                <span class="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded-md {{ $folder['is_fulfilled'] ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-amber-50 text-amber-700 border border-amber-200' }}">
+                                                                    {{ $folder['is_fulfilled'] ? 'Mandatory • Fulfilled' : 'Mandatory • Required' }}
+                                                                </span>
                                                             @else
-                                                                <svg class="w-3.5 h-3.5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                                                <span class="px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider rounded-md bg-slate-100 text-slate-600 border border-slate-200">
+                                                                    Optional Category
+                                                                </span>
                                                             @endif
-                                                            {{ ucfirst($doc->status) }}
-                                                        </span>
 
-                                                        <!-- Lock indicator -->
-                                                        @if($doc->is_locked)
-                                                            <span class="inline-flex items-center px-2 py-0.5 text-xs font-semibold text-rose-700 bg-rose-50 rounded border border-rose-200" title="This file is locked by the admin and cannot be deleted or replaced.">
-                                                                <svg class="w-3 h-3 mr-1 text-rose-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path></svg>
-                                                                Locked
+                                                            <span class="px-2 py-0.5 text-[11px] font-semibold rounded-full {{ $folder['documents']->isNotEmpty() ? 'bg-indigo-100 text-indigo-800' : 'bg-gray-100 text-gray-500' }}">
+                                                                {{ $folder['documents']->count() }} {{ \Illuminate\Support\Str::plural('file', $folder['documents']->count()) }}
                                                             </span>
-                                                        @endif
-
-                                                        <!-- Download Action -->
-                                                        <a href="{{ route('documents.download', $doc) }}" class="p-2 text-gray-500 hover:text-indigo-600 hover:bg-gray-100 rounded-lg transition" title="Download Document">
-                                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                                                        </a>
-
-                                                        @if(!$doc->is_locked)
-                                                            <!-- Replace Button -->
-                                                            <button type="button" @click="activeReplaceId = (activeReplaceId === {{ $doc->id }} ? null : {{ $doc->id }})" class="p-2 text-gray-500 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition" title="Replace file with newer version">
-                                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
-                                                            </button>
-
-                                                            <!-- Delete Button -->
-                                                            <form action="{{ route('documents.destroy', $doc) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this document from the vault?');" class="inline">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit" class="p-2 text-gray-500 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition" title="Delete Document">
-                                                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                                                                </button>
-                                                            </form>
-                                                        @endif
-                                                    </div>
-                                                </div>
-
-                                                <!-- Admin Feedback Notes Callout (if rejected or reviewed with notes) -->
-                                                @if($doc->admin_notes)
-                                                    <div class="ml-13 p-3 rounded-xl text-xs {{ $doc->status === 'rejected' ? 'bg-rose-50 border border-rose-200 text-rose-800' : 'bg-slate-50 border border-slate-200 text-slate-700' }}">
-                                                        <span class="font-bold">Admin Review Notes:</span> {{ $doc->admin_notes }}
-                                                    </div>
-                                                @endif
-
-                                                <!-- Replace File Inline Drawer -->
-                                                <div x-show="activeReplaceId === {{ $doc->id }}" x-cloak class="p-4 bg-amber-50/60 rounded-xl border border-amber-200">
-                                                    <p class="text-xs font-bold text-amber-900 mb-2">Upload new version for {{ $doc->file_name }} (Current: v{{ $doc->version }})</p>
-                                                    <p class="text-[11px] text-amber-700 mb-3">The existing file will be archived in version history and replaced with your new upload.</p>
-                                                    <form action="{{ route('documents.replace', $doc) }}" method="POST" enctype="multipart/form-data" class="flex flex-col sm:flex-row gap-3 items-center">
-                                                        @csrf
-                                                        <input type="file" name="document" class="text-xs text-gray-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-amber-600 file:text-white hover:file:bg-amber-700 file:cursor-pointer cursor-pointer border border-amber-300 rounded-lg bg-white p-1 w-full" required>
-                                                        <div class="flex gap-2 flex-shrink-0">
-                                                            <button type="button" @click="activeReplaceId = null" class="px-3 py-1.5 text-xs text-gray-600 bg-white border border-gray-300 rounded-lg">Cancel</button>
-                                                            <button type="submit" class="px-3 py-1.5 text-xs font-bold text-white bg-amber-600 hover:bg-amber-700 rounded-lg">Save Version {{ $doc->version + 1 }}</button>
                                                         </div>
-                                                    </form>
+                                                        <p class="text-[11px] text-gray-400 mt-0.5">
+                                                            {{ $folder['documents']->isEmpty() ? 'Folder is currently empty' : $folder['documents']->count() . ' document(s) deposited under this category' }}
+                                                        </p>
+                                                    </div>
                                                 </div>
 
-                                                <!-- Previous Version History -->
-                                                <div x-show="showVersions" x-cloak class="p-4 bg-slate-50 rounded-xl border border-slate-200">
-                                                    <p class="text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Archived Version History</p>
-                                                    <div class="space-y-2">
-                                                        @foreach($doc->versions as $v)
-                                                            <div class="flex items-center justify-between text-xs text-gray-600 bg-white p-2.5 rounded-lg border border-gray-200">
-                                                                <div>
-                                                                    <span class="font-semibold text-gray-900">v{{ $v->version }}: {{ $v->file_name }}</span>
-                                                                    <span class="text-gray-400 ml-2">{{ $v->fileSizeFormatted() }} • Archived {{ $v->created_at->format('M d, Y H:i') }}</span>
+                                                <div class="flex items-center gap-2.5" @click.stop>
+                                                    <!-- Upload to this folder button -->
+                                                    <button type="button" 
+                                                            @click="uploadOpen = true; selectedCat = '{{ $folder['category_id'] ?? ($folder['custom_category'] ? 'custom' : '') }}'; customCatInput = '{{ $folder['custom_category'] ?? '' }}'; folderTargetName = '{{ $folder['name'] }}';"
+                                                            class="inline-flex items-center px-3 py-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold rounded-xl border border-indigo-200 transition">
+                                                        <svg class="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                                        <span>Upload to {{ $folder['name'] }}</span>
+                                                    </button>
+
+                                                    <!-- Expand / Collapse chevron -->
+                                                    <button type="button" @click="folderOpen = !folderOpen" class="p-1.5 text-gray-400 hover:text-gray-600 rounded-lg">
+                                                        <svg class="w-4 h-4 transition-transform duration-200" :class="{ 'rotate-180': folderOpen }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            <!-- Folder Body -->
+                                            <div x-show="folderOpen" class="border-t border-gray-100 p-4 bg-slate-50/30">
+                                                @if($folder['documents']->isEmpty())
+                                                    <div class="py-5 px-4 text-center border-2 border-dashed border-gray-200 rounded-xl bg-white">
+                                                        <div class="w-10 h-10 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center mx-auto mb-2">
+                                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                                                        </div>
+                                                        <p class="text-xs font-bold text-gray-800">No documents deposited into {{ $folder['name'] }} yet</p>
+                                                        <p class="text-[11px] text-gray-400 mt-0.5">Select and deposit required file(s) (PDF, JPG, PNG, DOC - Max 10MB each):</p>
+
+                                                        <form action="{{ route('documents.store', $app) }}" method="POST" enctype="multipart/form-data" class="mt-3.5 max-w-lg mx-auto flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+                                                            @csrf
+                                                            <input type="hidden" name="document_category_id" value="{{ $folder['category_id'] }}">
+                                                            @if(!$folder['category_id'] && $folder['custom_category'])
+                                                                <input type="hidden" name="custom_category" value="{{ $folder['custom_category'] }}">
+                                                            @endif
+                                                            <input type="file" name="documents[]" multiple class="w-full text-xs text-gray-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-indigo-600 file:text-white hover:file:bg-indigo-700 file:cursor-pointer cursor-pointer border border-gray-300 rounded-xl bg-slate-50 p-1 flex-1" required>
+                                                            <button type="submit" class="inline-flex items-center justify-center px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl shadow-sm transition whitespace-nowrap">
+                                                                <svg class="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                                                Deposit File
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                @else
+                                                    <div class="divide-y divide-gray-100 bg-white rounded-xl border border-gray-100 px-4">
+                                                        @foreach($folder['documents'] as $doc)
+                                                            <div class="py-3.5 space-y-2.5" x-data="{ showVersions: false }">
+                                                                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                                                                    
+                                                                    <!-- File Info -->
+                                                                    <div class="flex items-start gap-3">
+                                                                        <div class="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 font-bold text-xs
+                                                                            {{ $doc->is_locked ? 'bg-rose-50 text-rose-600 border border-rose-200' : 'bg-indigo-50 text-indigo-600 border border-indigo-200' }}">
+                                                                            @if($doc->is_locked)
+                                                                                <svg class="w-4 h-4 text-rose-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path></svg>
+                                                                            @else
+                                                                                <svg class="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                                                                            @endif
+                                                                        </div>
+
+                                                                        <div>
+                                                                            <div class="flex items-center gap-2 flex-wrap">
+                                                                                <span class="font-semibold text-sm text-gray-900">{{ $doc->file_name }}</span>
+                                                                                <span class="px-2 py-0.5 text-[11px] font-medium rounded bg-gray-100 text-gray-600">
+                                                                                    v{{ $doc->version }}
+                                                                                </span>
+                                                                            </div>
+                                                                            <div class="flex items-center gap-2.5 text-xs text-gray-500 mt-0.5 flex-wrap">
+                                                                                <span>{{ $doc->fileSizeFormatted() }}</span>
+                                                                                <span>•</span>
+                                                                                <span>Uploaded: {{ $doc->created_at->format('M d, Y H:i') }}</span>
+                                                                                @if($doc->versions->isNotEmpty())
+                                                                                    <span>•</span>
+                                                                                    <button type="button" @click="showVersions = !showVersions" class="text-indigo-600 hover:text-indigo-800 font-semibold underline text-xs">
+                                                                                        <span x-text="showVersions ? 'Hide History' : 'History ({{ $doc->versions->count() }} previous)'"></span>
+                                                                                    </button>
+                                                                                @endif
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <!-- Status & Actions -->
+                                                                    <div class="flex items-center gap-2.5 flex-wrap sm:flex-nowrap">
+                                                                        
+                                                                        <!-- Status Badge -->
+                                                                        <span class="px-2.5 py-0.5 text-xs font-semibold rounded-full flex items-center gap-1
+                                                                            {{ $doc->status === 'approved' ? 'bg-emerald-100 text-emerald-800' : 
+                                                                               ($doc->status === 'rejected' ? 'bg-rose-100 text-rose-800' : 'bg-amber-100 text-amber-800') }}">
+                                                                            @if($doc->status === 'approved')
+                                                                                <svg class="w-3.5 h-3.5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                                                            @elseif($doc->status === 'rejected')
+                                                                                <svg class="w-3.5 h-3.5 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                                                                            @else
+                                                                                <svg class="w-3.5 h-3.5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                                                            @endif
+                                                                            {{ ucfirst($doc->status) }}
+                                                                        </span>
+
+                                                                        <!-- Lock indicator -->
+                                                                        @if($doc->is_locked)
+                                                                            <span class="inline-flex items-center px-2 py-0.5 text-xs font-semibold text-rose-700 bg-rose-50 rounded border border-rose-200" title="This file is locked by the admin and cannot be deleted or replaced.">
+                                                                                <svg class="w-3 h-3 mr-1 text-rose-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path></svg>
+                                                                                Locked
+                                                                            </span>
+                                                                        @endif
+
+                                                                        <!-- Download Action -->
+                                                                        <a href="{{ route('documents.download', $doc) }}" class="p-1.5 text-gray-500 hover:text-indigo-600 hover:bg-gray-100 rounded-lg transition" title="Download Document">
+                                                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                                                                        </a>
+
+                                                                        @if(!$doc->is_locked)
+                                                                            <!-- Replace Button -->
+                                                                            <button type="button" @click="activeReplaceId = (activeReplaceId === {{ $doc->id }} ? null : {{ $doc->id }})" class="p-1.5 text-gray-500 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition" title="Replace file with newer version">
+                                                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                                                                            </button>
+
+                                                                            <!-- Delete Button -->
+                                                                            <form action="{{ route('documents.destroy', $doc) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this document from the vault?');" class="inline">
+                                                                                @csrf
+                                                                                @method('DELETE')
+                                                                                <button type="submit" class="p-1.5 text-gray-500 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition" title="Delete Document">
+                                                                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                                                                </button>
+                                                                            </form>
+                                                                        @endif
+                                                                    </div>
                                                                 </div>
-                                                                <span class="text-[11px] text-gray-500">Replaced by {{ $v->replacedBy?->name ?? 'User' }}</span>
+
+                                                                <!-- Admin Feedback Notes Callout (if rejected or reviewed with notes) -->
+                                                                @if($doc->admin_notes)
+                                                                    <div class="p-2.5 rounded-xl text-xs {{ $doc->status === 'rejected' ? 'bg-rose-50 border border-rose-200 text-rose-800' : 'bg-slate-50 border border-slate-200 text-slate-700' }}">
+                                                                        <span class="font-bold">Admin Review Notes:</span> {{ $doc->admin_notes }}
+                                                                    </div>
+                                                                @endif
+
+                                                                <!-- Replace File Inline Drawer -->
+                                                                <div x-show="activeReplaceId === {{ $doc->id }}" x-cloak class="p-3 bg-amber-50/60 rounded-xl border border-amber-200">
+                                                                    <p class="text-xs font-bold text-amber-900 mb-1">Upload new version for {{ $doc->file_name }} (Current: v{{ $doc->version }})</p>
+                                                                    <p class="text-[11px] text-amber-700 mb-2">The current file will be moved to archived history and replaced.</p>
+                                                                    <form action="{{ route('documents.replace', $doc) }}" method="POST" enctype="multipart/form-data" class="flex flex-col sm:flex-row gap-2.5 items-center">
+                                                                        @csrf
+                                                                        <input type="file" name="document" class="text-xs text-gray-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-amber-600 file:text-white hover:file:bg-amber-700 file:cursor-pointer cursor-pointer border border-amber-300 rounded-lg bg-white p-1 w-full" required>
+                                                                        <div class="flex gap-2 flex-shrink-0">
+                                                                            <button type="button" @click="activeReplaceId = null" class="px-3 py-1.5 text-xs text-gray-600 bg-white border border-gray-300 rounded-lg">Cancel</button>
+                                                                            <button type="submit" class="px-3 py-1.5 text-xs font-bold text-white bg-amber-600 hover:bg-amber-700 rounded-lg">Save Version {{ $doc->version + 1 }}</button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+
+                                                                <!-- Previous Version History -->
+                                                                <div x-show="showVersions" x-cloak class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+                                                                    <p class="text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Archived Version History</p>
+                                                                    <div class="space-y-1.5">
+                                                                        @foreach($doc->versions as $v)
+                                                                            <div class="flex items-center justify-between text-xs text-gray-600 bg-white p-2 rounded-lg border border-gray-200">
+                                                                                <div>
+                                                                                    <span class="font-semibold text-gray-900">v{{ $v->version }}: {{ $v->file_name }}</span>
+                                                                                    <span class="text-gray-400 ml-2">{{ $v->fileSizeFormatted() }} • Archived {{ $v->created_at->format('M d, Y H:i') }}</span>
+                                                                                </div>
+                                                                                <span class="text-[11px] text-gray-500">Replaced by {{ $v->replacedBy?->name ?? 'User' }}</span>
+                                                                            </div>
+                                                                        @endforeach
+                                                                    </div>
+                                                                </div>
+
                                                             </div>
                                                         @endforeach
                                                     </div>
-                                                </div>
 
+                                                    <!-- Direct in-folder upload for additional files -->
+                                                    <div class="mt-3 p-3 bg-indigo-50/50 rounded-xl border border-indigo-100">
+                                                        <p class="text-[11px] font-bold text-gray-700 uppercase tracking-wider mb-2 flex items-center gap-1">
+                                                            <svg class="w-3.5 h-3.5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                                            Deposit Additional File(s) to {{ $folder['name'] }}
+                                                        </p>
+                                                        <form action="{{ route('documents.store', $app) }}" method="POST" enctype="multipart/form-data" class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+                                                            @csrf
+                                                            <input type="hidden" name="document_category_id" value="{{ $folder['category_id'] }}">
+                                                            @if(!$folder['category_id'] && $folder['custom_category'])
+                                                                <input type="hidden" name="custom_category" value="{{ $folder['custom_category'] }}">
+                                                            @endif
+                                                            <input type="file" name="documents[]" multiple class="w-full text-xs text-gray-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-indigo-600 file:text-white hover:file:bg-indigo-700 file:cursor-pointer cursor-pointer border border-indigo-200 rounded-xl bg-white p-1 flex-1" required>
+                                                            <button type="submit" class="inline-flex items-center justify-center px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl shadow-sm transition whitespace-nowrap">
+                                                                Deposit to Folder
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                @endif
                                             </div>
-                                        @endforeach
-                                    </div>
-                                @endif
+
+                                        </div>
+                                    @endforeach
+                                </div>
                             </div>
 
                         </div>
                     @endforeach
                 </div>
             @endif
+
+            <!-- Modal: Apply for New Visa -->
+            <div x-show="newAppModalOpen" x-cloak class="fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4" @keydown.escape.window="newAppModalOpen = false">
+                <div class="bg-white rounded-2xl max-w-lg w-full overflow-hidden shadow-2xl border border-gray-100" @click.outside="newAppModalOpen = false">
+                    <div class="p-5 bg-gradient-to-r from-slate-900 to-indigo-950 text-white flex items-center justify-between">
+                        <div>
+                            <h3 class="font-bold text-base">Apply for New Visa Program</h3>
+                            <p class="text-xs text-gray-300 mt-0.5">Open a new visa application vault with personalized document requirements</p>
+                        </div>
+                        <button type="button" @click="newAppModalOpen = false" class="text-gray-400 hover:text-white text-lg font-bold">✕</button>
+                    </div>
+
+                    <form action="{{ route('applications.storeLead') }}" method="POST" enctype="multipart/form-data" class="p-6 space-y-4">
+                        @csrf
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Target Country *</label>
+                                <select name="country" x-model="newAppCountry" class="w-full rounded-xl border-gray-300 text-sm focus:border-indigo-500 focus:ring-indigo-500 shadow-sm" required>
+                                    <option value="India" selected>India</option>
+                                    <option value="Spain">Spain</option>
+                                    <option value="UK">United Kingdom (UK)</option>
+                                    <option value="USA">USA</option>
+                                    <option value="Canada">Canada</option>
+                                    <option value="Australia">Australia</option>
+                                    <option value="Italy">Italy</option>
+                                    <option value="Germany">Germany</option>
+                                    <option value="France">France</option>
+                                    <option value="Sweden">Sweden</option>
+                                    <option value="Portugal">Portugal</option>
+                                    <option value="Japan">Japan</option>
+                                    <option value="South Korea">South Korea</option>
+                                    <option value="Singapore">Singapore</option>
+                                    <option value="Malaysia">Malaysia</option>
+                                    <option value="Saudi Arabia">Saudi Arabia</option>
+                                    <option value="UAE">United Arab Emirates (UAE)</option>
+                                    <option value="Turkey">Turkey</option>
+                                    <option value="Qatar">Qatar</option>
+                                    <option value="New Zealand">New Zealand</option>
+                                    <option value="Other">Other Country</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Visa Type *</label>
+                                <select name="visaType" x-model="newAppVisaType" class="w-full rounded-xl border-gray-300 text-sm focus:border-indigo-500 focus:ring-indigo-500 shadow-sm" required>
+                                    <option value="Tourist">Tourist Visa</option>
+                                    <option value="Medical">Medical Visa</option>
+                                    <option value="Double Entry">Double Entry Visa</option>
+                                    <option value="Student">Student Visa</option>
+                                    <option value="Work">Work Visa</option>
+                                    <option value="Business">Business Visa</option>
+                                    <option value="Family">Family / Spouse Visa</option>
+                                    <option value="Umrah">Umrah Visa</option>
+                                    <option value="PR">Permanent Residency / Investor</option>
+                                    <option value="Appeal">Visa Appeal / Refusal Review</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Dynamic Requirements Preview in Modal -->
+                        <div class="p-3.5 bg-slate-50 rounded-xl border border-gray-200">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-xs font-bold text-gray-800 flex items-center gap-1.5">
+                                    <svg class="w-3.5 h-3.5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                                    Required Documents for <span x-text="(newAppCountry ? newAppCountry + ' ' : '') + newAppVisaType + ' Visa'" class="text-indigo-600 font-bold"></span>:
+                                </span>
+                            </div>
+                            <div class="flex flex-wrap gap-1.5">
+                                <template x-for="req in getModalReqs()" :key="req.name">
+                                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold bg-white border border-gray-200 text-gray-800 shadow-2xs">
+                                        <svg class="w-3 h-3 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                        <span x-text="req.name"></span>
+                                        <span x-show="req.is_mandatory" class="text-[9px] px-1 py-0.2 bg-amber-50 text-amber-700 font-bold rounded">Req</span>
+                                    </span>
+                                </template>
+                            </div>
+                        </div>
+
+                        <!-- Pre-populated user details -->
+                        <input type="hidden" name="fullName" value="{{ auth()->user()->name }}">
+                        <input type="hidden" name="phone" value="{{ auth()->user()->phone ?? '+880 1000-000000' }}">
+                        <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+
+                        <!-- Direct File Upload Field -->
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Attach Visa Documents (Optional - PDF, JPG, PNG, DOC)</label>
+                            <input type="file" name="documents[]" multiple class="w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-indigo-600 file:text-white hover:file:bg-indigo-700 file:cursor-pointer cursor-pointer border border-gray-300 rounded-xl bg-white p-1">
+                            <p class="text-[11px] text-gray-400 mt-1">You can attach multiple files now or deposit them into folder vaults after creation.</p>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Additional Notes / Inquiry</label>
+                            <textarea name="message" rows="2" class="w-full rounded-xl border-gray-300 text-xs focus:border-indigo-500 focus:ring-indigo-500 shadow-sm" placeholder="Any specific requirements, sponsor notes, or questions..."></textarea>
+                        </div>
+
+                        <div class="flex justify-end gap-2 pt-2">
+                            <button type="button" @click="newAppModalOpen = false" class="px-4 py-2 text-xs font-semibold text-gray-600 bg-white border border-gray-300 rounded-xl hover:bg-gray-50">Cancel</button>
+                            <button type="submit" class="px-5 py-2 text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 rounded-xl shadow-sm transition">
+                                Create Application & Open Vault
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
 
         </div>
     </div>

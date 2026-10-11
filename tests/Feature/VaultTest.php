@@ -6,6 +6,7 @@ use App\Models\Application;
 use App\Models\Document;
 use App\Models\DocumentCategory;
 use App\Models\User;
+use App\Models\VisaTypeRequirement;
 use App\Services\VaultService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
@@ -36,42 +37,38 @@ class VaultTest extends TestCase
 
         $response->assertOk();
         $response->assertSee('Tourist Visa — Japan');
+        $response->assertSee($user->email);
     }
 
-    public function test_client_can_upload_document_to_application_vault(): void
+    public function test_client_can_upload_multiple_files_at_once_to_folder(): void
     {
         $user = User::factory()->create(['role' => 'client']);
         $app = Application::create([
             'user_id' => $user->id,
             'visa_type' => 'Tourist',
-            'target_country' => 'Japan',
+            'target_country' => 'Schengen Area',
         ]);
 
-        $category = DocumentCategory::create([
-            'name' => 'Passport',
-            'slug' => 'passport',
+        $bankCat = DocumentCategory::create([
+            'name' => 'Bank Statement',
+            'slug' => 'bank-statement',
             'is_predefined' => true,
         ]);
 
-        $file = UploadedFile::fake()->create('my_passport.pdf', 500, 'application/pdf');
+        $fileJan = UploadedFile::fake()->create('bank_statement_jan.pdf', 300, 'application/pdf');
+        $fileFeb = UploadedFile::fake()->create('bank_statement_feb.pdf', 350, 'application/pdf');
 
         $response = $this->actingAs($user)->post("/applications/{$app->id}/documents", [
-            'document' => $file,
-            'document_category_id' => $category->id,
+            'documents' => [$fileJan, $fileFeb],
+            'document_category_id' => $bankCat->id,
         ]);
 
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
 
-        $this->assertDatabaseHas('documents', [
-            'application_id' => $app->id,
-            'user_id' => $user->id,
-            'document_category_id' => $category->id,
-            'file_name' => 'my_passport.pdf',
-            'status' => 'pending',
-            'is_locked' => false,
-            'version' => 1,
-        ]);
+        $this->assertSame(2, Document::where('application_id', $app->id)->where('document_category_id', $bankCat->id)->count());
+        $this->assertDatabaseHas('documents', ['file_name' => 'bank_statement_jan.pdf']);
+        $this->assertDatabaseHas('documents', ['file_name' => 'bank_statement_feb.pdf']);
     }
 
     public function test_client_can_upload_multiple_documents_under_same_category(): void
@@ -347,5 +344,219 @@ class VaultTest extends TestCase
 
         $this->assertFalse($client->can('viewAny', Document::class));
         $this->assertFalse($client->can('viewAny', Application::class));
+    }
+
+    public function test_landing_page_renders_visa_requirements_data(): void
+    {
+        $cat = DocumentCategory::create([
+            'name' => 'Valid Passport',
+            'slug' => 'passport',
+            'is_predefined' => true,
+        ]);
+
+        VisaTypeRequirement::create([
+            'visa_type' => 'Tourist',
+            'document_category_id' => $cat->id,
+            'is_mandatory' => true,
+        ]);
+
+        $response = $this->get('/');
+        $response->assertOk();
+        $response->assertSee('Valid Passport');
+    }
+
+    public function test_client_can_apply_and_upload_files_from_landing_page(): void
+    {
+        $cat = DocumentCategory::create([
+            'name' => 'Valid Passport',
+            'slug' => 'passport',
+            'is_predefined' => true,
+        ]);
+
+        VisaTypeRequirement::create([
+            'visa_type' => 'Tourist',
+            'document_category_id' => $cat->id,
+            'is_mandatory' => true,
+        ]);
+
+        $passportFile = UploadedFile::fake()->create('my_passport.pdf', 300, 'application/pdf');
+
+        $response = $this->post('/apply', [
+            'name' => 'John Traveler',
+            'email' => 'john.traveler@example.com',
+            'phone' => '+1234567890',
+            'visa_type' => 'Tourist',
+            'country' => 'France',
+            'notes' => 'Looking for tourist visa for holiday',
+            'documents' => [$passportFile],
+        ]);
+
+        $response->assertRedirect(route('dashboard'));
+        $this->assertAuthenticated();
+
+        $user = User::where('email', 'john.traveler@example.com')->first();
+        $this->assertNotNull($user);
+
+        $application = Application::where('user_id', $user->id)->first();
+        $this->assertNotNull($application);
+        $this->assertEquals('Tourist', $application->visa_type);
+        $this->assertEquals('France', $application->target_country);
+
+        // Check document stored in vault
+        $document = Document::where('application_id', $application->id)->first();
+        $this->assertNotNull($document);
+        $this->assertEquals('my_passport.pdf', $document->file_name);
+        Storage::disk('local')->assertExists($document->file_path);
+    }
+
+    public function test_client_can_upload_custom_category_document(): void
+    {
+        $user = User::factory()->create(['role' => 'client']);
+        $app = Application::create([
+            'user_id' => $user->id,
+            'visa_type' => 'Tourist',
+            'target_country' => 'Canada',
+        ]);
+
+        $file = UploadedFile::fake()->create('custom_letter.pdf', 200, 'application/pdf');
+
+        $response = $this->actingAs($user)->post("/applications/{$app->id}/documents", [
+            'document_category_id' => 'custom',
+            'custom_category' => 'Invitation Letter',
+            'file' => $file,
+        ]);
+
+        $response->assertSessionHasNoErrors();
+        $response->assertRedirect();
+
+        $document = Document::where('application_id', $app->id)
+            ->where('custom_category', 'Invitation Letter')
+            ->first();
+
+        $this->assertNotNull($document);
+        $this->assertNull($document->document_category_id);
+        Storage::disk('local')->assertExists($document->file_path);
+    }
+
+    public function test_dashboard_displays_requirements_checklist(): void
+    {
+        $user = User::factory()->create(['role' => 'client']);
+        $cat = DocumentCategory::create([
+            'name' => 'National ID / NID',
+            'slug' => 'national-id',
+            'is_predefined' => true,
+        ]);
+
+        VisaTypeRequirement::create([
+            'visa_type' => 'Student',
+            'document_category_id' => $cat->id,
+            'is_mandatory' => true,
+        ]);
+
+        $app = Application::create([
+            'user_id' => $user->id,
+            'visa_type' => 'Student',
+            'target_country' => 'Germany',
+        ]);
+
+        $response = $this->actingAs($user)->get('/dashboard');
+
+        $response->assertOk();
+        $response->assertSee('Visa Document Requirements Checklist');
+        $response->assertSee('National ID / NID');
+    }
+
+    public function test_visa_requirements_can_be_country_specific(): void
+    {
+        $passportCat = DocumentCategory::create(['name' => 'Passport', 'slug' => 'passport', 'is_predefined' => true]);
+        $nidCat = DocumentCategory::create(['name' => 'National ID', 'slug' => 'nid', 'is_predefined' => true]);
+        $insuranceCat = DocumentCategory::create(['name' => 'Travel Insurance', 'slug' => 'travel-insurance', 'is_predefined' => true]);
+        $eduCat = DocumentCategory::create(['name' => 'Educational Certificates', 'slug' => 'educational-certificates', 'is_predefined' => true]);
+
+        // India Tourist Visa -> Passport & National ID
+        VisaTypeRequirement::create([
+            'country' => 'India',
+            'visa_type' => 'Tourist',
+            'document_category_id' => $passportCat->id,
+            'is_mandatory' => true,
+        ]);
+        VisaTypeRequirement::create([
+            'country' => 'India',
+            'visa_type' => 'Tourist',
+            'document_category_id' => $nidCat->id,
+            'is_mandatory' => true,
+        ]);
+
+        // Spain Student Visa -> Passport & Travel Insurance & Educational Certificates
+        VisaTypeRequirement::create([
+            'country' => 'Spain',
+            'visa_type' => 'Student',
+            'document_category_id' => $passportCat->id,
+            'is_mandatory' => true,
+        ]);
+        VisaTypeRequirement::create([
+            'country' => 'Spain',
+            'visa_type' => 'Student',
+            'document_category_id' => $insuranceCat->id,
+            'is_mandatory' => true,
+        ]);
+        VisaTypeRequirement::create([
+            'country' => 'Spain',
+            'visa_type' => 'Student',
+            'document_category_id' => $eduCat->id,
+            'is_mandatory' => true,
+        ]);
+
+        $user = User::factory()->create(['role' => 'client']);
+
+        // Test India Application
+        $indiaApp = Application::create([
+            'user_id' => $user->id,
+            'visa_type' => 'Tourist',
+            'target_country' => 'India',
+        ]);
+        $indiaApp->syncRequirementsFromVisaType();
+
+        $this->assertEquals(2, $indiaApp->requirements()->count());
+        $indiaCatIds = $indiaApp->requirements()->pluck('document_category_id')->toArray();
+        $this->assertContains($passportCat->id, $indiaCatIds);
+        $this->assertContains($nidCat->id, $indiaCatIds);
+        $this->assertNotContains($insuranceCat->id, $indiaCatIds);
+
+        // Test Spain Application
+        $spainApp = Application::create([
+            'user_id' => $user->id,
+            'visa_type' => 'Student',
+            'target_country' => 'Spain',
+        ]);
+        $spainApp->syncRequirementsFromVisaType();
+
+        $this->assertEquals(3, $spainApp->requirements()->count());
+        $spainCatIds = $spainApp->requirements()->pluck('document_category_id')->toArray();
+        $this->assertContains($passportCat->id, $spainCatIds);
+        $this->assertContains($insuranceCat->id, $spainCatIds);
+        $this->assertContains($eduCat->id, $spainCatIds);
+        $this->assertNotContains($nidCat->id, $spainCatIds);
+    }
+
+    public function test_every_application_vault_always_has_others_folder(): void
+    {
+        $user = User::factory()->create(['role' => 'client']);
+        $app = Application::create([
+            'user_id' => $user->id,
+            'visa_type' => 'Tourist',
+            'target_country' => 'Spain',
+        ]);
+
+        $folders = $app->getVaultFolders();
+
+        $this->assertTrue($folders->contains(function ($f) {
+            return $f['name'] === 'Others';
+        }));
+
+        $response = $this->actingAs($user)->get('/dashboard');
+        $response->assertOk();
+        $response->assertSee('Others');
+        $response->assertSee('Others • General Vault');
     }
 }
