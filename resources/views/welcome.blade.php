@@ -13,130 +13,8 @@
   <!-- =========================================================================
        1. TOP BAR
        ========================================================================= -->
-  <aside class="top-bar">
-    <div class="container">
-      <div class="top-bar-left">
-        <span class="top-bar-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-            <path d="m9 12 2 2 4-4"/>
-          </svg>
-          Your Trusted Visa & Travel Partner
-        </span>
-        <span class="top-bar-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="20 6 9 17 4 12"/>
-          </svg>
-          Reliable Service
-        </span>
-        <span class="top-bar-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="20 6 9 17 4 12"/>
-          </svg>
-          Expert Guidance
-        </span>
-        <span class="top-bar-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="20 6 9 17 4 12"/>
-          </svg>
-          Higher Success Rate
-        </span>
-      </div>
-      <div class="top-bar-right">
-        <a href="tel:+8801XXXXXXXXX" class="top-bar-link">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-          </svg>
-          +880 1XXX-XXXXXX
-        </a>
-        <a href="mailto:info@adibatech.com" class="top-bar-link">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <rect width="20" height="16" x="2" y="4" radius="2"/>
-            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
-          </svg>
-          info@adibatech.com
-        </a>
-        @auth
-          <a href="{{ route('dashboard') }}" class="top-bar-link top-bar-portal-link">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-              <path d="m9 12 2 2 4-4"/>
-            </svg>
-            My Vault ({{ Auth::user()->name }})
-          </a>
-        @else
-          <a href="{{ route('login') }}" class="top-bar-link top-bar-portal-link">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
-              <polyline points="10 17 15 12 10 7"/>
-              <line x1="15" y1="12" x2="3" y2="12"/>
-            </svg>
-            Client Login
-          </a>
-        @endauth
-      </div>
-    </div>
-  </aside>
-
-  <!-- =========================================================================
-       2. MAIN NAVBAR
-       ========================================================================= -->
-  <header class="site-header">
-    <div class="container">
-      <nav class="navbar">
-        <a href="#" class="site-logo">
-          <img src="assets/images/logo.png" alt="Adiba Global - A Concern of AdibaTech.com" class="logo-img">
-        </a>
-
-        <ul class="nav-links" id="navLinks">
-          <li><a href="#home" class="nav-link active">Home</a></li>
-          <li><a href="#services" class="nav-link">Visa Services</a></li>
-          <li><a href="#destinations" class="nav-link">Countries</a></li>
-          <li><a href="#process" class="nav-link">Process</a></li>
-          <li><a href="#why-us" class="nav-link">About Us</a></li>
-          <li><a href="#reviews" class="nav-link">Blog</a></li>
-          <li><a href="#contact" class="nav-link">Contact</a></li>
-          @auth
-            <li class="mobile-only-nav-item"><a href="{{ route('dashboard') }}" class="nav-link" style="color: var(--color-brand-blue); font-weight: 700;">📂 My Document Vault</a></li>
-          @else
-            <li class="mobile-only-nav-item"><a href="{{ route('login') }}" class="nav-link" style="color: var(--color-brand-blue); font-weight: 700;">🔑 Client Login</a></li>
-            <li class="mobile-only-nav-item"><a href="{{ route('register') }}" class="nav-link">📝 Register</a></li>
-          @endauth
-        </ul>
-
-        <div style="display: flex; align-items: center; gap: 10px;">
-          @auth
-            <a href="{{ route('dashboard') }}" class="header-portal-btn">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="16" height="16">
-                <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-6l-2-2H5a2 2 0 0 0-2 2z"></path>
-              </svg>
-              <span>My Vault</span>
-            </a>
-          @else
-            <a href="{{ route('login') }}" class="header-login-btn">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="15" height="15">
-                <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
-                <polyline points="10 17 15 12 10 7"/>
-                <line x1="15" y1="12" x2="3" y2="12"/>
-              </svg>
-              <span>Login</span>
-            </a>
-            <a href="{{ route('register') }}" class="header-register-btn">
-              Register &rarr;
-            </a>
-          @endauth
-
-          <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="4" x2="20" y1="12" y2="12"/>
-              <line x1="4" x2="20" y1="6" y2="6"/>
-              <line x1="4" x2="20" y1="18" y2="18"/>
-            </svg>
-          </button>
-        </div>
-      </nav>
-    </div>
-  </header>
+  @include('partials.topbar')
+  @include('partials.navbar', ['activePage' => 'home'])
 
   <!-- =========================================================================
        3. HERO SECTION
@@ -799,8 +677,79 @@
   </section>
 
   <!-- =========================================================================
+       8B. LATEST VISA BLOG & ARTICLES
+       ========================================================================= -->
+  <section class="reviews-section" id="blog" style="background-color: #f8fafc; border-top: 1px solid #e2e8f0; padding-top: 72px; padding-bottom: 72px;">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Latest Immigration &amp; Visa Insights</h2>
+          <p class="section-subtitle">Read up-to-date policy changes, visa interview tips, and step-by-step guides</p>
+        </div>
+        <a href="{{ url('/blog.html') }}" class="section-link">
+          Explore All 6 Articles in Blog &rarr;
+        </a>
+      </div>
+
+      <div class="blog-grid" style="margin-top: 24px;">
+        <!-- Card 1 -->
+        <article class="blog-item-card js-open-article" data-article-id="uk-student-visa" style="cursor: pointer;">
+          <div class="blog-img-box">
+            <img src="{{ asset('assets/images/dest-uk-photo.png') }}" alt="UK Student Visa">
+            <span class="blog-tag-badge">STUDENT VISA</span>
+          </div>
+          <div class="blog-item-body">
+            <div class="blog-date-meta">September 18, 2026 &bull; 5 min read</div>
+            <h3 class="blog-item-title">Navigating UK Student Visa Rules: CAS &amp; Credibility Interview Prep</h3>
+            <p class="blog-item-excerpt">Learn how UK Visas and Immigration evaluates credibility interviews and how to prove genuine student intent to guarantee CAS visa success.</p>
+            <div style="margin-top: auto; display: flex; align-items: center; justify-content: space-between; padding-top: 14px;">
+              <span class="blog-read-more" style="color: var(--color-brand-blue); font-weight: 700; font-size: 13px;">Read Full Article &rarr;</span>
+              <span style="font-size: 11.5px; color: #64748b; background: #f1f5f9; padding: 3px 8px; border-radius: 6px;">Adiba Global</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="blog-item-card js-open-article" data-article-id="usa-f1-visa" style="cursor: pointer;">
+          <div class="blog-img-box">
+            <img src="{{ asset('assets/images/dest-usa-photo.png') }}" alt="USA F-1 Visa">
+            <span class="blog-tag-badge">USA IMMIGRATION</span>
+          </div>
+          <div class="blog-item-body">
+            <div class="blog-date-meta">September 12, 2026 &bull; 6 min read</div>
+            <h3 class="blog-item-title">Cracking the US F-1 Visa Interview: 10 Common Questions &amp; Winning Answers</h3>
+            <p class="blog-item-excerpt">Discover why section 214(b) refusals happen and how to convincingly demonstrate strong home ties and financial sponsorship to consular officers.</p>
+            <div style="margin-top: auto; display: flex; align-items: center; justify-content: space-between; padding-top: 14px;">
+              <span class="blog-read-more" style="color: var(--color-brand-blue); font-weight: 700; font-size: 13px;">Read Full Article &rarr;</span>
+              <span style="font-size: 11.5px; color: #64748b; background: #f1f5f9; padding: 3px 8px; border-radius: 6px;">Adiba Global</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="blog-item-card js-open-article" data-article-id="italy-scholarship-visa" style="cursor: pointer;">
+          <div class="blog-img-box">
+            <img src="{{ asset('assets/images/dest-italy-photo.png') }}" alt="Study in Italy">
+            <span class="blog-tag-badge">EUROPE SCHENGEN</span>
+          </div>
+          <div class="blog-item-body">
+            <div class="blog-date-meta">August 28, 2026 &bull; 7 min read</div>
+            <h3 class="blog-item-title">Study in Italy on 100% Scholarship: DSU Regional Stipends &amp; Visa Steps</h3>
+            <p class="blog-item-excerpt">How South Asian students can study in Italy with zero tuition fees and receive €7,000+ yearly living stipends via regional DSU and ISEE Parificato.</p>
+            <div style="margin-top: auto; display: flex; align-items: center; justify-content: space-between; padding-top: 14px;">
+              <span class="blog-read-more" style="color: var(--color-brand-blue); font-weight: 700; font-size: 13px;">Read Full Article &rarr;</span>
+              <span style="font-size: 11.5px; color: #64748b; background: #f1f5f9; padding: 3px 8px; border-radius: 6px;">Adiba Global</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
        9. CTA BANNER
        ========================================================================= -->
+
   <section class="cta-banner-wrapper">
     <div class="cta-left-visual">
       <img src="assets/images/cta-plane-clean.png" alt="Airplane flying" class="cta-plane-img">
@@ -824,286 +773,10 @@
     </div>
   </section>
 
-  <!-- =========================================================================
-       10. FOOTER
-       ========================================================================= -->
-  <footer class="site-footer" id="contact">
-    <div class="container">
-      <div class="footer-grid">
-        <!-- Col 1: Brand -->
-        <div class="footer-brand">
-          <img src="assets/images/logo.png" alt="Adiba Global" class="footer-logo">
-        </div>
+  @include('partials.footer')
+  @include('partials.consultation-modal')
+  @include('partials.article-modal')
 
-        <!-- Col 2: Quick Links -->
-        <div class="footer-col footer-accordion">
-          <button class="footer-col-title footer-accordion-btn" aria-expanded="false">
-            <span>Quick Links</span>
-            <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="6 9 12 15 18 9"/>
-            </svg>
-          </button>
-          <div class="footer-accordion-panel">
-            <ul class="footer-links-list">
-              <li><a href="index.html">Home</a></li>
-              <li><a href="services.html">Visa Services</a></li>
-              <li><a href="countries.html">Countries</a></li>
-              <li><a href="about.html">About Us</a></li>
-              <li><a href="contact.html">Contact</a></li>
-              <li><a href="{{ route('login') }}" style="color: var(--color-brand-blue); font-weight: 600;">Client Login</a></li>
-              <li><a href="{{ route('dashboard') }}" style="color: var(--color-brand-blue); font-weight: 600;">Document Vault</a></li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Col 3: Our Services -->
-        <div class="footer-col footer-accordion">
-          <button class="footer-col-title footer-accordion-btn" aria-expanded="false">
-            <span>Our Services</span>
-            <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="6 9 12 15 18 9"/>
-            </svg>
-          </button>
-          <div class="footer-accordion-panel">
-            <ul class="footer-links-list">
-              <li><a href="student-visa.html">Student Visa</a></li>
-              <li><a href="work-visa.html">Work Visa</a></li>
-              <li><a href="tourist-visa.html">Tourist Visa</a></li>
-              <li><a href="business-visa.html">Business Visa</a></li>
-              <li><a href="umrah-visa.html">Umrah Visa</a></li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Col 4: Support -->
-        <div class="footer-col footer-accordion">
-          <button class="footer-col-title footer-accordion-btn" aria-expanded="false">
-            <span>Support</span>
-            <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="6 9 12 15 18 9"/>
-            </svg>
-          </button>
-          <div class="footer-accordion-panel">
-            <ul class="footer-links-list">
-              <li><a href="faq.html">FAQs</a></li>
-              <li><a href="documents.html">Required Documents</a></li>
-              <li><a href="blog.html">Visa Blog</a></li>
-              <li><a href="terms.html">Terms &amp; Conditions</a></li>
-              <li><a href="privacy.html">Privacy Policy</a></li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Col 5: Contact Us (Open by default) -->
-        <div class="footer-col footer-accordion is-open">
-          <button class="footer-col-title footer-accordion-btn" aria-expanded="true">
-            <span>Contact Us</span>
-            <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="6 9 12 15 18 9"/>
-            </svg>
-          </button>
-          <div class="footer-accordion-panel">
-            <ul class="footer-contact-list">
-              <li class="footer-contact-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-                </svg>
-                <span>+880 1XXX-XXXXXX</span>
-              </li>
-              <li class="footer-contact-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect width="20" height="16" x="2" y="4" radius="2"/>
-                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
-                </svg>
-                <span>info@adibatech.com</span>
-              </li>
-              <li class="footer-contact-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
-                  <circle cx="12" cy="10" r="3"/>
-                </svg>
-                <span>Pabna Bazar, Raiganj Sirajganj, Bangladesh</span>
-              </li>
-            </ul>
-
-            <!-- Social Icons -->
-            <div class="footer-social-row">
-              <a href="#" class="social-icon-btn social-facebook" aria-label="Facebook">
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
-                </svg>
-              </a>
-              <a href="#" class="social-icon-btn social-youtube" aria-label="YouTube">
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/>
-                  <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="#FFFFFF"/>
-                </svg>
-              </a>
-              <a href="#" class="social-icon-btn social-whatsapp" aria-label="WhatsApp">
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M17.472 14.382c-.301-.15-1.78-.877-2.056-.977-.276-.1-.477-.15-.678.15-.2.301-.778.977-.954 1.178-.175.2-.351.226-.652.075-.3-.15-1.27-.468-2.42-1.493-.894-.798-1.498-1.784-1.674-2.085-.175-.3-.019-.463.131-.613.136-.135.301-.351.451-.527.151-.175.2-.301.301-.502.101-.2.05-.376-.025-.526-.075-.15-.678-1.631-.929-2.233-.244-.588-.493-.508-.678-.517-.175-.01-.376-.01-.577-.01-.2 0-.527.075-.803.376s-1.054 1.03-1.054 2.512c0 1.482 1.079 2.912 1.23 3.113.15.2 2.124 3.243 5.144 4.547.719.311 1.28.497 1.718.636.722.23 1.379.197 1.9.12.58-.087 1.78-.727 2.03-1.43.251-.703.251-1.305.176-1.43-.075-.126-.276-.201-.577-.351z"/>
-                </svg>
-              </a>
-              <a href="#" class="social-icon-btn social-instagram" aria-label="Instagram">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
-                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-                  <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
-                </svg>
-              </a>
-              <a href="#" class="social-icon-btn social-tiktok" aria-label="TikTok">
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.35 0 .68.06 1 .17V9.08a6.38 6.38 0 0 0-1-.08A6.34 6.34 0 0 0 3 15.34a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.72A8.19 8.19 0 0 0 21 10V6.69h-1.41z"/>
-                </svg>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Sub-footer bottom bar -->
-    <div class="sub-footer">
-      <div class="container">
-        <div>
-          &copy; 2026 Adiba Global. A Concern of AdibaTech.com. All rights reserved.
-        </div>
-        <div class="sub-footer-right">
-          <span>Explore the World with Adiba Global</span>
-          <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
-            <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
-          </svg>
-        </div>
-      </div>
-    </div>
-  </footer>
-
-  <!-- =========================================================================
-       11. INTERACTIVE CONSULTATION MODAL
-       ========================================================================= -->
-  <div class="modal-overlay" id="consultationModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-    <div class="modal-card">
-      <div class="modal-header">
-        <h3 id="modalTitle">Get Free Visa Consultation</h3>
-        <button class="modal-close-btn" id="closeModalBtn" aria-label="Close modal">&times;</button>
-      </div>
-      <div class="modal-body">
-        <div class="modal-success-alert" id="modalSuccessAlert">
-          &check; Thank you! Your inquiry has been submitted. Our visa expert will call you shortly.
-        </div>
-        <form id="consultationForm" method="POST" action="{{ route('applications.storeLead') }}" enctype="multipart/form-data">
-          @csrf
-          <div class="form-group">
-            <label for="fullName">Full Name *</label>
-            <input type="text" id="fullName" name="fullName" class="form-control" placeholder="e.g. Rahim Uddin" value="{{ auth()->user()?->name ?? '' }}" required>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label for="phone">Phone Number *</label>
-              <input type="tel" id="phone" name="phone" class="form-control" placeholder="+880 1XXX-XXXXXX" value="{{ auth()->user()?->phone ?? '' }}" required>
-            </div>
-            <div class="form-group">
-              <label for="email">Email Address</label>
-              <input type="email" id="email" name="email" class="form-control" placeholder="you@example.com" value="{{ auth()->user()?->email ?? '' }}">
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label for="country">Preferred Country</label>
-              <select id="country" name="country" class="form-control">
-                <option value="India" selected>India</option>
-                <option value="Spain">Spain</option>
-                <option value="UK">United Kingdom (UK)</option>
-                <option value="USA">USA</option>
-                <option value="Canada">Canada</option>
-                <option value="Australia">Australia</option>
-                <option value="Italy">Italy</option>
-                <option value="Germany">Germany</option>
-                <option value="France">France</option>
-                <option value="Sweden">Sweden</option>
-                <option value="Portugal">Portugal</option>
-                <option value="Japan">Japan</option>
-                <option value="South Korea">South Korea</option>
-                <option value="Singapore">Singapore</option>
-                <option value="Malaysia">Malaysia</option>
-                <option value="Saudi Arabia">Saudi Arabia</option>
-                <option value="UAE">United Arab Emirates (UAE)</option>
-                <option value="Turkey">Turkey</option>
-                <option value="Qatar">Qatar</option>
-                <option value="New Zealand">New Zealand</option>
-                <option value="Other">Other Country</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="visaType">Visa Type</label>
-              <select id="visaType" name="visaType" class="form-control">
-                <option value="Tourist">Tourist Visa</option>
-                <option value="Medical">Medical Visa</option>
-                <option value="Double Entry">Double Entry Visa</option>
-                <option value="Student">Student Visa</option>
-                <option value="Work">Work Visa</option>
-                <option value="Business">Business Visa</option>
-                <option value="Family">Family / Spouse Visa</option>
-                <option value="Umrah">Umrah Visa</option>
-                <option value="PR">Permanent Residency / Investor</option>
-                <option value="Appeal">Visa Appeal / Refusal Review</option>
-              </select>
-            </div>
-          </div>
-
-          <!-- Dynamic Visa File Requirements Display -->
-          <div class="visa-requirements-panel" id="visaRequirementsPanel">
-            <div class="vr-header">
-              <div class="vr-title">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
-                Required Visa Documents for <span id="reqCountryName">India </span><span id="reqVisaTypeName">Tourist</span> Visa:
-              </div>
-              <span class="vr-count-badge" id="reqCountBadge">5 Requirements</span>
-            </div>
-            <div class="vr-list" id="visaRequirementsList">
-              <!-- Populated dynamically via JS -->
-            </div>
-            <div class="vr-note">
-              <span>💡 Dedicated folders will be generated for each required document above in your vault.</span>
-            </div>
-          </div>
-
-          <!-- Notice: Documents are uploaded in the Vault after creation -->
-          <div class="form-group" style="margin: 16px 0;">
-            <div style="display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px; background: linear-gradient(135deg, #f0f7ff 0%, #f8fafc 100%); border: 1.5px solid #dbeafe; border-radius: 12px;">
-              <div style="width: 32px; height: 32px; border-radius: 8px; background-color: #0066FF; color: #fff; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-6l-2-2H5a2 2 0 0 0-2 2z"></path></svg>
-              </div>
-              <div style="font-size: 12px; line-height: 1.5; color: #334155;">
-                <div style="font-weight: 700; color: #0f172a; margin-bottom: 2px;">Upload Documents in Your Vault</div>
-                <div>You need to upload these required documents in your <strong>Document Vault</strong> after creating this application. You will be taken straight to your vault where each requirement has its own dedicated upload folder.</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="message">Your Query / Background Details</label>
-            <textarea id="message" name="message" class="form-control" rows="2" placeholder="Tell us about your background, travel plans, or questions..."></textarea>
-          </div>
-
-          @auth
-            <button type="submit" class="form-submit-btn">
-              Create Application & Open Vault &rarr;
-            </button>
-          @else
-            <button type="submit" class="form-submit-btn">
-              Submit Application & Continue to Login &rarr;
-            </button>
-            <div style="text-align: center; margin-top: 8px; font-size: 11.5px; color: #64748b;">
-              Already registered? <a href="{{ route('login') }}" style="color: #0066FF; font-weight: 600;">Log in here</a>
-            </div>
-          @endauth
-        </form>
-      </div>
-    </div>
-  </div>
 
   <!-- =========================================================================
        12. ALL COUNTRIES CATALOG MODAL

@@ -30,6 +30,31 @@ Route::get('/', function () {
 
 Route::post('/apply', [ApplicationController::class, 'storeLead'])->name('applications.storeLead');
 
+// Public Pages (accessible with or without .html extension)
+$publicPages = [
+    'services' => 'services',
+    'countries' => 'countries',
+    'about' => 'about',
+    'blog' => 'blog',
+    'contact' => 'contact',
+    'student-visa' => 'student-visa',
+    'work-visa' => 'work-visa',
+    'tourist-visa' => 'tourist-visa',
+    'business-visa' => 'business-visa',
+    'umrah-visa' => 'umrah-visa',
+    'faq' => 'faq',
+    'documents' => 'documents',
+    'terms' => 'terms',
+    'privacy' => 'privacy',
+];
+
+foreach ($publicPages as $slug => $viewName) {
+    Route::get("/{$slug}", fn () => view($viewName))->name("pages.{$slug}");
+    Route::get("/{$slug}.html", fn () => view($viewName));
+}
+
+Route::get('/index.html', fn () => redirect('/'));
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 

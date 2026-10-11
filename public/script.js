@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (cName) {
       const countryMatched = list.filter(r => {
         return (r.country || '').trim().toLowerCase() === cName &&
-               (r.visa_type || '').trim().toLowerCase() === vType;
+          (r.visa_type || '').trim().toLowerCase() === vType;
       });
       if (countryMatched.length > 0) {
         return countryMatched;
@@ -290,7 +290,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // =========================================================================
   const mobileToggle = document.getElementById('mobileMenuToggle');
   const navLinksContainer = document.getElementById('navLinks');
-  const navLinkItems = document.querySelectorAll('.nav-links .nav-link');
 
   if (mobileToggle && navLinksContainer) {
     mobileToggle.addEventListener('click', () => {
@@ -298,11 +297,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  navLinkItems.forEach(link => {
+  // Smooth scroll ONLY for anchor links targeting an ID on the current page
+  document.querySelectorAll('a[href^="#"]:not([href="#"]):not([href="#consultation"]):not([href="#all-countries"]):not([href="#all-services"]):not([href="#all-reviews"])').forEach(link => {
     link.addEventListener('click', (e) => {
-      const href = link.getAttribute('href');
-      if (href && href.startsWith('#')) {
-        const target = document.querySelector(href);
+      const hash = link.getAttribute('href');
+      if (!hash || hash === '#') return;
+
+      try {
+        const target = document.querySelector(hash);
         if (target) {
           e.preventDefault();
           const headerOffset = 75;
@@ -314,13 +316,15 @@ document.addEventListener('DOMContentLoaded', () => {
             behavior: 'smooth'
           });
 
-          navLinkItems.forEach(l => l.classList.remove('active'));
+          document.querySelectorAll('.nav-links .nav-link').forEach(l => l.classList.remove('active'));
           link.classList.add('active');
 
           if (history.pushState) {
-            history.pushState(null, null, href);
+            history.pushState(null, null, hash);
           }
         }
+      } catch (err) {
+        // Ignore querySelector error
       }
 
       if (navLinksContainer) {
@@ -338,9 +342,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const height = section.offsetHeight;
       const id = section.getAttribute('id');
       if (scrollPos >= top && scrollPos < top + height) {
-        navLinkItems.forEach(link => {
+        document.querySelectorAll('.nav-links .nav-link').forEach(link => {
           if (link.getAttribute('href') === '#' + id) {
-            navLinkItems.forEach(l => l.classList.remove('active'));
+            document.querySelectorAll('.nav-links .nav-link').forEach(l => l.classList.remove('active'));
             link.classList.add('active');
           }
         });
@@ -384,10 +388,197 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!card) return;
       const isActive = card.classList.contains('is-active');
 
-      // Toggle current card
       card.classList.toggle('is-active', !isActive);
       btn.setAttribute('aria-expanded', String(!isActive));
     });
   });
+
+  // =========================================================================
+  // 6. Interactive Article Reader Modal (Blog Posts)
+  // =========================================================================
+  const articleModal = document.getElementById('articleReaderModal');
+  const readerTitle = document.getElementById('readerArticleTitle');
+  const readerTag = document.getElementById('readerTagBadge');
+  const readerDateMeta = document.getElementById('readerDateMeta');
+  const readerAuthor = document.getElementById('readerAuthor');
+  const readerCoverImg = document.getElementById('readerCoverImg');
+  const readerBody = document.getElementById('readerArticleBody');
+  const readerApplyBtn = document.getElementById('readerApplyBtn');
+
+  const articlesData = {
+    'uk-student-visa': {
+      title: 'Navigating UK Student Visa Rules: CAS & Credibility Interview Prep',
+      tag: 'STUDENT VISA',
+      meta: 'September 18, 2026 • 5 min read',
+      author: 'Senior UK Education Counselor',
+      img: 'assets/images/dest-uk-photo.png',
+      country: 'UK',
+      visaType: 'Student',
+      html: `
+        <p style="font-size: 16px; font-weight: 500; color: #1e293b; margin-bottom: 20px;">
+          Securing your Confirmation of Acceptance for Studies (CAS) is a major milestone, but the credibility interview conducted by UK Visas and Immigration (UKVI) is where the real evaluation happens. Here is our comprehensive preparation guide.
+        </p>
+        <h3 style="font-size: 18px; font-weight: 700; color: #0f172a; margin: 24px 0 12px;">1. Understanding the Credibility Interview</h3>
+        <p>The interview is usually conducted via video link by an Entry Clearance Officer (ECO) in Sheffield. The officer evaluates three core elements: your genuine intention to study, your academic background relevance, and your realistic post-study career trajectory.</p>
+        <div style="background: #f8fafc; border-left: 4px solid #0066ff; padding: 14px 18px; margin: 20px 0; border-radius: 0 8px 8px 0;">
+          <strong style="color: #0f172a;">Key Rule:</strong> UKVI assesses whether you know specific module names, faculty credentials, and tuition breakdown for your chosen university without looking at notes.
+        </div>
+        <h3 style="font-size: 18px; font-weight: 700; color: #0f172a; margin: 24px 0 12px;">2. Financial Maintenance (28-Day Strict Rule)</h3>
+        <p>You must prove maintenance funds of £1,334 per month for up to 9 months (£12,006) for London institutions, or £1,023 per month (£9,207) outside London. The entire amount plus outstanding tuition must remain untouched in an approved bank account for a continuous 28-day holding period before your application date.</p>
+        <h3 style="font-size: 18px; font-weight: 700; color: #0f172a; margin: 24px 0 12px;">3. The Top 4 Interview Questions</h3>
+        <ul style="padding-left: 20px; margin-bottom: 20px; line-height: 1.8;">
+          <li style="margin-bottom: 8px;"><strong>Why this university?</strong> Detail specific modules, laboratory facilities, and professors rather than generic statements about university rankings.</li>
+          <li style="margin-bottom: 8px;"><strong>Why study in the UK instead of Bangladesh?</strong> Compare local program curriculum gaps with UK course accreditation.</li>
+          <li style="margin-bottom: 8px;"><strong>How will this course help your career?</strong> Name target employers, designated job titles, and expected remuneration in Bangladesh.</li>
+          <li style="margin-bottom: 8px;"><strong>Who is funding your studies?</strong> Clearly state family business turnover, tax filings, and bank solvency details.</li>
+        </ul>
+      `
+    },
+    'usa-f1-visa': {
+      title: 'Cracking the US F-1 Visa Interview: 10 Common Questions & Winning Answers',
+      tag: 'USA IMMIGRATION',
+      meta: 'September 12, 2026 • 6 min read',
+      author: 'US Admissions Specialist',
+      img: 'assets/images/dest-usa-photo.png',
+      country: 'USA',
+      visaType: 'Student',
+      html: `
+        <p style="font-size: 16px; font-weight: 500; color: #1e293b; margin-bottom: 20px;">
+          The US F-1 visa interview is famous for being short—often under three minutes. In that brief window, consular officers make a determination under Section 214(b) of the Immigration and Nationality Act. Here is how to present your case convincingly.
+        </p>
+        <h3 style="font-size: 18px; font-weight: 700; color: #0f172a; margin: 24px 0 12px;">1. Overcoming Section 214(b) (Non-Immigrant Intent)</h3>
+        <p>By US federal law, every student applicant is presumed to have immigrant intent until they convince the consular officer otherwise. You cannot just state "I will return"—you must articulate an unavoidable post-graduation return plan backed by strong economic and familial home ties.</p>
+        <h3 style="font-size: 18px; font-weight: 700; color: #0f172a; margin: 24px 0 12px;">2. Crucial Guidelines for Sponsor Answers</h3>
+        <p>When asked "Who is sponsoring you?", do not simply reply "My father." Provide his profession, business registration, annual income, and clear liquid asset proof. The officer needs to know that financing your education will not deplete your family's basic livelihood.</p>
+        <div style="background: #f8fafc; border-left: 4px solid #0066ff; padding: 14px 18px; margin: 20px 0; border-radius: 0 8px 8px 0;">
+          <strong style="color: #0f172a;">Consular Golden Rule:</strong> Keep answers direct, concise (under 30 seconds per question), maintain eye contact, and never volunteer documents unless the officer explicitly requests them.
+        </div>
+      `
+    },
+    'india-visa-guide': {
+      title: 'Complete Guide to India Tourist, Medical & Double Entry Visas in 2026',
+      tag: 'TRAVEL & MEDICAL',
+      meta: 'September 05, 2026 • 4 min read',
+      author: 'Regional Visa Operations Head',
+      img: 'assets/images/dest-india-photo.png',
+      country: 'India',
+      visaType: 'Tourist',
+      html: `
+        <p style="font-size: 16px; font-weight: 500; color: #1e293b; margin-bottom: 20px;">
+          India is the most frequent travel destination for Bangladeshi citizens for tourism, medical treatment, and transit to third countries. Here is everything you need to know about the latest IVAC token guidelines and documentation.
+        </p>
+        <h3 style="font-size: 18px; font-weight: 700; color: #0f172a; margin: 24px 0 12px;">1. Tourist Visa (T-Visa) Requirements</h3>
+        <ul style="padding-left: 20px; margin-bottom: 20px; line-height: 1.8;">
+          <li style="margin-bottom: 8px;">Original Passport valid for at least 6 months with all previous old passports attached.</li>
+          <li style="margin-bottom: 8px;">Recent 2x2 inch photograph with pure white background and 70-80% face coverage.</li>
+          <li style="margin-bottom: 8px;">Current utility bill copy (Electricity/Gas/Landline) matching the present address on the application.</li>
+          <li style="margin-bottom: 8px;">Bank endorsement of minimum $150 USD or 6 months bank statement showing minimum BDT 20,000 balance.</li>
+        </ul>
+        <h3 style="font-size: 18px; font-weight: 700; color: #0f172a; margin: 24px 0 12px;">2. Medical Visas (MED & MED-X)</h3>
+        <p>Medical visas require an authentic medical invitation letter from an accredited Indian hospital, accompanied by doctor prescriptions and diagnosis reports from a recognized specialist. The medical attendant visa (MED-X) is issued for family companions traveling alongside the patient.</p>
+      `
+    },
+    'italy-scholarship-visa': {
+      title: 'Study in Italy on 100% Scholarship: DSU Regional Stipends & Visa Steps',
+      tag: 'EUROPE SCHENGEN',
+      meta: 'August 28, 2026 • 7 min read',
+      author: 'European Education Lead',
+      img: 'assets/images/dest-italy-photo.png',
+      country: 'Italy',
+      visaType: 'Student',
+      html: `
+        <p style="font-size: 16px; font-weight: 500; color: #1e293b; margin-bottom: 20px;">
+          Italy is one of the highest-rated European study destinations for South Asian students, offering world-class universities with English-medium programs, 100% tuition waivers, and regional living stipends up to €7,500/year.
+        </p>
+        <h3 style="font-size: 18px; font-weight: 700; color: #0f172a; margin: 24px 0 12px;">1. How the DSU Regional Scholarship Works</h3>
+        <p>Regional scholarship bodies (such as DSU Toscana, Disco Lazio, EDiSU, ER.GO) provide financial assistance based on family income parity rather than purely high grades. Benefits include 100% university tuition fee waiver, free daily cafeteria meals, subsidized university dormitories, and direct cash disbursements to your Italian bank account.</p>
+        <h3 style="font-size: 18px; font-weight: 700; color: #0f172a; margin: 24px 0 12px;">2. Preparing the ISEE Parificato</h3>
+        <p>You must legalize your family income certificate, family composition certificate, and property records through the Ministry of Foreign Affairs (MOFA) in Dhaka, translate them into Italian, and have them verified for your ISEE calculation.</p>
+      `
+    },
+    'malaysia-calling-visa': {
+      title: 'Malaysia Calling Visa Verification: How to Spot and Avoid Fake Job Offers',
+      tag: 'WORK VISAS',
+      meta: 'August 19, 2026 • 5 min read',
+      author: 'Labor & Compliance Advisor',
+      img: 'assets/images/dest-malaysia-photo.png',
+      country: 'Malaysia',
+      visaType: 'Work',
+      html: `
+        <p style="font-size: 16px; font-weight: 500; color: #1e293b; margin-bottom: 20px;">
+          The demand for employment in Malaysia has led to an increase in counterfeit Calling Visas (VDR) and unregistered middlemen. Here is the verified verification methodology to protect your rights and finances.
+        </p>
+        <h3 style="font-size: 18px; font-weight: 700; color: #0f172a; margin: 24px 0 12px;">1. Online Verification on Official Portals</h3>
+        <p>Genuine Calling Visas (Visa Dengan Rujukan) are issued directly by the Immigration Department of Malaysia (JIM). You can verify your application status online using your passport number through the official Malaysian immigration system (ePLKS / ESD portal).</p>
+        <h3 style="font-size: 18px; font-weight: 700; color: #0f172a; margin: 24px 0 12px;">2. Mandatory BMET Clearance</h3>
+        <p>Before leaving Bangladesh on a genuine work permit, every worker must obtain a BMET Smart Card from the Bureau of Manpower, Employment and Training. This provides legal protection, wage guarantee verification, and mandatory government worker insurance.</p>
+      `
+    },
+    'saudi-umrah-rules': {
+      title: 'New Saudi Umrah Rules: Nusuk E-Visa, Female Travelers & Hotel Bookings',
+      tag: 'HOLY PILGRIMAGE',
+      meta: 'August 10, 2026 • 4 min read',
+      author: 'Hajj & Umrah Coordinator',
+      img: 'assets/images/dest-saudi-photo.png',
+      country: 'Saudi Arabia',
+      visaType: 'Umrah',
+      html: `
+        <p style="font-size: 16px; font-weight: 500; color: #1e293b; margin-bottom: 20px;">
+          Saudi Arabia's Ministry of Hajj and Umrah has modernized the pilgrimage experience under Vision 2030, granting unprecedented flexibility, longer visa validity, and streamlined mobile app permits.
+        </p>
+        <h3 style="font-size: 18px; font-weight: 700; color: #0f172a; margin: 24px 0 12px;">1. The 90-Day Multi-Entry Umrah Visa</h3>
+        <p>Umrah visas are now valid for a full 90-day stay from date of entry, allowing pilgrims to explore historical sites across Jeddah, Taif, Riyadh, and AlUla after completing their sacred rites in Makkah and Madinah.</p>
+        <h3 style="font-size: 18px; font-weight: 700; color: #0f172a; margin: 24px 0 12px;">2. Booking Rawdah Permits on Nusuk</h3>
+        <p>Entry into the noble Rawdah Sharif (Riyadh ul Jannah) in the Prophet's Mosque requires an advance booking slot on the Nusuk application. Slots open on specific weekly schedules and are tied directly to your passport and visa number.</p>
+      `
+    }
+  };
+
+  function openArticleReader(articleId) {
+    const article = articlesData[articleId];
+    if (!article || !articleModal) return;
+
+    if (readerTitle) readerTitle.textContent = article.title;
+    if (readerTag) readerTag.textContent = article.tag;
+    if (readerDateMeta) readerDateMeta.textContent = article.meta;
+    if (readerAuthor) readerAuthor.textContent = article.author;
+    if (readerCoverImg) readerCoverImg.src = article.img;
+    if (readerBody) readerBody.innerHTML = article.html;
+
+    if (readerApplyBtn) {
+      readerApplyBtn.onclick = () => {
+        closeAllModals();
+        openTargetModal(consultationModal);
+        if (countrySelect && article.country) countrySelect.value = article.country;
+        if (visaTypeSelect && article.visaType) visaTypeSelect.value = article.visaType;
+        updateVisaRequirementsDisplay(article.visaType, article.country);
+      };
+    }
+
+    closeAllModals();
+    articleModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  // Bind click event on every blog article card
+  document.querySelectorAll('.js-open-article').forEach(item => {
+    item.addEventListener('click', (e) => {
+      if (e.target.closest('.js-open-modal') || e.target.closest('button.btn-primary')) {
+        return;
+      }
+      e.preventDefault();
+      const articleId = item.getAttribute('data-article-id');
+      if (articleId) openArticleReader(articleId);
+    });
+  });
+
+  document.querySelectorAll('.js-close-reader-modal').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (articleModal) articleModal.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+  });
+
+  window.openArticle = openArticleReader;
 });
 
