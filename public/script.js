@@ -286,22 +286,67 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // =========================================================================
-  // 3. Mobile Menu Toggle
+  // 3. Navigation Links, Smooth Scroll & Mobile Menu Toggle
   // =========================================================================
   const mobileToggle = document.getElementById('mobileMenuToggle');
-  const navLinks = document.getElementById('navLinks');
+  const navLinksContainer = document.getElementById('navLinks');
+  const navLinkItems = document.querySelectorAll('.nav-links .nav-link');
 
-  if (mobileToggle && navLinks) {
+  if (mobileToggle && navLinksContainer) {
     mobileToggle.addEventListener('click', () => {
-      navLinks.classList.toggle('mobile-active');
-    });
-
-    document.querySelectorAll('.nav-link').forEach(link => {
-      link.addEventListener('click', () => {
-        navLinks.classList.remove('mobile-active');
-      });
+      navLinksContainer.classList.toggle('mobile-active');
     });
   }
+
+  navLinkItems.forEach(link => {
+    link.addEventListener('click', (e) => {
+      const href = link.getAttribute('href');
+      if (href && href.startsWith('#')) {
+        const target = document.querySelector(href);
+        if (target) {
+          e.preventDefault();
+          const headerOffset = 75;
+          const elementPosition = target.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+
+          navLinkItems.forEach(l => l.classList.remove('active'));
+          link.classList.add('active');
+
+          if (history.pushState) {
+            history.pushState(null, null, href);
+          }
+        }
+      }
+
+      if (navLinksContainer) {
+        navLinksContainer.classList.remove('mobile-active');
+      }
+    });
+  });
+
+  // ScrollSpy to highlight active section as user scrolls
+  const trackedSections = document.querySelectorAll('section[id], footer[id]');
+  window.addEventListener('scroll', () => {
+    const scrollPos = window.scrollY + 120;
+    trackedSections.forEach(section => {
+      const top = section.offsetTop;
+      const height = section.offsetHeight;
+      const id = section.getAttribute('id');
+      if (scrollPos >= top && scrollPos < top + height) {
+        navLinkItems.forEach(link => {
+          if (link.getAttribute('href') === '#' + id) {
+            navLinkItems.forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
+          }
+        });
+      }
+    });
+  }, { passive: true });
 
   // =========================================================================
   // 4. Footer Accordion on Mobile

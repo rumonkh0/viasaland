@@ -37,6 +37,10 @@ html {
   width: 100%;
 }
 
+section[id], footer[id] {
+  scroll-margin-top: 80px;
+}
+
 body {
   width: 100%;
   max-width: 100%;

@@ -9,7 +9,6 @@ use App\Services\VaultService;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -153,12 +152,10 @@ class ApplicationController extends Controller
         }
 
         if (! auth()->check()) {
-            Auth::login($user);
+            return redirect()->route('login')->with('success', "Your visa application for {$application->target_country} ({$application->visa_type}) has been created! Please log in to access your document vault and upload required documents.");
         }
 
-        $message = $uploadedCount > 0
-            ? "Your visa application for {$application->target_country} ({$application->visa_type}) was created with {$uploadedCount} document(s) uploaded to your vault!"
-            : "Your visa application for {$application->target_country} ({$application->visa_type}) was created! Check your document checklist below to upload required files.";
+        $message = "Your visa application for {$application->target_country} ({$application->visa_type}) was created! Check your document checklist below to upload required files.";
 
         return redirect()->route('dashboard', ['app' => $application->id, 'tab' => 'vault'])->with('success', $message);
     }

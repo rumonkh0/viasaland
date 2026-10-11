@@ -459,14 +459,32 @@ class VaultTest extends TestCase
         $this->assertEquals('Tourist', $application->visa_type);
         $this->assertEquals('France', $application->target_country);
 
-        $response->assertRedirect(route('dashboard', ['app' => $application->id, 'tab' => 'vault']));
-        $this->assertAuthenticated();
+        $response->assertRedirect(route('login'));
+        $this->assertGuest();
 
         // Check document stored in vault
         $document = Document::where('application_id', $application->id)->first();
         $this->assertNotNull($document);
         $this->assertEquals('my_passport.pdf', $document->file_name);
         Storage::disk('local')->assertExists($document->file_path);
+    }
+
+    public function test_authenticated_client_can_apply_from_landing_page_and_redirects_to_vault(): void
+    {
+        $user = User::factory()->create(['role' => 'client']);
+
+        $response = $this->actingAs($user)->post('/apply', [
+            'name' => $user->name,
+            'email' => $user->email,
+            'phone' => '+1234567890',
+            'visa_type' => 'Tourist',
+            'country' => 'France',
+            'notes' => 'Applying from landing page while logged in',
+        ]);
+
+        $application = Application::where('user_id', $user->id)->first();
+        $this->assertNotNull($application);
+        $response->assertRedirect(route('dashboard', ['app' => $application->id, 'tab' => 'vault']));
     }
 
     public function test_client_can_upload_custom_category_document(): void

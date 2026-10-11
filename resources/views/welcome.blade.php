@@ -89,18 +89,15 @@
         </a>
 
         <ul class="nav-links" id="navLinks">
-          <li><a href="index.html" class="nav-link active">Home</a></li>
-          <li><a href="services.html" class="nav-link">Visa Services</a></li>
-          <li><a href="countries.html" class="nav-link">Countries</a></li>
-          <li><a href="index.html#process" class="nav-link">Process</a></li>
-          <li><a href="about.html" class="nav-link">About Us</a></li>
-          <li><a href="blog.html" class="nav-link">Blog</a></li>
-          <li><a href="contact.html" class="nav-link">Contact</a></li>
+          <li><a href="#home" class="nav-link active">Home</a></li>
+          <li><a href="#services" class="nav-link">Visa Services</a></li>
+          <li><a href="#destinations" class="nav-link">Countries</a></li>
+          <li><a href="#process" class="nav-link">Process</a></li>
+          <li><a href="#why-us" class="nav-link">About Us</a></li>
+          <li><a href="#reviews" class="nav-link">Blog</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
           @auth
             <li class="mobile-only-nav-item"><a href="{{ route('dashboard') }}" class="nav-link" style="color: var(--color-brand-blue); font-weight: 700;">📂 My Document Vault</a></li>
-            @if(Auth::user()->isAdmin())
-              <li class="mobile-only-nav-item"><a href="{{ url('/admin') }}" class="nav-link">⚙️ Admin Panel</a></li>
-            @endif
           @else
             <li class="mobile-only-nav-item"><a href="{{ route('login') }}" class="nav-link" style="color: var(--color-brand-blue); font-weight: 700;">🔑 Client Login</a></li>
             <li class="mobile-only-nav-item"><a href="{{ route('register') }}" class="nav-link">📝 Register</a></li>
@@ -115,11 +112,6 @@
               </svg>
               <span>My Vault</span>
             </a>
-            @if(Auth::user()->isAdmin())
-              <a href="{{ url('/admin') }}" class="header-admin-btn">
-                Admin
-              </a>
-            @endif
           @else
             <a href="{{ route('login') }}" class="header-login-btn">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="15" height="15">
@@ -1074,23 +1066,21 @@
               <!-- Populated dynamically via JS -->
             </div>
             <div class="vr-note">
-              <span>💡 Upload your files now, or complete them in your personal vault dashboard anytime.</span>
+              <span>💡 Dedicated folders will be generated for each required document above in your vault.</span>
             </div>
           </div>
 
-          <!-- Document Upload Box -->
-          <div class="form-group">
-            <label for="consultationDocuments" style="display: flex; justify-content: space-between; align-items: center;">
-              <span>Upload Visa Documents (Optional)</span>
-              <span style="font-size: 10.5px; font-weight: 500; color: #64748b;">PDF, JPG, PNG, DOC (Max 10MB)</span>
-            </label>
-            <div class="upload-dropzone-box" id="dropZoneContainer" onclick="document.getElementById('consultationDocuments').click();">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0066FF" stroke-width="2" style="margin: 0 auto 4px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
-              <div style="font-size: 12.5px; font-weight: 600; color: #0f172a;">Click to browse files or drag & drop here</div>
-              <div style="font-size: 11px; color: #64748b; margin-top: 2px;">Attach passport, photo, bank statement, or other documents</div>
-              <div id="selectedFilesSummary" class="selected-files-list" style="display: none;"></div>
+          <!-- Notice: Documents are uploaded in the Vault after creation -->
+          <div class="form-group" style="margin: 16px 0;">
+            <div style="display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px; background: linear-gradient(135deg, #f0f7ff 0%, #f8fafc 100%); border: 1.5px solid #dbeafe; border-radius: 12px;">
+              <div style="width: 32px; height: 32px; border-radius: 8px; background-color: #0066FF; color: #fff; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-6l-2-2H5a2 2 0 0 0-2 2z"></path></svg>
+              </div>
+              <div style="font-size: 12px; line-height: 1.5; color: #334155;">
+                <div style="font-weight: 700; color: #0f172a; margin-bottom: 2px;">Upload Documents in Your Vault</div>
+                <div>You need to upload these required documents in your <strong>Document Vault</strong> after creating this application. You will be taken straight to your vault where each requirement has its own dedicated upload folder.</div>
+              </div>
             </div>
-            <input type="file" id="consultationDocuments" name="documents[]" multiple style="display: none;" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
           </div>
 
           <div class="form-group">
@@ -1098,9 +1088,18 @@
             <textarea id="message" name="message" class="form-control" rows="2" placeholder="Tell us about your background, travel plans, or questions..."></textarea>
           </div>
 
-          <button type="submit" class="form-submit-btn">
-            Submit Application & Open Vault &rarr;
-          </button>
+          @auth
+            <button type="submit" class="form-submit-btn">
+              Create Application & Open Vault &rarr;
+            </button>
+          @else
+            <button type="submit" class="form-submit-btn">
+              Submit Application & Continue to Login &rarr;
+            </button>
+            <div style="text-align: center; margin-top: 8px; font-size: 11.5px; color: #64748b;">
+              Already registered? <a href="{{ route('login') }}" style="color: #0066FF; font-weight: 600;">Log in here</a>
+            </div>
+          @endauth
         </form>
       </div>
     </div>
