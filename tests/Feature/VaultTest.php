@@ -165,6 +165,66 @@ class VaultTest extends TestCase
         $response->assertForbidden();
     }
 
+    public function test_client_can_view_their_document_inline(): void
+    {
+        $user = User::factory()->create(['role' => 'client']);
+        $app = Application::create([
+            'user_id' => $user->id,
+            'visa_type' => 'Tourist',
+            'target_country' => 'France',
+        ]);
+
+        $vaultService = app(VaultService::class);
+        $file = UploadedFile::fake()->create('sample.pdf', 150, 'application/pdf');
+        $doc = $vaultService->uploadDocument($app, $file, $user, null, 'Passport');
+
+        $response = $this->actingAs($user)->get("/documents/{$doc->id}/view");
+
+        $response->assertOk();
+        $response->assertHeader('Content-Disposition', 'inline; filename="sample.pdf"');
+    }
+
+    public function test_client_cannot_view_other_user_document(): void
+    {
+        $owner = User::factory()->create(['role' => 'client']);
+        $otherUser = User::factory()->create(['role' => 'client']);
+
+        $app = Application::create([
+            'user_id' => $owner->id,
+            'visa_type' => 'Tourist',
+            'target_country' => 'France',
+        ]);
+
+        $vaultService = app(VaultService::class);
+        $file = UploadedFile::fake()->create('secret.pdf', 150, 'application/pdf');
+        $doc = $vaultService->uploadDocument($app, $file, $owner, null, 'Passport');
+
+        $response = $this->actingAs($otherUser)->get("/documents/{$doc->id}/view");
+
+        $response->assertForbidden();
+    }
+
+    public function test_admin_can_view_any_client_document(): void
+    {
+        $admin = User::factory()->create(['role' => 'admin']);
+        $client = User::factory()->create(['role' => 'client']);
+
+        $app = Application::create([
+            'user_id' => $client->id,
+            'visa_type' => 'Tourist',
+            'target_country' => 'France',
+        ]);
+
+        $vaultService = app(VaultService::class);
+        $file = UploadedFile::fake()->create('client_passport.pdf', 150, 'application/pdf');
+        $doc = $vaultService->uploadDocument($app, $file, $client, null, 'Passport');
+
+        $response = $this->actingAs($admin)->get("/documents/{$doc->id}/view");
+
+        $response->assertOk();
+        $response->assertHeader('Content-Disposition', 'inline; filename="client_passport.pdf"');
+    }
+
     public function test_client_can_replace_unlocked_document_creating_version(): void
     {
         $user = User::factory()->create(['role' => 'client']);
@@ -391,9 +451,6 @@ class VaultTest extends TestCase
             'documents' => [$passportFile],
         ]);
 
-        $response->assertRedirect(route('dashboard'));
-        $this->assertAuthenticated();
-
         $user = User::where('email', 'john.traveler@example.com')->first();
         $this->assertNotNull($user);
 
@@ -401,6 +458,9 @@ class VaultTest extends TestCase
         $this->assertNotNull($application);
         $this->assertEquals('Tourist', $application->visa_type);
         $this->assertEquals('France', $application->target_country);
+
+        $response->assertRedirect(route('dashboard', ['app' => $application->id, 'tab' => 'vault']));
+        $this->assertAuthenticated();
 
         // Check document stored in vault
         $document = Document::where('application_id', $application->id)->first();
@@ -558,5 +618,79 @@ class VaultTest extends TestCase
         $response->assertOk();
         $response->assertSee('Others');
         $response->assertSee('Others • General Vault');
+    }
+
+    public function test_client_sees_all_their_applications_on_dashboard_directory(): void
+    {
+        $user = User::factory()->create(['role' => 'client']);
+        $app1 = Application::create([
+            'user_id' => $user->id,
+            'visa_type' => 'Tourist',
+            'target_country' => 'India',
+            'status' => 'draft',
+        ]);
+        $app2 = Application::create([
+            'user_id' => $user->id,
+            'visa_type' => 'Business',
+            'target_country' => 'Spain',
+            'status' => 'approved',
+        ]);
+
+        $response = $this->actingAs($user)->get('/dashboard');
+        $response->assertOk();
+        $response->assertSee('My Applications (2)');
+        $response->assertSee('Tourist Visa');
+        $response->assertSee('India');
+        $response->assertSee('Business Visa');
+        $response->assertSee('Spain');
+        $response->assertSee('Open Vault');
+    }
+
+    public function test_client_can_apply_for_new_visa_and_redirects_to_new_vault(): void
+    {
+        $user = User::factory()->create(['role' => 'client']);
+
+        $response = $this->actingAs($user)->post(route('applications.storeLead'), [
+            'fullName' => $user->name,
+            'phone' => '+1234567890',
+            'email' => $user->email,
+            'country' => 'Japan',
+            'visaType' => 'Tourist',
+            'message' => 'Applying for holiday trip',
+        ]);
+
+        $newApp = Application::where('user_id', $user->id)->where('target_country', 'Japan')->first();
+        $this->assertNotNull($newApp);
+        $this->assertEquals('Tourist', $newApp->visa_type);
+
+        $response->assertRedirect(route('dashboard', ['app' => $newApp->id, 'tab' => 'vault']));
+    }
+
+    public function test_dashboard_only_shows_authenticated_user_personal_applications(): void
+    {
+        $admin = User::factory()->create(['role' => 'admin']);
+        $client = User::factory()->create(['role' => 'client']);
+
+        $adminApp = Application::create([
+            'user_id' => $admin->id,
+            'visa_type' => 'Tourist',
+            'target_country' => 'Australia',
+        ]);
+        $clientApp = Application::create([
+            'user_id' => $client->id,
+            'visa_type' => 'Student',
+            'target_country' => 'Canada',
+        ]);
+
+        // Dashboard is strictly personal for all users
+        $response = $this->actingAs($admin)->get('/dashboard');
+        $response->assertOk();
+        $response->assertSee('Australia');
+        $response->assertDontSee('Canada');
+        $response->assertDontSee('ADMIN CONTROL PANEL');
+
+        // Admin manages all applications via the Filament admin panel
+        $adminPanelResponse = $this->actingAs($admin)->get('/admin/applications');
+        $adminPanelResponse->assertOk();
     }
 }

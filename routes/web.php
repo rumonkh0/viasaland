@@ -30,11 +30,12 @@ Route::get('/', function () {
 
 Route::post('/apply', [ApplicationController::class, 'storeLead'])->name('applications.storeLead');
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // Document vault operations
     Route::post('/applications/{application}/documents', [DocumentController::class, 'store'])->name('documents.store');
+    Route::get('/documents/{document}/view', [DocumentController::class, 'show'])->name('documents.show');
     Route::get('/documents/{document}/download', [DocumentController::class, 'download'])->name('documents.download');
     Route::post('/documents/{document}/replace', [DocumentController::class, 'replace'])->name('documents.replace');
     Route::delete('/documents/{document}', [DocumentController::class, 'destroy'])->name('documents.destroy');

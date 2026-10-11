@@ -27,7 +27,6 @@ class VisaTypeRequirementSeeder extends Seeder
             'France' => ['flag' => '🇫🇷', 'code' => 'FR', 'sort_order' => 8],
             'Italy' => ['flag' => '🇮🇹', 'code' => 'IT', 'sort_order' => 9],
             'Japan' => ['flag' => '🇯🇵', 'code' => 'JP', 'sort_order' => 10],
-            'All Countries (Global Default)' => ['flag' => '🌐', 'code' => 'GLOBAL', 'sort_order' => 99],
         ];
 
         // 1. Country-specific visa requirements (as requested: India, Spain, etc.)
@@ -102,58 +101,7 @@ class VisaTypeRequirementSeeder extends Seeder
             }
         }
 
-        // 2. Global Default Requirements (country = null) across all visa types
-        $globalDefaults = [
-            'Tourist' => ['Passport', 'Photograph', 'Bank Statement', 'Hotel Booking', 'Flight Itinerary'],
-            'Work' => ['Passport', 'Photograph', 'Employment Letter', 'Medical Reports', 'Police Clearance'],
-            'Student' => ['Passport', 'Photograph', 'Educational Certificates', 'Bank Statement', 'Sponsorship Letter'],
-            'Business' => ['Passport', 'Photograph', 'Invitation Letter', 'Bank Statement', 'Income Tax Return'],
-            'Medical' => ['Passport', 'Photograph', 'Medical Reports', 'Invitation Letter', 'Bank Statement'],
-            'Family' => ['Passport', 'Photograph', 'Marriage Certificate', 'Sponsorship Letter', 'Bank Statement'],
-            'Umrah' => ['Passport', 'Photograph', 'Hotel Booking', 'Flight Itinerary', 'Travel Insurance'],
-            'PR' => ['Passport', 'Photograph', 'Bank Statement', 'Income Tax Return', 'Police Clearance'],
-            'Appeal' => ['Passport', 'Visa Application Form', 'Bank Statement', 'Employment Letter', 'Others'],
-            'Double Entry' => ['Passport', 'Photograph', 'Bank Statement', 'Flight Itinerary', 'Hotel Booking'],
-        ];
-
-        $globalCountry = Country::firstOrCreate(
-            ['name' => 'All Countries (Global Default)'],
-            [
-                'slug' => 'all-countries',
-                'code' => 'GLOBAL',
-                'flag' => '🌐',
-                'sort_order' => 99,
-                'is_active' => true,
-            ]
-        );
-
-        foreach ($globalDefaults as $visaType => $catNames) {
-            $globalVisaType = CountryVisaType::firstOrCreate(
-                [
-                    'country_id' => $globalCountry->id,
-                    'name' => $visaType,
-                ],
-                [
-                    'display_name' => Str::endsWith($visaType, 'Visa') ? $visaType : $visaType.' Visa',
-                    'slug' => Str::slug($visaType),
-                    'is_active' => true,
-                ]
-            );
-
-            foreach ($catNames as $catName) {
-                $category = DocumentCategory::where('slug', Str::slug($catName))->first();
-                if ($category) {
-                    VisaTypeRequirement::updateOrCreate([
-                        'country' => null,
-                        'visa_type' => $visaType,
-                        'document_category_id' => $category->id,
-                    ], [
-                        'country_visa_type_id' => $globalVisaType->id,
-                        'is_mandatory' => true,
-                    ]);
-                }
-            }
-        }
+        // 2. Additional common destination countries
 
         // Seed additional common destination countries if not already created
         $otherCountries = [

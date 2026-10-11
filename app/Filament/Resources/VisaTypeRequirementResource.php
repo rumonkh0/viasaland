@@ -108,7 +108,7 @@ class VisaTypeRequirementResource extends Resource
                     ->label('Country')
                     ->badge()
                     ->color(fn (?string $state) => $state ? 'info' : 'gray')
-                    ->formatStateUsing(fn (?string $state) => $state ?: 'All Countries (Global)')
+                    ->formatStateUsing(fn (?string $state) => $state ?: 'Unassigned')
                     ->sortable()
                     ->searchable(),
 
@@ -138,7 +138,7 @@ class VisaTypeRequirementResource extends Resource
             ->groups([
                 Tables\Grouping\Group::make('country')
                     ->label('Country')
-                    ->getTitleFromRecordUsing(fn (VisaTypeRequirement $record): string => $record->country ?: 'All Countries (Global Default)')
+                    ->getTitleFromRecordUsing(fn (VisaTypeRequirement $record): string => $record->country ?: 'Unassigned')
                     ->collapsible(),
                 Tables\Grouping\Group::make('visa_type')
                     ->label('Visa Type')

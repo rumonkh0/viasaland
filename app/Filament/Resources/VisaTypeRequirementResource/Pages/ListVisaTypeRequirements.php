@@ -75,15 +75,7 @@ class ListVisaTypeRequirements extends Page
 
     public function getSubheading(): ?string
     {
-        if ($this->selectedVisaType) {
-            return "Configure required and optional documents for {$this->selectedVisaType->display_name}.";
-        }
-
-        if ($this->selectedCountry) {
-            return "Manage visa types and upload requirements for {$this->selectedCountry->name}.";
-        }
-
-        return 'Select a destination country to configure its visa categories and required documents.';
+        return null;
     }
 
     protected function getHeaderActions(): array
@@ -232,7 +224,7 @@ class ListVisaTypeRequirements extends Page
                     if ($this->selectedVisaType && $this->selectedCountry) {
                         VisaTypeRequirement::create([
                             'country_visa_type_id' => $this->selectedVisaType->id,
-                            'country' => $this->selectedCountry->code === 'GLOBAL' ? null : $this->selectedCountry->name,
+                            'country' => $this->selectedCountry->name,
                             'visa_type' => $this->selectedVisaType->name,
                             'document_category_id' => $cat->id,
                             'is_mandatory' => true,
@@ -504,7 +496,7 @@ class ListVisaTypeRequirements extends Page
             return;
         }
 
-        $countryName = $this->selectedCountry->code === 'GLOBAL' ? null : $this->selectedCountry->name;
+        $countryName = $this->selectedCountry->name;
         $visaTypeName = $this->selectedVisaType->name;
 
         $existing = VisaTypeRequirement::where('country_visa_type_id', $this->selectedVisaType->id)
@@ -567,7 +559,7 @@ class ListVisaTypeRequirements extends Page
             return;
         }
 
-        $countryName = $this->selectedCountry->code === 'GLOBAL' ? null : $this->selectedCountry->name;
+        $countryName = $this->selectedCountry->name;
         $visaTypeName = $this->selectedVisaType->name;
 
         $coreCategories = DocumentCategory::whereIn('slug', [
@@ -642,7 +634,7 @@ class ListVisaTypeRequirements extends Page
         if ($this->selectedVisaType && $this->selectedCountry) {
             VisaTypeRequirement::create([
                 'country_visa_type_id' => $this->selectedVisaType->id,
-                'country' => $this->selectedCountry->code === 'GLOBAL' ? null : $this->selectedCountry->name,
+                'country' => $this->selectedCountry->name,
                 'visa_type' => $this->selectedVisaType->name,
                 'document_category_id' => $cat->id,
                 'is_mandatory' => true,

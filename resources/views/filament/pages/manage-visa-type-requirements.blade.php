@@ -22,6 +22,30 @@
             border-bottom-color: rgba(255, 255, 255, 0.08);
         }
 
+        /* Toolbar with guaranteed margins and spacing */
+        .vtr-toolbar {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            gap: 1.5rem !important;
+            margin-top: 0.5rem !important;
+            margin-bottom: 2rem !important;
+            flex-wrap: wrap !important;
+        }
+        .vtr-toolbar-count {
+            font-size: 0.875rem !important;
+            font-weight: 600 !important;
+            white-space: nowrap !important;
+            color: #6b7280 !important;
+        }
+        .dark .vtr-toolbar-count {
+            color: #9ca3af !important;
+        }
+        .vtr-toolbar-search {
+            width: 22rem !important;
+            max-width: 100% !important;
+        }
+
         /* Banner Cards */
         .vtr-banner-card {
             border-radius: 1rem !important;
@@ -316,17 +340,12 @@
         @if (! $country_id)
             <div>
                 {{-- Toolbar with Search --}}
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-                    <div>
-                        <h3 class="text-base font-bold text-gray-950 dark:text-white">
-                            Select Destination Country
-                        </h3>
-                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                            Click any country to manage its visa categories and required document checklist.
-                        </p>
+                <div class="vtr-toolbar">
+                    <div class="vtr-toolbar-count">
+                        {{ $this->countries->count() }} {{ Str::plural('country', $this->countries->count()) }} configured
                     </div>
 
-                    <div class="w-full sm:w-80">
+                    <div class="vtr-toolbar-search">
                         <x-filament::input.wrapper prefix-icon="heroicon-m-magnifying-glass">
                             <x-filament::input 
                                 type="text" 
@@ -361,26 +380,17 @@
                                                     </span>
                                                 @endif
                                             </div>
-                                            @if ($country->code === 'GLOBAL')
-                                                <div class="mt-1.5">
-                                                    <span class="vtr-pill vtr-pill-sm vtr-pill-info">
-                                                        Global Default
-                                                    </span>
-                                                </div>
-                                            @endif
                                         </div>
                                     </div>
 
-                                    @if ($country->code !== 'GLOBAL')
-                                        <x-filament::icon-button 
-                                            wire:click="deleteCountry({{ $country->id }})" 
-                                            wire:confirm="Are you sure you want to delete {{ $country->name }} and all its configured visa types?" 
-                                            icon="heroicon-m-trash" 
-                                            color="danger" 
-                                            size="sm" 
-                                            tooltip="Delete Country" 
-                                        />
-                                    @endif
+                                    <x-filament::icon-button 
+                                        wire:click="deleteCountry({{ $country->id }})" 
+                                        wire:confirm="Are you sure you want to delete {{ $country->name }} and all its configured visa types?" 
+                                        icon="heroicon-m-trash" 
+                                        color="danger" 
+                                        size="sm" 
+                                        tooltip="Delete Country" 
+                                    />
                                 </div>
 
                                 <div class="flex flex-wrap items-center gap-2 pt-2">
@@ -448,9 +458,6 @@
                                         </span>
                                     @endif
                                 </div>
-                                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                                    Select a visa category below to customize required documents, or add a new category.
-                                </p>
                             </div>
                         </div>
 
@@ -591,9 +598,6 @@
                                         {{ $this->selectedCountry->name }} &bull; {{ $this->selectedVisaType->display_name }}
                                     </h2>
                                 </div>
-                                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                                    Configure required and optional documents from the catalog on the right.
-                                </p>
                             </div>
                         </div>
 

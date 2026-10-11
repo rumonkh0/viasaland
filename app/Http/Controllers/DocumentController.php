@@ -97,6 +97,28 @@ class DocumentController extends Controller
     }
 
     /**
+     * Securely view/preview a vault document inline in the browser.
+     */
+    public function show(Document $document, VaultService $vaultService): BinaryFileResponse
+    {
+        Gate::authorize('view', $document);
+
+        if (! Storage::disk('local')->exists($document->file_path)) {
+            abort(404, 'File not found in storage.');
+        }
+
+        $vaultService->logActivity($document, auth()->user(), 'viewed', 'Document viewed by '.auth()->user()->name);
+
+        $path = Storage::disk('local')->path($document->file_path);
+        $mimeType = mime_content_type($path) ?: 'application/octet-stream';
+
+        return response()->file($path, [
+            'Content-Type' => $mimeType,
+            'Content-Disposition' => 'inline; filename="'.$document->file_name.'"',
+        ]);
+    }
+
+    /**
      * Replace an existing document with a newer version.
      */
     public function replace(Request $request, Document $document, VaultService $vaultService): RedirectResponse

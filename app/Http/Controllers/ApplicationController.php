@@ -132,7 +132,7 @@ class ApplicationController extends Controller
             ? "Your visa application for {$application->target_country} ({$application->visa_type}) was created with {$uploadedCount} document(s) uploaded to your vault!"
             : "Your visa application for {$application->target_country} ({$application->visa_type}) was created! Check your document checklist below to upload required files.";
 
-        return redirect()->route('dashboard')->with('success', $message);
+        return redirect()->route('dashboard', ['app' => $application->id, 'tab' => 'vault'])->with('success', $message);
     }
 
     /**

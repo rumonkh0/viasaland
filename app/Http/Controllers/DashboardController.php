@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Application;
+use App\Models\Country;
 use App\Models\DocumentCategory;
 use App\Models\VisaTypeRequirement;
 use Illuminate\Http\Request;
@@ -18,6 +20,7 @@ class DashboardController extends Controller
 
         $applications = $user->applications()
             ->with([
+                'user',
                 'documents' => fn ($query) => $query->with(['documentCategory', 'uploadedBy', 'versions'])->latest(),
                 'requirements.documentCategory',
             ])
@@ -37,6 +40,13 @@ class DashboardController extends Controller
 
         $categories = DocumentCategory::active()->ordered()->get();
 
+        $countries = Country::with([
+            'visaTypes.requirements.documentCategory',
+        ])
+            ->where('is_active', true)
+            ->orderBy('sort_order')
+            ->get();
+
         $visaRequirements = VisaTypeRequirement::with('documentCategory')
             ->get()
             ->map(function ($r) {
@@ -49,6 +59,6 @@ class DashboardController extends Controller
                 ];
             })->values();
 
-        return view('dashboard', compact('applications', 'categories', 'visaRequirements'));
+        return view('dashboard', compact('applications', 'categories', 'countries', 'visaRequirements'));
     }
 }

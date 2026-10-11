@@ -77,7 +77,9 @@ class DocumentsRelationManager extends RelationManager
                     ->label('File Name')
                     ->searchable()
                     ->weight('medium')
-                    ->description(fn (Document $record) => $record->fileSizeFormatted().' • v'.$record->version),
+                    ->description(fn (Document $record) => $record->fileSizeFormatted().' • v'.$record->version)
+                    ->url(fn (Document $record): string => route('documents.show', $record))
+                    ->openUrlInNewTab(),
 
                 Tables\Columns\TextColumn::make('status')
                     ->badge()
@@ -211,6 +213,17 @@ class DocumentsRelationManager extends RelationManager
                     }),
             ])
             ->actions([
+                // In-Admin Preview Action
+                Tables\Actions\Action::make('preview')
+                    ->label('View')
+                    ->icon('heroicon-o-eye')
+                    ->color('info')
+                    ->modalHeading(fn (Document $record): string => "Document Preview: {$record->file_name}")
+                    ->modalWidth('7xl')
+                    ->modalContent(fn (Document $record) => view('filament.components.document-preview-modal', ['document' => $record]))
+                    ->modalSubmitAction(false)
+                    ->modalCancelActionLabel('Close Document Viewer'),
+
                 // Review Action
                 Tables\Actions\Action::make('review')
                     ->label('Review')
