@@ -29,6 +29,7 @@
              previewUrl: '',
              previewName: '',
              previewExt: '',
+             allCategories: {{ json_encode($categories->map(fn ($cat) => ['id' => $cat->id, 'name' => $cat->name, 'slug' => $cat->slug])->values()) }},
              countriesData: {{ json_encode($countries->map(function ($c) {
                  return [
                      'name' => $c->name,
@@ -38,9 +39,11 @@
                          'name' => $vt->name,
                          'display_name' => $vt->display_name ?: $vt->name . ' Visa',
                          'requirements' => $vt->requirements->map(fn ($r) => [
+                             'id' => $r->document_category_id,
                              'name' => $r->documentCategory?->name,
+                             'slug' => $r->documentCategory?->slug,
                              'is_mandatory' => (bool) $r->is_mandatory,
-                         ])->values(),
+                         ])->filter(fn ($r) => ! empty($r['name']))->values(),
                      ])->values(),
                  ];
              })->values()) }},
@@ -70,12 +73,12 @@
                          return vt.requirements;
                      }
                  }
-                 return [
-                     { name: 'Passport', is_mandatory: true },
-                     { name: 'Photograph', is_mandatory: true },
-                     { name: 'Bank Statement', is_mandatory: true },
-                     { name: 'Visa Application Form', is_mandatory: true }
-                 ];
+                 return this.allCategories.slice(0, 4).map(cat => ({
+                     id: cat.id,
+                     name: cat.name,
+                     slug: cat.slug,
+                     is_mandatory: true
+                 }));
              }
          }" 
          @open-preview-modal.window="previewOpen = true; previewUrl = $event.detail.url; previewName = $event.detail.name; previewExt = $event.detail.ext;"
@@ -770,7 +773,7 @@
                             </div>
                             <div>
                                 <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Visa Type *</label>
-                                <select name="visaType" x-model="newAppVisaType" class="w-full rounded-xl border-gray-300 text-sm focus:border-indigo-500 focus:ring-indigo-500 shadow-sm" required>
+                                <select name="visaType" x-model="newAppVisaType" @change="onVisaTypeChange()" class="w-full rounded-xl border-gray-300 text-sm focus:border-indigo-500 focus:ring-indigo-500 shadow-sm" required>
                                     <template x-for="vt in getAvailableVisaTypes()" :key="vt.name">
                                         <option :value="vt.name" x-text="vt.display_name"></option>
                                     </template>
@@ -794,6 +797,10 @@
                                         <span x-show="req.is_mandatory" class="text-[9px] px-1 py-0.2 bg-amber-50 text-amber-700 font-bold rounded">Req</span>
                                     </span>
                                 </template>
+                                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-100 border border-slate-200 text-slate-600">
+                                    <svg class="w-3 h-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg>
+                                    <span>Others • General</span>
+                                </span>
                             </div>
                         </div>
 
@@ -802,11 +809,17 @@
                         <input type="hidden" name="phone" value="{{ auth()->user()->phone ?? '+880 1000-000000' }}">
                         <input type="hidden" name="email" value="{{ auth()->user()->email }}">
 
-                        <!-- Direct File Upload Field -->
-                        <div>
-                            <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Attach Visa Documents (Optional - PDF, JPG, PNG, DOC)</label>
-                            <input type="file" name="documents[]" multiple class="w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-indigo-600 file:text-white hover:file:bg-indigo-700 file:cursor-pointer cursor-pointer border border-gray-300 rounded-xl bg-white p-1">
-                            <p class="text-[11px] text-gray-400 mt-1">You can attach multiple files now or deposit them into folder vaults after creation.</p>
+                        <!-- Notice: Documents are uploaded in the Vault after creation -->
+                        <div class="p-4 bg-gradient-to-br from-indigo-50/90 to-slate-50 rounded-xl border border-indigo-100 flex items-start gap-3.5">
+                            <div class="w-9 h-9 rounded-xl bg-indigo-600 text-white flex items-center justify-center shrink-0 mt-0.5 shadow-sm">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg>
+                            </div>
+                            <div class="text-xs text-slate-700 leading-relaxed">
+                                <p class="font-bold text-slate-900 mb-0.5">Upload Documents in the Vault</p>
+                                <p class="text-slate-600">
+                                    You need to upload these required documents in your <strong>Document Vault</strong> after creating this application. You will be taken straight to the vault where each requirement has its own dedicated upload folder.
+                                </p>
+                            </div>
                         </div>
 
                         <div>

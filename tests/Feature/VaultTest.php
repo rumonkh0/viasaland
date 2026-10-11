@@ -666,6 +666,61 @@ class VaultTest extends TestCase
         $response->assertRedirect(route('dashboard', ['app' => $newApp->id, 'tab' => 'vault']));
     }
 
+    public function test_client_can_apply_with_explicit_destination_folder(): void
+    {
+        $user = User::factory()->create(['role' => 'client']);
+        $cat = DocumentCategory::create([
+            'name' => 'Medical Reports',
+            'slug' => 'medical-reports',
+            'is_predefined' => true,
+        ]);
+
+        $file = UploadedFile::fake()->create('report_scan.pdf', 250, 'application/pdf');
+
+        $response = $this->actingAs($user)->post(route('applications.storeLead'), [
+            'fullName' => $user->name,
+            'phone' => '+1234567890',
+            'email' => $user->email,
+            'country' => 'India',
+            'visaType' => 'Medical',
+            'target_folder_id' => $cat->id,
+            'documents' => [$file],
+        ]);
+
+        $newApp = Application::where('user_id', $user->id)->where('visa_type', 'Medical')->first();
+        $this->assertNotNull($newApp);
+        $response->assertRedirect(route('dashboard', ['app' => $newApp->id, 'tab' => 'vault']));
+
+        $doc = Document::where('application_id', $newApp->id)->first();
+        $this->assertNotNull($doc);
+        $this->assertEquals($cat->id, $doc->document_category_id);
+        $this->assertEquals('report_scan.pdf', $doc->file_name);
+    }
+
+    public function test_client_can_apply_with_others_destination_folder(): void
+    {
+        $user = User::factory()->create(['role' => 'client']);
+        $file = UploadedFile::fake()->create('custom_notes.pdf', 150, 'application/pdf');
+
+        $response = $this->actingAs($user)->post(route('applications.storeLead'), [
+            'fullName' => $user->name,
+            'phone' => '+1234567890',
+            'email' => $user->email,
+            'country' => 'India',
+            'visaType' => 'Tourist',
+            'target_folder_id' => 'others',
+            'documents' => [$file],
+        ]);
+
+        $newApp = Application::where('user_id', $user->id)->where('target_country', 'India')->first();
+        $this->assertNotNull($newApp);
+
+        $doc = Document::where('application_id', $newApp->id)->first();
+        $this->assertNotNull($doc);
+        $this->assertNull($doc->document_category_id);
+        $this->assertEquals('Others', $doc->custom_category);
+    }
+
     public function test_dashboard_only_shows_authenticated_user_personal_applications(): void
     {
         $admin = User::factory()->create(['role' => 'admin']);

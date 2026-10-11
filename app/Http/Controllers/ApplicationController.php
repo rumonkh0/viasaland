@@ -67,6 +67,8 @@ class ApplicationController extends Controller
         $application->syncRequirementsFromVisaType();
 
         // Process uploaded documents
+        $targetFolderId = $request->input('target_folder_id') ?? $request->input('target_category_id');
+
         $files = [];
         if ($request->hasFile('documents')) {
             $files = $request->file('documents');
@@ -78,39 +80,65 @@ class ApplicationController extends Controller
         if (! empty($files)) {
             $requirements = $application->requirements()->with('documentCategory')->get();
             $categoriesBySlug = DocumentCategory::all()->keyBy('slug');
+            $categoriesById = DocumentCategory::all()->keyBy('id');
 
             foreach ($files as $file) {
                 $filename = strtolower($file->getClientOriginalName());
                 $matchedCatId = null;
+                $customCategoryName = null;
 
-                // Match against required categories first
-                foreach ($requirements as $req) {
-                    $cat = $req->documentCategory;
-                    if ($cat && str_contains($filename, strtolower($cat->name))) {
-                        $matchedCatId = $cat->id;
-                        break;
+                // 1. If explicit destination folder is specified by user
+                if (! empty($targetFolderId)) {
+                    if ($targetFolderId === 'others' || $targetFolderId === 'general') {
+                        $matchedCatId = null;
+                        $customCategoryName = 'Others';
+                    } elseif (is_numeric($targetFolderId) && $categoriesById->has((int) $targetFolderId)) {
+                        $matchedCatId = (int) $targetFolderId;
+                    } else {
+                        $foundReq = $requirements->first(function ($r) use ($targetFolderId) {
+                            return strtolower($r->documentCategory?->name ?? '') === strtolower($targetFolderId);
+                        });
+                        if ($foundReq) {
+                            $matchedCatId = $foundReq->document_category_id;
+                        } else {
+                            $cat = DocumentCategory::where('name', $targetFolderId)->first();
+                            if ($cat) {
+                                $matchedCatId = $cat->id;
+                            } else {
+                                $customCategoryName = $targetFolderId;
+                            }
+                        }
                     }
                 }
 
-                // Match by common keywords if no direct name match
-                if (! $matchedCatId) {
-                    if (str_contains($filename, 'passport')) {
-                        $matchedCatId = $categoriesBySlug->get('passport')?->id;
-                    } elseif (str_contains($filename, 'photo') || str_contains($filename, 'picture')) {
-                        $matchedCatId = $categoriesBySlug->get('photograph')?->id;
-                    } elseif (str_contains($filename, 'bank') || str_contains($filename, 'statement')) {
-                        $matchedCatId = $categoriesBySlug->get('bank-statement')?->id;
-                    } elseif (str_contains($filename, 'hotel') || str_contains($filename, 'booking')) {
-                        $matchedCatId = $categoriesBySlug->get('hotel-booking')?->id;
-                    } elseif (str_contains($filename, 'flight') || str_contains($filename, 'ticket')) {
-                        $matchedCatId = $categoriesBySlug->get('flight-itinerary')?->id;
+                // 2. Fallback heuristic if no destination folder was specified (e.g. from homepage consultation form)
+                if (! $matchedCatId && ! $customCategoryName) {
+                    foreach ($requirements as $req) {
+                        $cat = $req->documentCategory;
+                        if ($cat && str_contains($filename, strtolower($cat->name))) {
+                            $matchedCatId = $cat->id;
+                            break;
+                        }
                     }
-                }
 
-                // If still not matched, pick first unfulfilled requirement category
-                if (! $matchedCatId) {
-                    $unfulfilled = $requirements->firstWhere('is_fulfilled', false);
-                    $matchedCatId = $unfulfilled?->document_category_id;
+                    if (! $matchedCatId) {
+                        if (str_contains($filename, 'passport')) {
+                            $matchedCatId = $categoriesBySlug->get('passport')?->id;
+                        } elseif (str_contains($filename, 'photo') || str_contains($filename, 'picture')) {
+                            $matchedCatId = $categoriesBySlug->get('photograph')?->id;
+                        } elseif (str_contains($filename, 'bank') || str_contains($filename, 'statement')) {
+                            $matchedCatId = $categoriesBySlug->get('bank-statement')?->id;
+                        } elseif (str_contains($filename, 'hotel') || str_contains($filename, 'booking')) {
+                            $matchedCatId = $categoriesBySlug->get('hotel-booking')?->id;
+                        } elseif (str_contains($filename, 'flight') || str_contains($filename, 'ticket')) {
+                            $matchedCatId = $categoriesBySlug->get('flight-itinerary')?->id;
+                        }
+                    }
+
+                    if (! $matchedCatId) {
+                        $unfulfilled = $requirements->firstWhere('is_fulfilled', false);
+                        $matchedCatId = $unfulfilled?->document_category_id;
+                    }
                 }
 
                 $vaultService->uploadDocument(
@@ -118,7 +146,7 @@ class ApplicationController extends Controller
                     $file,
                     $user,
                     $matchedCatId,
-                    $matchedCatId ? null : 'General Submission'
+                    $matchedCatId ? null : ($customCategoryName ?: 'General Submission')
                 );
                 $uploadedCount++;
             }
